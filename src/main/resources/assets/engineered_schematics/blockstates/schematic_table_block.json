@@ -1,0 +1,23 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "engineered_schematics:block/schematic_table_block",
+      "uvlock": true,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "engineered_schematics:block/schematic_table_block",
+      "uvlock": true
+    },
+    "facing=south": {
+      "model": "engineered_schematics:block/schematic_table_block",
+      "uvlock": true,
+      "y": 180
+    },
+    "facing=west": {
+      "model": "engineered_schematics:block/schematic_table_block",
+      "uvlock": true,
+      "y": 270
+    }
+  }
+}

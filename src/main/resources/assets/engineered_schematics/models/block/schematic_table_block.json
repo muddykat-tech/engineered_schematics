@@ -1,0 +1,29 @@
+{
+  "parent": "minecraft:block/block",
+  "dynamic": true,
+  "inner_model": {
+    "parent": "minecraft:block/block",
+    "callbacks": "engineered_schematics:schematic_table_block",
+    "loader": "immersiveengineering:ie_obj",
+    "model": "engineered_schematics:models/block/schematic_table_block.obj",
+    "textures": {
+      "particle": "immersiveengineering:block/wooden_decoration/fiberboard"
+    }
+  },
+  "loader": "immersiveengineering:basic_split",
+  "split_parts": [
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      1,
+      0,
+      0
+    ]
+  ],
+  "textures": {
+    "particle": "immersiveengineering:block/wooden_decoration/fiberboard"
+  }
+}
