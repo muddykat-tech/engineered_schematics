@@ -1,6 +1,12 @@
 package tech.muddykat.engineered_schematics;
 
+import blusunrize.immersiveengineering.api.ManualHelper;
 import blusunrize.immersiveengineering.api.client.ieobj.IEOBJCallbacks;
+import blusunrize.immersiveengineering.common.blocks.wooden.BlueprintShelfBlock;
+import blusunrize.immersiveengineering.common.blocks.wooden.BlueprintShelfBlockEntity;
+import blusunrize.lib.manual.ManualEntry;
+import blusunrize.lib.manual.ManualInstance;
+import blusunrize.lib.manual.Tree;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.resources.ResourceLocation;
@@ -65,6 +71,23 @@ public class EngineeredSchematics
             IEOBJCallbacks.register(new ResourceLocation(MODID, "schematic_table_block"), SchematicTableCallbacks.INSTANCE);
             MenuScreens.register(ESMenuTypes.SCHEMATICS.getType(), SchematicsScreen::new);
             NeoForge.EVENT_BUS.register(new SchematicPickBlockHandler());
+            setupManualEntries();
+        }
+
+        private static void setupManualEntries()
+        {
+            ManualInstance instance = ManualHelper.getManual();
+            Tree.InnerNode<ResourceLocation, ManualEntry> parent_category = instance.getRoot().getOrCreateSubnode(new ResourceLocation(EngineeredSchematics.MODID, "main"), 99);
+
+            ManualEntry.ManualEntryBuilder builder = new ManualEntry.ManualEntryBuilder(ManualHelper.getManual());
+            builder.readFromFile(new ResourceLocation(EngineeredSchematics.MODID, "es"));
+            instance.addEntry(parent_category, builder.create());
+
+            builder.readFromFile(new ResourceLocation(EngineeredSchematics.MODID, "schematic_table"));
+            instance.addEntry(parent_category, builder.create());
+
+            builder.readFromFile(new ResourceLocation(EngineeredSchematics.MODID, "schematic_item"));
+            instance.addEntry(parent_category, builder.create());
         }
     }
 

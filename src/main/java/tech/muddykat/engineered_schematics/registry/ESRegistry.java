@@ -45,7 +45,7 @@ public class ESRegistry {
     public static DeferredItem<BlockItem> BLOCK_ITEM_SCHEMATIC_TABLE;
 
     // Creates a creative tab with the id "examplemod:example_tab" for the example item, that is placed after the combat tab
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TAB = CREATIVE_MODE_TABS.register("example_tab", () -> // Add the example item to the tab. For your own tabs, this method is preferred over the event
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TAB = CREATIVE_MODE_TABS.register(EngineeredSchematics.MODID, () -> // Add the example item to the tab. For your own tabs, this method is preferred over the event
             CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.engineered_schematics")) //The language key for the title of your CreativeModeTab
             .icon(() -> BLOCK_ITEM_SCHEMATIC_TABLE.get().getDefaultInstance())

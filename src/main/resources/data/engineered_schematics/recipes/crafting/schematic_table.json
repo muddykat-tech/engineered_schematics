@@ -7,10 +7,10 @@
       "item": "minecraft:crafting_table"
     },
     "F": {
-      "tag": "forge:fences/wooden"
+      "item": "immersiveengineering:steel_fence"
     },
     "S": {
-      "tag": "minecraft:wooden_slabs"
+      "tag": "immersiveengineering:slab_treated_wood_horizontal"
     }
   },
   "pattern": [

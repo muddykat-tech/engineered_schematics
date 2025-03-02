@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:craft_schematic_table"
+      "engineered_schematics:crafting/schematic_table"
     ]
   },
   "sends_telemetry_event": false

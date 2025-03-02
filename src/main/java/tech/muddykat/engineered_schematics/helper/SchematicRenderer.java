@@ -1,19 +1,26 @@
 package tech.muddykat.engineered_schematics.helper;
 
+import blusunrize.immersiveengineering.api.multiblocks.MultiblockHandler;
+import blusunrize.immersiveengineering.api.multiblocks.blocks.logic.IMultiblockBE;
+import blusunrize.immersiveengineering.common.register.IEItems;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.ModelBlockRenderer;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -26,6 +33,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import org.apache.commons.lang3.mutable.MutableBoolean;
 import org.apache.commons.lang3.mutable.MutableInt;
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import tech.muddykat.engineered_schematics.client.ESShaders;
 import tech.muddykat.engineered_schematics.item.ESSchematicSettings;
@@ -34,8 +42,6 @@ import tech.muddykat.engineered_schematics.registry.ESRenderTypes;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import static net.minecraft.world.level.block.RenderShape.ENTITYBLOCK_ANIMATED;
 
 public class SchematicRenderer
 {
@@ -46,11 +52,10 @@ public class SchematicRenderer
     private static final float[] COLOR_HELD = {0.2f, 1.0f, 0.5f};
     private static final float[] COLOR_NORMAL = {0.2f, 0.5f, 1.0f};
     static final BlockPos.MutableBlockPos FULL_MAX = new BlockPos.MutableBlockPos(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE);
-
     public static void renderSchematic(PoseStack matrix, ESSchematicSettings settings,
                                        Player player, Level world) {
         if (settings.getMultiblock() == null) return;
-
+        assert(settings.getPos() != null);
         // Initialize position tracking
         final BlockPos.MutableBlockPos hit = initializePosition(settings);
         if (hit.equals(FULL_MAX)) return;
@@ -58,17 +63,26 @@ public class SchematicRenderer
         // Setup projection
         SchematicProjection projection = setupProjection(world, settings);
         Vec3i mbSize = settings.getMultiblock().getSize(world);
-
         // Pre-allocate collections with estimated sizes
+
         Map<BlockPos, Boolean> badStates = new HashMap<>(mbSize.getX() * mbSize.getY() * mbSize.getZ());
         List<Pair<RenderLayer, SchematicProjection.Info>> toRender = new ArrayList<>(projection.getBlockCount());
-
         // Process blocks
         RenderingState renderState = processBlocks(projection, world, hit, badStates, toRender);
-
+        for(Pair<RenderLayer, SchematicProjection.Info> pair : toRender) {
+            SchematicProjection.Info info = pair.getSecond();
+            BlockEntity be = world.getBlockEntity(info.tPos.offset(settings.getPos()));
+            if (be instanceof IMultiblockBE<?>)
+            {
+                renderSchematicGrid(matrix, settings, 0x009900, world);
+                return;
+            }
+        }
         // Render results
-        renderResults(matrix, renderState, settings, world, player, mbSize,
+        MultiBufferSource.BufferSource mainBuffer = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+        renderResults(matrix, renderState, settings, mainBuffer, world, player, mbSize,
                 badStates, toRender);
+        mainBuffer.endBatch();
     }
 
     private static BlockPos.MutableBlockPos initializePosition(ESSchematicSettings settings) {
@@ -148,22 +162,14 @@ public class SchematicRenderer
     }
 
     private static void renderResults(PoseStack matrix, RenderingState state,
-                                      ESSchematicSettings settings, Level world, Player player, Vec3i mbSize,
+                                      ESSchematicSettings settings, MultiBufferSource.BufferSource mainBuffer, Level world, Player player, Vec3i mbSize,
                                       Map<BlockPos, Boolean> badStates, List<Pair<RenderLayer, SchematicProjection.Info>> toRender) {
 
         // Sort render list by layer type
+        matrix.pushPose();
         toRender.sort(Comparator.comparingInt(a -> a.getFirst().ordinal()));
-
         // Setup rendering
         matrix.translate(settings.getPos().getX(), settings.getPos().getY(), settings.getPos().getZ());
-        MultiBufferSource.BufferSource mainBuffer = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
-
-        // Render grid for imperfect structures
-        if (!state.perfect()) {
-            matrix.pushPose();
-            renderGridForRotation(matrix, mainBuffer, settings, mbSize, state);
-            matrix.popPose();
-        }
 
         // Track perfect structure bounds
         BlockPos.MutableBlockPos min = new BlockPos.MutableBlockPos(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE);
@@ -171,48 +177,89 @@ public class SchematicRenderer
         ItemStack heldStack = player.getMainHandItem();
 
         // Render each block
+        int gridLayer = state.currentLayer();
         for (Pair<RenderLayer, SchematicProjection.Info> pair : toRender) {
             SchematicProjection.Info info = pair.getSecond();
             boolean isHeld = heldStack.getItem() == info.getRawState().getBlock().asItem();
-
             switch (pair.getFirst()) {
                 case ALL -> renderAllLayer(matrix, world, info, isHeld, state.hasWrongBlock(), mainBuffer);
-
                 case BAD -> renderBadLayer(matrix, mainBuffer, info, badStates);
-
                 case PERFECT -> updatePerfectBounds(min, max, info);
             }
         }
 
-        // Render perfect structure outline
-        if (state.perfect()) {
-            matrix.pushPose();
-            renderOutlineBox(mainBuffer, matrix, min, max, COLOR_SUCCESS);
-            matrix.popPose();
+        for(BlockPos badBlocks : badStates.keySet())
+        {
+            gridLayer = Math.min(gridLayer, badBlocks.getY());
         }
 
-        mainBuffer.endBatch();
+        if (!state.perfect()) {
+            matrix.pushPose();
+            renderGridForRotation(matrix, mainBuffer, settings, mbSize, state, gridLayer);
+            matrix.popPose();
+        }
+        matrix.popPose();
+        // Render perfect structure outline
+        if (state.perfect()) {
+            assert(settings.getMultiblock() != null);
+            BlockPos formPos = settings.getPos().offset(-Mth.floorDiv(mbSize.getX(),2), 0, -Mth.floorDiv(mbSize.getZ(),2)).offset(settings.getMultiblock().getTriggerOffset());
+            matrix.pushPose();
+
+            matrix.translate(formPos.getX(), formPos.getY(), formPos.getZ() + .5f);
+            ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
+            ItemStack hammerStack = new ItemStack(IEItems.Tools.HAMMER);
+            BakedModel itemModel = itemRenderer.getModel(hammerStack, world, null, 0);
+            int hammer = 0xaa0000;
+            float red = (hammer >> 16 & 0xFF) / 255F;
+            float green = (hammer >> 8 & 0xFF) / 255F;
+            float blue = (hammer & 0xFF) / 255F;
+
+            ESShaders.setSchematicRenderData(world.getGameTime(), red,green,blue);
+            MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
+            VertexConsumer vertexConsumer = buffer.getBuffer(ESRenderTypes.SCHEMATIC);
+
+            itemRenderer.renderModelLists(itemModel, hammerStack, 15728880, OverlayTexture.NO_OVERLAY, matrix, vertexConsumer);
+
+            matrix.popPose();
+            BlockPos pos = settings.getPos();
+            BlockPos offset = new BlockPos(-Mth.floorDiv(mbSize.getX(),2), 0, -Mth.floorDiv(mbSize.getZ(),2));
+
+            matrix.translate(pos.getX(),pos.getY(),pos.getZ());
+            renderOutlineBox(mainBuffer, matrix, min, max, COLOR_SUCCESS);
+            matrix.pushPose();
+
+            matrix.translate(offset.getX(),offset.getY(),offset.getZ());
+            drawFrontGroundText(matrix, new Vec3((int)mbSize.getX(),0,(int)mbSize.getZ()), mainBuffer, settings.getRotation(), settings.getMultiblock(),0x66ffffff, Component.translatable("item.engineered_schematics.multiblock_schematic.formed"));
+            matrix.popPose();
+        }
     }
     private static void renderGridForRotation(PoseStack matrix, MultiBufferSource.BufferSource buffer,
-                                              ESSchematicSettings settings, Vec3i mbSize, RenderingState state) {
-        boolean isHorizontalRotation = settings.getRotation().equals(Rotation.CLOCKWISE_180) ||
-                settings.getRotation().equals(Rotation.NONE);
-
+                                              ESSchematicSettings settings, Vec3i mbSize, RenderingState state, int y) {
+        Rotation rotation = settings.getRotation();
+        assert(settings.getMultiblock()!=null);
+        // Determine width and depth based on rotation
+        boolean isHorizontalRotation = rotation == Rotation.NONE || rotation == Rotation.CLOCKWISE_180;
         int width = isHorizontalRotation ? mbSize.getX() : mbSize.getZ();
         int depth = isHorizontalRotation ? mbSize.getZ() : mbSize.getX();
 
+        // Initial translation to center the grid
+        matrix.pushPose();
         matrix.translate(
-                -(Math.floorDiv(width, 2)),
+                -Math.floorDiv(width, 2),
                 -mbSize.getY(),
-                -(Math.floorDiv(depth, 2))
+                -Math.floorDiv(depth, 2)
         );
-        matrix.translate(0, state.currentLayer(), 0);
+        matrix.translate(0, y, 0);
 
+        // Render the main grid
         int highlightColor = state.hasImperfection() ?
                 (state.hasWrongBlock() ? COLOR_ERROR : COLOR_WARNING) : 0xffffff;
-
-        renderGrid(buffer, matrix, Vec3.ZERO,
-                new Vec3(width, mbSize.getY(), depth), 16, 0.25f, highlightColor);
+        Vec3 origin = Vec3.ZERO;
+        Vec3 normal = new Vec3(width, mbSize.getY(), depth);
+        Component name = state.hasImperfection() ?
+                (state.hasWrongBlock() ? Component.translatable("item.engineered_schematics.multiblock_schematic.error") : settings.getMultiblock().getDisplayName()) : settings.getMultiblock().getDisplayName();
+        renderGrid(buffer, matrix, origin, normal, 16, 1f, highlightColor, y, name, settings);
+        matrix.popPose();
     }
 
     private static void renderAllLayer(PoseStack matrix, Level world, SchematicProjection.Info info, boolean isHeld, boolean hasWrongBlock,
@@ -282,7 +329,7 @@ public class SchematicRenderer
                 float blue = (i & 0xFF) / 255F;
 
                 modelData = ibakedmodel.getModelData(rInfo.templateWorld, rInfo.tBlockInfo.pos(), state, modelData);
-                ESShaders.setSchematicRenderData(partialTicks, color[0],color[1],color[2]);
+                ESShaders.setSchematicRenderData(0, color[0],color[1],color[2]);
                 VertexConsumer vc = buffer.getBuffer(ESRenderTypes.SCHEMATIC);
                 matrix.scale(0.5f, 0.5f,0.5f);
                 matrix.translate(0.5f,0.5f,0.5f);
@@ -319,27 +366,99 @@ public class SchematicRenderer
             Vec3 normal,
             float gridSize,
             float stepSize,
-            int rgb
+            int rgb,
+            int currentLayer,
+            Component name,
+            ESSchematicSettings settings
     ) {
         VertexConsumer builder = buffer.getBuffer(RenderType.LINES);
+        Rotation rotation = settings.getRotation();
+        MultiblockHandler.IMultiblock multiblock = settings.getMultiblock();
+        assert(multiblock != null);
         float alpha = 0.3f;
         int rgba = rgb | (((int) (alpha * 255)) << 24);
+        int color = rgba;
+        int guideColor = 0x0000ff00;
+        Vec3 max = origin.add(normal);
 
-        for(float a = 0; a <= normal.z; a+=stepSize)
+
+        matrix.pushPose();
         {
-            matrix.translate(0,0,a);
-            line(builder, matrix, origin, origin.add(normal), 0b010, 0b110, rgba);
-            matrix.translate(0,0,-a);
+            boolean isDebug = Minecraft.getInstance().getDebugOverlay().showDebugScreen();
+            for (float a = 0; a <= normal.z; a += stepSize) {
+                rgba = color;
+                if ((a == 0 || a == normal.z) && isDebug) {
+                    if (rotation.equals(Rotation.NONE) && a == 0) rgba = 0x66ff0000;
+                    if (rotation.equals(Rotation.CLOCKWISE_180) && a != 0) rgba = 0x66ff0000;
+                    if (rotation.equals(Rotation.CLOCKWISE_90) && a == 0) rgba = 0x660000ff;
+                    if (rotation.equals(Rotation.COUNTERCLOCKWISE_90) && a != 0) rgba = 0x660000ff;
+                }
+                matrix.translate(0, 0, a);
+                line(builder, matrix, origin, max, 0b010, 0b110, rgba);
+                matrix.translate(0, 0, -a);
+            }
+            for (float a = 0; a <= normal.x; a += stepSize) {
+                rgba = color;
+                if ((a == 0 || a == normal.x) && isDebug) {
+                    if (rotation.equals(Rotation.NONE) && a == 0) rgba = 0x660000ff;
+                    if (rotation.equals(Rotation.CLOCKWISE_90) && a != 0) rgba = 0x66ff0000;
+                    if (rotation.equals(Rotation.COUNTERCLOCKWISE_90) && a == 0) rgba = 0x66ff0000;
+                    if (rotation.equals(Rotation.CLOCKWISE_180) && a != 0) rgba = 0x660000ff;
+                }
+                matrix.translate(a, 0, 0);
+                line(builder, matrix, origin, max, 0b010, 0b011, rgba);
+                matrix.translate(-a, 0, 0);
+            }
+
+            if (isDebug) {
+                matrix.pushPose();
+                matrix.translate(0, normal.y, 0);
+                guideColor = guideColor | 0x66000000;
+                if (rotation.equals(Rotation.NONE)) line(builder, matrix, origin, max, 0b010, 0b000, guideColor);
+                if (rotation.equals(Rotation.CLOCKWISE_90))
+                    line(builder, matrix, origin, max, 0b110, 0b100, guideColor);
+                if (rotation.equals(Rotation.COUNTERCLOCKWISE_90))
+                    line(builder, matrix, origin, max, 0b011, 0b001, guideColor);
+                if (rotation.equals(Rotation.CLOCKWISE_180))
+                    line(builder, matrix, origin, max, 0b111, 0b101, guideColor);
+                matrix.popPose();
+            }
         }
-        for(float a = 0; a <= normal.x; a+=stepSize)
-        {
-            matrix.translate(a, 0, 0);
-            line(builder, matrix, origin, origin.add(normal), 0b010, 0b011, rgba);
-            matrix.translate(-a, 0, 0);
-        }
+        matrix.popPose();
+        drawFrontGroundText(matrix,max.subtract(0,currentLayer,0), buffer, rotation, multiblock, color,name);
     }
 
-    public static void renderSchematicGrid(PoseStack matrix, ESSchematicSettings settings, Level world)
+    public static void drawFrontGroundText(PoseStack matrix, Vec3 mbSize, MultiBufferSource buffer, Rotation rotation, MultiblockHandler.IMultiblock multiblock, int color, Component text)
+    {
+
+        matrix.translate(0, mbSize.y, 0);
+        matrix.pushPose();
+        {
+            Font font = Minecraft.getInstance().font;
+            matrix.translate(0, 0.0125f, 0);
+            if (rotation.equals(Rotation.NONE)) matrix.translate(0, 0, mbSize.z() + 0.125f);
+            if (rotation.equals(Rotation.CLOCKWISE_90)) matrix.translate(-0.125f, 0, 0);
+            if (rotation.equals(Rotation.COUNTERCLOCKWISE_90)) matrix.translate(mbSize.x() + 0.125f, 0, mbSize.z());
+            if (rotation.equals(Rotation.CLOCKWISE_180)) matrix.translate(mbSize.x(), 0, -0.125f);
+            matrix.mulPose(new Quaternionf().rotateAxis(90 * Mth.DEG_TO_RAD, 1, 0, 0));
+            matrix.mulPose(new Quaternionf().rotateAxis((90 * rotation.ordinal()) * Mth.DEG_TO_RAD, 0, 0, 1));
+            matrix.scale(0.1f, 0.1f, 0.1f);
+            float s = (float) (mbSize.x / text.getString().length());
+            matrix.scale(s, s, s);
+            font.drawInBatch(text,
+                    0, 0, // x and y (already translated)
+                    color,
+                    false, // drop shadow
+                    matrix.last().pose(),
+                    buffer,
+                    Font.DisplayMode.NORMAL, // NORMAL or SEE_THROUGH for transparency effects
+                    15728880, // packed light
+                    15728880);
+        }
+        matrix.popPose();
+    }
+
+    public static void renderSchematicGrid(PoseStack matrix, ESSchematicSettings settings, int color, Level world)
     {
         if(settings.getMultiblock() == null) return;
         final BlockPos.MutableBlockPos hit = new BlockPos.MutableBlockPos(FULL_MAX.getX(), FULL_MAX.getY(), FULL_MAX.getZ());
@@ -353,23 +472,24 @@ public class SchematicRenderer
         if(!hit.equals(FULL_MAX))
         {
             SchematicProjection projection = new SchematicProjection(world, settings.getMultiblock());
-            projection.setRotation(settings.getRotation());
+            Rotation rotation = settings.getRotation();
+            projection.setRotation(rotation);
             projection.setFlip(settings.isMirrored());
             Vec3i mb_size = settings.getMultiblock().getSize(world);
             matrix.translate(hit.getX(), hit.getY(), hit.getZ());
-
+            Component name = settings.getMultiblock().getDisplayName();
             MultiBufferSource.BufferSource mainBuffer = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
             matrix.pushPose();
             {
                 if(settings.getRotation().equals(Rotation.CLOCKWISE_180) || settings.getRotation().equals(Rotation.NONE))
                 {
                     matrix.translate(-(Math.floorDiv(mb_size.getX(),2)), -mb_size.getY(), -(Math.floorDiv(mb_size.getZ(),2)));
-                    renderGrid(mainBuffer, matrix, Vec3.ZERO, new Vec3(mb_size.getX(), mb_size.getY(), mb_size.getZ()), 16, 0.25f, 0xffffff);
+                    renderGrid(mainBuffer, matrix, Vec3.ZERO, new Vec3(mb_size.getX(), mb_size.getY(), mb_size.getZ()), 16, 1, color, 0,name, settings);
                 }
                 else
                 {
                     matrix.translate(-(Math.floorDiv(mb_size.getZ(),2)), -mb_size.getY(), -(Math.floorDiv(mb_size.getX(),2)));
-                    renderGrid(mainBuffer, matrix, Vec3.ZERO, new Vec3(mb_size.getZ(), mb_size.getY(), mb_size.getX()), 16, 0.25f, 0xffffff);
+                    renderGrid(mainBuffer, matrix, Vec3.ZERO, new Vec3(mb_size.getZ(), mb_size.getY(), mb_size.getX()), 16, 1, color, 0,name, settings);
                 }
             }
             matrix.popPose();

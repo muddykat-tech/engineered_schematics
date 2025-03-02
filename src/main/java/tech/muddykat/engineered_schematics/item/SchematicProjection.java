@@ -134,6 +134,7 @@ public class SchematicProjection
         updateData();
 
         List<StructureTemplate.StructureBlockInfo> blocks = this.layers.get(layer);
+        if(blocks == null) return false;
         for(StructureTemplate.StructureBlockInfo info:blocks){
             if(predicate.test(new Info(this, info))){
                 return true;
