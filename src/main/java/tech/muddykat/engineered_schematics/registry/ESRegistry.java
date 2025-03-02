@@ -21,7 +21,9 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import tech.muddykat.engineered_schematics.EngineeredSchematics;
+import tech.muddykat.engineered_schematics.block.SchematicCorkBoard;
 import tech.muddykat.engineered_schematics.block.SchematicDeskBlock;
+import tech.muddykat.engineered_schematics.block.entity.SchematicBoardBlockEntity;
 import tech.muddykat.engineered_schematics.block.entity.SchematicTableBlockEntity;
 import tech.muddykat.engineered_schematics.item.ESSchematicSettings;
 import tech.muddykat.engineered_schematics.item.SchematicItem;
@@ -40,9 +42,13 @@ public class ESRegistry {
 
 
     public static DeferredHolder<BlockEntityType<?>, BlockEntityType<SchematicTableBlockEntity>> SCHEMATIC_TABLE_TYPE;
+    public static DeferredHolder<BlockEntityType<?>, BlockEntityType<SchematicBoardBlockEntity>> SCHEMATIC_BOARD_TYPE;
+
     public static DeferredBlock<Block> BLOCK_SCHEMATIC_TABLE;
     public static DeferredItem<Item> SCHEMATIC_ITEM;
     public static DeferredItem<BlockItem> BLOCK_ITEM_SCHEMATIC_TABLE;
+    public static DeferredBlock<Block> BLOCK_CORKBOARD;
+    public static DeferredItem<BlockItem> BLOCK_ITEM_CORKBOARD;
 
     // Creates a creative tab with the id "examplemod:example_tab" for the example item, that is placed after the combat tab
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TAB = CREATIVE_MODE_TABS.register(EngineeredSchematics.MODID, () -> // Add the example item to the tab. For your own tabs, this method is preferred over the event
@@ -81,6 +87,10 @@ public class ESRegistry {
         BLOCK_SCHEMATIC_TABLE = BLOCKS.register("schematic_table_block", () -> new SchematicDeskBlock<>(SCHEMATIC_TABLE_TYPE, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).ignitedByLava().instrument(NoteBlockInstrument.BASS).sound(SoundType.WOOD).strength(2.0F, 5.0F).noOcclusion()));
         SCHEMATIC_TABLE_TYPE = TE_REGISTER.register("schematic_table_type", makeType(SchematicTableBlockEntity::new, BLOCK_SCHEMATIC_TABLE));
         BLOCK_ITEM_SCHEMATIC_TABLE = ITEMS.register("schematic_table_block", () -> new SchematicTableBlockItem(BLOCK_SCHEMATIC_TABLE.get()));
+
+        BLOCK_CORKBOARD = BLOCKS.register("corkboard", SchematicCorkBoard::new);
+        SCHEMATIC_BOARD_TYPE = TE_REGISTER.register("corkboard_type", makeType(SchematicBoardBlockEntity::new, BLOCK_CORKBOARD));
+        BLOCK_ITEM_CORKBOARD = ITEMS.register("corkboard", () -> new BlockItem(BLOCK_CORKBOARD.get(), new Item.Properties()));
     }
 
     public static <T extends BlockEntity> Supplier<BlockEntityType<T>> makeType(BlockEntityType.BlockEntitySupplier<T> create, Supplier<? extends Block> valid)

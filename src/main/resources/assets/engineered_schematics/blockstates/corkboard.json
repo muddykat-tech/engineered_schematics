@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "engineered_schematics:block/corkboard",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "engineered_schematics:block/corkboard"
+    },
+    "facing=south": {
+      "model": "engineered_schematics:block/corkboard",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "engineered_schematics:block/corkboard",
+      "y": 270
+    }
+  }
+}

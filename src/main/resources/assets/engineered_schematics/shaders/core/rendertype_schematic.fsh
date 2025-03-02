@@ -5,11 +5,7 @@
 
 uniform sampler2D Sampler0; // Texture sampler
 uniform vec4 ColorModulator; // Color modulator
-uniform vec4 FogColor; // Fog color
-uniform float FogStart; // Start of the fog
-uniform float FogEnd; // End of the fog
 uniform float Time; // Time variable for animations or effects
-uniform float GridThickness; // Control the thickness of grid lines
 uniform vec3 ColorTint;
 uniform vec4 TextureMat;
 

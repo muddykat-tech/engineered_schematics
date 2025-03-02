@@ -10,7 +10,7 @@
       "item": "immersiveengineering:steel_fence"
     },
     "S": {
-      "tag": "immersiveengineering:slab_treated_wood_horizontal"
+      "item": "immersiveengineering:slab_treated_wood_horizontal"
     }
   },
   "pattern": [

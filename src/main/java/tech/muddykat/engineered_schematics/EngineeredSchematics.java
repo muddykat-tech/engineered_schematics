@@ -9,23 +9,30 @@ import blusunrize.lib.manual.ManualInstance;
 import blusunrize.lib.manual.Tree;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
+import tech.muddykat.engineered_schematics.client.renderer.CorkboardRenderer;
 import tech.muddykat.engineered_schematics.event.SchematicPickBlockHandler;
 import tech.muddykat.engineered_schematics.helper.SchematicTableCallbacks;
 import tech.muddykat.engineered_schematics.client.screen.SchematicsScreen;
 import tech.muddykat.engineered_schematics.registry.ESMenuTypes;
 import tech.muddykat.engineered_schematics.registry.ESRegistry;
+
+import java.util.function.Supplier;
 
 import static tech.muddykat.engineered_schematics.registry.ESRegistry.BLOCK_ITEM_SCHEMATIC_TABLE;
 
@@ -72,6 +79,29 @@ public class EngineeredSchematics
             MenuScreens.register(ESMenuTypes.SCHEMATICS.getType(), SchematicsScreen::new);
             NeoForge.EVENT_BUS.register(new SchematicPickBlockHandler());
             setupManualEntries();
+        }
+
+        private static <T extends BlockEntity>
+        void registerBERenderNoContext(
+                EntityRenderersEvent.RegisterRenderers event, Supplier<BlockEntityType<? extends T>> type, Supplier<BlockEntityRenderer<T>> render
+        )
+        {
+            registerBERenderNoContext(event, type.get(), render);
+        }
+
+        private static <T extends BlockEntity>
+        void registerBERenderNoContext(
+                EntityRenderersEvent.RegisterRenderers event, BlockEntityType<? extends T> type, Supplier<BlockEntityRenderer<T>> render
+        )
+        {
+            event.registerBlockEntityRenderer(type, $ -> render.get());
+        }
+
+
+        @SubscribeEvent
+        public static void registerBERenderer(EntityRenderersEvent.RegisterRenderers event)
+        {
+            registerBERenderNoContext(event, ESRegistry.SCHEMATIC_BOARD_TYPE.get(), CorkboardRenderer::new);
         }
 
         private static void setupManualEntries()
