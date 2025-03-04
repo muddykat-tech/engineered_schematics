@@ -33,7 +33,6 @@ import javax.annotation.Nullable;
 
 public class SchematicCorkBoard extends Block implements EntityBlock {
     public static final Property<Direction> FACING;
-    public static final BooleanProperty[] SCHEMATIC_SLOT_FILLED = new BooleanProperty[9];
 
     public SchematicCorkBoard() {
         super(Properties.of());
@@ -47,7 +46,6 @@ public class SchematicCorkBoard extends Block implements EntityBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(new Property[]{FACING});
-        builder.add(SCHEMATIC_SLOT_FILLED);
     }
 
     @Override
@@ -106,9 +104,28 @@ public class SchematicCorkBoard extends Block implements EntityBlock {
     }
 
     static {
-        for(int i = 0; i < SCHEMATIC_SLOT_FILLED.length; i++)
-            SCHEMATIC_SLOT_FILLED[i] = BooleanProperty.create("schematic_"+i);
         FACING = IEProperties.FACING_HORIZONTAL;
+    }
+
+    @Override
+    public void onNeighborChange(BlockState state, LevelReader level, BlockPos pos, BlockPos neighbor) {
+        super.onNeighborChange(state, level, pos, neighbor);
+        BlockEntity tile = level.getBlockEntity(pos);
+        if(tile instanceof SchematicBoardBlockEntity board)
+        {
+            board.updateEdges(pos);
+            board.updateEdges(neighbor);
+        }
+    }
+
+    @Override
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean pMovedByPiston) {
+        super.onPlace(state, level, pos, oldState, pMovedByPiston);
+        BlockEntity tile = level.getBlockEntity(pos);
+        if(tile instanceof SchematicBoardBlockEntity board)
+        {
+            board.onInitialPlace();
+        }
     }
 
     @Override

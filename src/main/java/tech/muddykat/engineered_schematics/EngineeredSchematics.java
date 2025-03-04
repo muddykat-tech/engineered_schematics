@@ -21,11 +21,13 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
 import tech.muddykat.engineered_schematics.client.renderer.CorkboardRenderer;
+import tech.muddykat.engineered_schematics.client.renderer.ESDynamicModel;
 import tech.muddykat.engineered_schematics.event.SchematicPickBlockHandler;
 import tech.muddykat.engineered_schematics.helper.SchematicTableCallbacks;
 import tech.muddykat.engineered_schematics.client.screen.SchematicsScreen;
@@ -79,6 +81,14 @@ public class EngineeredSchematics
             MenuScreens.register(ESMenuTypes.SCHEMATICS.getType(), SchematicsScreen::new);
             NeoForge.EVENT_BUS.register(new SchematicPickBlockHandler());
             setupManualEntries();
+        }
+
+        @SubscribeEvent
+        public static void registerModelLoaders(ModelEvent.RegisterGeometryLoaders event)
+        {
+            CorkboardRenderer.FRAME_EDGE = new ESDynamicModel("frame_edge");
+            CorkboardRenderer.CORNER = new ESDynamicModel("corner");
+            CorkboardRenderer.SCHEMATIC = new ESDynamicModel("schematic");
         }
 
         private static <T extends BlockEntity>
