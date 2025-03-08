@@ -26,7 +26,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.client.model.data.ModelData;
+import net.minecraftforge.client.model.data.ModelData;
 import org.joml.Quaternionf;
 import tech.muddykat.engineered_schematics.EngineeredSchematics;
 import tech.muddykat.engineered_schematics.block.entity.SchematicBoardBlockEntity;

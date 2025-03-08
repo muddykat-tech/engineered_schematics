@@ -15,11 +15,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 import tech.muddykat.engineered_schematics.EngineeredSchematics;
 import tech.muddykat.engineered_schematics.block.SchematicCorkBoard;
 import tech.muddykat.engineered_schematics.block.SchematicDeskBlock;
@@ -36,22 +34,22 @@ import java.util.stream.Collectors;
 public class ESRegistry {
 
     private static final DeferredRegister<BlockEntityType<?>> TE_REGISTER = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, EngineeredSchematics.MODID);
-    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(EngineeredSchematics.MODID);
-    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(EngineeredSchematics.MODID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Registries.BLOCK, EngineeredSchematics.MODID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM,EngineeredSchematics.MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, EngineeredSchematics.MODID);
 
 
-    public static DeferredHolder<BlockEntityType<?>, BlockEntityType<SchematicTableBlockEntity>> SCHEMATIC_TABLE_TYPE;
-    public static DeferredHolder<BlockEntityType<?>, BlockEntityType<SchematicBoardBlockEntity>> SCHEMATIC_BOARD_TYPE;
+    public static RegistryObject<BlockEntityType<SchematicTableBlockEntity>> SCHEMATIC_TABLE_TYPE;
+    public static RegistryObject<BlockEntityType<SchematicBoardBlockEntity>> SCHEMATIC_BOARD_TYPE;
 
-    public static DeferredBlock<Block> BLOCK_SCHEMATIC_TABLE;
-    public static DeferredItem<Item> SCHEMATIC_ITEM;
-    public static DeferredItem<BlockItem> BLOCK_ITEM_SCHEMATIC_TABLE;
-    public static DeferredBlock<Block> BLOCK_CORKBOARD;
-    public static DeferredItem<BlockItem> BLOCK_ITEM_CORKBOARD;
+    public static RegistryObject<Block> BLOCK_SCHEMATIC_TABLE;
+    public static RegistryObject<Item> SCHEMATIC_ITEM;
+    public static RegistryObject<BlockItem> BLOCK_ITEM_SCHEMATIC_TABLE;
+    public static RegistryObject<Block> BLOCK_CORKBOARD;
+    public static RegistryObject<BlockItem> BLOCK_ITEM_CORKBOARD;
 
     // Creates a creative tab with the id "examplemod:example_tab" for the example item, that is placed after the combat tab
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TAB = CREATIVE_MODE_TABS.register(EngineeredSchematics.MODID, () -> // Add the example item to the tab. For your own tabs, this method is preferred over the event
+    public static final RegistryObject<CreativeModeTab> TAB = CREATIVE_MODE_TABS.register(EngineeredSchematics.MODID, () -> // Add the example item to the tab. For your own tabs, this method is preferred over the event
             CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.engineered_schematics")) //The language key for the title of your CreativeModeTab
             .icon(() -> BLOCK_ITEM_SCHEMATIC_TABLE.get().getDefaultInstance())

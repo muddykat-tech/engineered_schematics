@@ -1,19 +1,171 @@
+import groovy.json.JsonOutput
+import groovy.json.JsonSlurper
+import net.minecraftforge.gradle.common.tasks.SignJar
+import org.gradle.work.Incremental
+
 plugins {
-    id 'java-library'
+    id 'net.neoforged.gradle' version '6.0.+'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'org.jetbrains.gradle.plugin.idea-ext' version '1.1.6'
     id 'eclipse'
-    id 'idea'
-    id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version '7.0.97'
 }
 
 version = project.mod_version
-group = 'net.muddykat.engineered_schematics'
+group = 'net.muddykat.engineered_schematics' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'EngineeredSchematics'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+jar.enabled = true
+
+sourceSets {
+    main {
+        resources {
+            srcDirs = [
+                    "$rootDir/src/main/resources",
+                    "$rootDir/src/generated/resources",
+            ]
+        }
+    }
+}
+
+def version_replaces = [
+        'version'      : project.version,
+        'mc_version'   : version_minecraft,
+        'forge_version': version_forge,
+        'jei_version'  : version_jei,
+        'mod_license'  : mod_license,
+        'mod_name'  : mod_name,
+        'mod_authors' : mod_authors,
+        'mod_description': mod_description,
+        'version_ie': version_ie,
+        'mod_id': mod_id,
+        'mod_version':mod_version
+]
+
+def jsonPatterns = ["**/*.json", "**/*.mcmeta"]
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.FAIL
+    inputs.properties(version_replaces)
+    filesMatching("META-INF/mods.toml") {
+        expand version_replaces
+    }
+    exclude ".cache"
+    //Minify json resources
+    doLast {
+        fileTree(dir: getOutputs().getFiles().getAsPath(), includes: jsonPatterns).each {
+            File file -> file.setText(JsonOutput.toJson(new JsonSlurper().parse(file, 'UTF-8')))
+        }
+    }
+}
+
+// When using "Run using IntelliJ" (the only option with well-working hotswapping) the used "resources" directory is
+// different from the one used by gradle/the processResources task
+task copyModsTomlForIntelliJ(type: Copy) {
+    from processResources.destinationDir
+    into "$projectDir/out/production/resources"
+    include "META-INF/mods.toml"
+}
+
+copyModsTomlForIntelliJ.dependsOn processResources
+afterEvaluate {
+    // prepareRuns doesn't exist before afterEvaluate
+    prepareRuns.dependsOn copyModsTomlForIntelliJ
+}
+
+minecraft {
+    mappings channel: 'parchment', version: "$version_parchment-$version_minecraft"
+    accessTransformers {
+        file('src/main/resources/META-INF/accesstransformer.cfg')
+    }
+    runs {
+        client {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN'
+            property 'forge.enabledGameTestNamespaces', 'engineered_schematics'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+            ideaModule project.name + ".main"
+            mods {
+                engineered_schematics {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', ''
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', 'engineered_schematics'
+
+            // Disable GUI by default, the IDE console can be used to enter commands
+            arg '-nogui'
+
+            mods {
+                engineered_schematics {
+                    source sourceSets.main
+                }
+            }
+        }
+        data {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', ''
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+            property 'fml.earlyprogresswindow', 'false'
+
+            args '--mod', 'engineered_schematics', '--all', '--output', file('src/generated/resources/'), '--validate',
+                    '--existing', sourceSets.main.resources.srcDirs[0]
+            ideaModule project.name+".datagen"
+
+            mods {
+                engineered_schematics {
+                    source sourceSets.main
+                }
+            }
+        }
+        gameTestServer {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', ''
+
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', 'engineered_schematics'
+
+            ideaModule project.name + ".gametest"
+
+            mods {
+                engineered_schematics {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
 
 repositories {
     maven { // JEI & BlockModelSplitter
         name 'Jared maven'
         url 'https://maven.blamejared.com/'
+    }
+    maven {
+        // tfc
+        url = 'https://www.cursemaven.com'
+        content {
+            includeGroup "curse.maven"
+        }
     }
     maven {//Curse maven, in case some other maven goes offline and for mods that don't have a maven
         url "https://cfa2.cursemaven.com"
@@ -25,109 +177,112 @@ repositories {
         url 'https://squiddev.cc/maven/'
         content {
             includeGroup("cc.tweaked")
+            includeModule("org.squiddev", "Cobalt")
         }
     }
-    mavenLocal()
 }
-
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-runs {
-    configureEach {
-
-        systemProperty 'forge.logging.markers', 'REGISTRIES'
-        systemProperty 'forge.logging.console.level', 'debug'
-        modSource project.sourceSets.main
-    }
-
-    client {
-        // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-        systemProperty 'forge.enabledGameTestNamespaces', 'engineered_schematics'
-    }
-
-    server {
-        systemProperty 'forge.enabledGameTestNamespaces', 'engineered_schematics'
-        programArgument '--nogui'
-    }
-
-    // This run config launches GameTestServer and runs all registered gametests, then exits.
-    // By default, the server will crash when no gametests are provided.
-    // The gametest system is also enabled by default for other run configs under the /test command.
-    gameTestServer {
-        systemProperty 'forge.enabledGameTestNamespaces', 'engineered_schematics'
-    }
-
-    data {
-        // example of overriding the workingDirectory set in configureEach above, uncomment if you want to use it
-        // workingDirectory project.file('run-data')
-
-        // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-        programArguments.addAll '--mod', 'engineered_schematics', '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
-    }
-}
-
-// Include resources generated by data generators.
-sourceSets.main.resources { srcDir 'src/generated/resources' }
-
-// Sets up a dependency configuration called 'localRuntime'.
-// This configuration should be used instead of 'runtimeOnly' to declare
-// a dependency that will be present for runtime testing but that is
-// "optional", meaning it will not be pulled by dependents of this mod.
-configurations {
-    runtimeClasspath.extendsFrom localRuntime
-}
-
+project.ext.lwjglVersion = "3.3.6"
+project.ext.lwjglNatives = "natives-linux"
 dependencies {
-    implementation "net.neoforged:neoforge:${neo_version}"
-    implementation "curse.maven:immersive-engineering-231951:6213776"
+    minecraft "net.neoforged:forge:${version_minecraft}-${version_forge}"
+
+    compileOnly fg.deobf("mezz.jei:jei-1.20.1-forge-api:${version_jei}")
+    compileOnly fg.deobf("mezz.jei:jei-1.20.1-common-api:${version_jei}")
+
+    implementation fg.deobf("mezz.jei:jei-1.20.1-forge:${version_jei}")
+
+    implementation fg.deobf("curse.maven:immersive-engineering-231951:5224387")
+
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
-// This block of code expands all declared replace properties in the specified resource targets.
-// A missing property will result in an error. Properties are expanded using ${} Groovy notation.
-// When "copyIdeResources" is enabled, this will also run before the game launches in IDE environments.
-// See https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
-tasks.withType(ProcessResources).configureEach {
-    var replaceProperties = [
-            minecraft_version      : minecraft_version,
-            minecraft_version_range: minecraft_version_range,
-            neo_version            : neo_version,
-            neo_version_range      : neo_version_range,
-            loader_version_range   : loader_version_range,
-            mod_id                 : mod_id,
-            mod_name               : mod_name,
-            mod_license            : mod_license,
-            mod_version            : mod_version,
-            mod_authors            : mod_authors,
-            mod_description        : mod_description
-    ]
-    inputs.properties replaceProperties
+def customGradle = rootProject.file('custom.gradle');
+if (customGradle.exists()) {
+    apply from: customGradle;
+}
 
-    filesMatching(['META-INF/mods.toml']) {
-        expand replaceProperties
+task signJar(type: SignJar) {
+    onlyIf {
+        project.hasProperty('keyStore')
+    }
+    if (project.hasProperty('keyStore')) {
+        keyStore = project.keyStore
+        alias = project.storeAlias
+        storePass = project.storePass
+        keyPass = project.storePass
+        inputFile = shadowJar.archiveFile
+        outputFile = shadowJar.archiveFile
+    } else {
+        logger.warn("No key store found, not signing the output jar\n")
     }
 }
 
-// Example configuration to allow publishing using the maven-publish plugin
-publishing {
-    publications {
-        register('mavenJava', MavenPublication) {
-            from components.java
+build.dependsOn signJar
+
+afterEvaluate {
+    reobfJar.enabled = true
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    archiveClassifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+//Minimize/optimize all png files, requires optipng on the PATH
+// Credits: BrainStone
+void minimizePNGFile(File file) {
+    long size = file.length()
+    exec {
+        executable "optipng"
+        args "-q", "-o7", "-zm1-9", "-strip", "all", file
+    }
+    long newSize = file.length()
+    if (newSize < size) {
+        System.out.format("Reduced File size of %s from %d bytes to %d bytes (reduced by %.2f%%)\n",
+                file, size, newSize, ((double) (size - newSize)) / ((double) size) * 100.0)
+    }
+}
+
+task optimizePng {
+    def pngPatterns = ["**/*.png"]
+    doLast {
+        //Ensure the logo is minimized (we add this file to each jar)
+        //Minimize any PNGs in the source sets
+        for (dir in sourceSets.main.resources.srcDirs) {
+            fileTree(dir: dir, includes: pngPatterns).each { minimizePNGFile(it) }
         }
     }
-    repositories {
-        maven {
-            url "file://${project.projectDir}/repo"
+}
+
+// Running this is equivalent to running genIntellijRuns, but it exists before afterEvaluate
+task genIntellijRunsDummy {}
+
+task speedUpPreRun {
+    doLast {
+        for (String s : new String[]{"Client", "Server", "Data"}) {
+            ant.replace(
+                    file: ".idea/runConfigurations/run"+s+".xml",
+                    // prepareRunX is prepareRuns + compile, but compiling is already handled by IntelliJ
+                    token: "prepareRun"+s,
+                    value: "prepareRuns"
+            )
         }
     }
 }
 
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+tasks.withType(Task) {
+    if (it.name == "genIntellijRuns") {
+        it.finalizedBy speedUpPreRun
+        genIntellijRunsDummy.dependsOn it
+    } else if (it.name == "runServer") {
+        it.standardInput = System.in
+    }
 }
 
-// IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.
-idea {
-    module {
-        downloadSources = true
-        downloadJavadoc = true
-    }
+idea.project.settings.taskTriggers {
+    afterSync genIntellijRunsDummy
 }

@@ -2,8 +2,6 @@ package tech.muddykat.engineered_schematics;
 
 import blusunrize.immersiveengineering.api.ManualHelper;
 import blusunrize.immersiveengineering.api.client.ieobj.IEOBJCallbacks;
-import blusunrize.immersiveengineering.common.blocks.wooden.BlueprintShelfBlock;
-import blusunrize.immersiveengineering.common.blocks.wooden.BlueprintShelfBlockEntity;
 import blusunrize.lib.manual.ManualEntry;
 import blusunrize.lib.manual.ManualInstance;
 import blusunrize.lib.manual.Tree;
@@ -14,17 +12,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.ModelEvent;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.ModelEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.slf4j.Logger;
 import tech.muddykat.engineered_schematics.client.renderer.CorkboardRenderer;
 import tech.muddykat.engineered_schematics.client.renderer.ESDynamicModel;
@@ -79,7 +76,7 @@ public class EngineeredSchematics
         {
             IEOBJCallbacks.register(new ResourceLocation(MODID, "schematic_table_block"), SchematicTableCallbacks.INSTANCE);
             MenuScreens.register(ESMenuTypes.SCHEMATICS.getType(), SchematicsScreen::new);
-            NeoForge.EVENT_BUS.register(new SchematicPickBlockHandler());
+            MinecraftForge.EVENT_BUS.register(new SchematicPickBlockHandler());
             setupManualEntries();
         }
 

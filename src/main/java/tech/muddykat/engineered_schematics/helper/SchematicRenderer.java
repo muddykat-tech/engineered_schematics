@@ -30,7 +30,7 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.client.model.data.ModelData;
+import net.minecraftforge.client.model.data.ModelData;
 import org.apache.commons.lang3.mutable.MutableBoolean;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.joml.Quaternionf;
@@ -384,7 +384,7 @@ public class SchematicRenderer
 
         matrix.pushPose();
         {
-            boolean isDebug = Minecraft.getInstance().getDebugOverlay().showDebugScreen();
+            boolean isDebug = Minecraft.getInstance().options.renderDebug;
             for (float a = 0; a <= normal.z; a += stepSize) {
                 rgba = color;
                 if ((a == 0 || a == normal.z) && isDebug) {

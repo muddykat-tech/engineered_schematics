@@ -24,7 +24,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
-import net.neoforged.neoforge.client.gui.widget.ScrollPanel;
+import net.minecraftforge.client.gui.widget.ScrollPanel;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -73,7 +73,7 @@ public class SchematicsScreen extends IEContainerScreen<SchematicsContainerMenu>
                 new GuiButtonCheckbox(
                         leftPos + 129,
                         topPos + 112,
-                        Component.translatable("engineered_schematics.gui.schematic_table.mirror"),
+                        Component.translatable("engineered_schematics.gui.schematic_table.mirror").getString(),
                         () -> menu.isMirroredSchematic,
                         this::handleMirrorButton
                 )

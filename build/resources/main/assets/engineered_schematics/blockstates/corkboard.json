@@ -1,0 +1,1 @@
+{"variants":{"facing=east":{"model":"engineered_schematics:block/corkboard_centre","y":90},"facing=north":{"model":"engineered_schematics:block/corkboard_centre"},"facing=south":{"model":"engineered_schematics:block/corkboard_centre","y":180},"facing=west":{"model":"engineered_schematics:block/corkboard_centre","y":270}}}

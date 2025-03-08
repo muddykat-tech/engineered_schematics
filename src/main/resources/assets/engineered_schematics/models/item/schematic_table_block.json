@@ -200,6 +200,6 @@
     }
   },
   "flip_v": true,
-  "loader": "neoforge:obj",
+  "loader": "forge:obj",
   "model": "engineered_schematics:models/block/schematic_table_block.obj"
 }

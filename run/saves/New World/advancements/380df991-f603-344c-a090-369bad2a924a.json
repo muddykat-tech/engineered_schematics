@@ -1,0 +1,231 @@
+{
+  "minecraft:recipes/decorations/crafting_table": {
+    "criteria": {
+      "unlock_right_away": "2025-03-08 14:52:13 +1100"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:taiga": "2025-03-08 14:52:16 +1100"
+    },
+    "done": false
+  },
+  "minecraft:recipes/misc/recycle_schematic": {
+    "criteria": {
+      "has_crafting_table": "2025-03-08 14:52:19 +1100"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/blueprint_molds": {
+    "criteria": {
+      "has_paper": "2025-03-08 14:52:25 +1100"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/blueprint_bannerpatterns": {
+    "criteria": {
+      "has_paper": "2025-03-08 14:52:25 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/book": {
+    "criteria": {
+      "has_paper": "2025-03-08 14:52:25 +1100"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/blueprint_components": {
+    "criteria": {
+      "has_paper": "2025-03-08 14:52:25 +1100"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/blueprint_bullets": {
+    "criteria": {
+      "has_paper": "2025-03-08 14:52:25 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/cartography_table": {
+    "criteria": {
+      "has_paper": "2025-03-08 14:52:25 +1100"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/stairs_steel_scaffolding_standard": {
+    "criteria": {
+      "has_steel_scaffolding_standard": "2025-03-08 14:52:41 +1100"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/steel_slope": {
+    "criteria": {
+      "has_steel_scaffolding_standard": "2025-03-08 14:52:41 +1100"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/steel_scaffolding_grate_top_from_standard": {
+    "criteria": {
+      "has_steel_scaffolding_standard": "2025-03-08 14:52:41 +1100"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sample_drill": {
+    "criteria": {
+      "has_steel_scaffolding_standard": "2025-03-08 14:52:41 +1100"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/steel_scaffolding_standard_to_slab": {
+    "criteria": {
+      "has_steel_scaffolding_standard": "2025-03-08 14:52:41 +1100"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/steel_scaffolding_standard_from_slab": {
+    "criteria": {
+      "has_steel_scaffolding_standard": "2025-03-08 14:52:41 +1100"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/steel_post": {
+    "criteria": {
+      "has_steel_fence": "2025-03-08 14:52:52 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/ladder": {
+    "criteria": {
+      "has_stick": "2025-03-08 15:01:35 +1100"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/torch": {
+    "criteria": {
+      "has_stick": "2025-03-08 15:01:35 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/wooden_axe": {
+    "criteria": {
+      "has_stick": "2025-03-08 15:01:35 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/white_candle": {
+    "criteria": {
+      "has_white_dye": "2025-03-08 15:02:13 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/dye_white_bed": {
+    "criteria": {
+      "has_needed_dye": "2025-03-08 15:02:13 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/schematic_table": {
+    "criteria": {
+      "has_crafting_table": "2025-03-08 15:02:18 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/white_stained_glass_pane_from_glass_pane": {
+    "criteria": {
+      "has_white_dye": "2025-03-08 15:02:13 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/lime_dye": {
+    "criteria": {
+      "has_white_dye": "2025-03-08 15:02:13 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/light_blue_dye_from_blue_white_dye": {
+    "criteria": {
+      "has_white_dye": "2025-03-08 15:02:13 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/light_gray_dye_from_gray_white_dye": {
+    "criteria": {
+      "has_white_dye": "2025-03-08 15:02:13 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/dye_white_carpet": {
+    "criteria": {
+      "has_needed_dye": "2025-03-08 15:02:13 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/campfire": {
+    "criteria": {
+      "has_stick": "2025-03-08 15:01:35 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/wooden_hoe": {
+    "criteria": {
+      "has_stick": "2025-03-08 15:01:35 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/wooden_pickaxe": {
+    "criteria": {
+      "has_stick": "2025-03-08 15:01:35 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/wooden_shovel": {
+    "criteria": {
+      "has_stick": "2025-03-08 15:01:35 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/dye_white_wool": {
+    "criteria": {
+      "has_needed_dye": "2025-03-08 15:02:13 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/pink_dye_from_red_white_dye": {
+    "criteria": {
+      "has_white_dye": "2025-03-08 15:02:13 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/combat/wooden_sword": {
+    "criteria": {
+      "has_stick": "2025-03-08 15:01:35 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/gray_dye": {
+    "criteria": {
+      "has_white_dye": "2025-03-08 15:02:13 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/light_gray_dye_from_black_white_dye": {
+    "criteria": {
+      "has_white_dye": "2025-03-08 15:02:13 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/magenta_dye_from_blue_red_white_dye": {
+    "criteria": {
+      "has_white_dye": "2025-03-08 15:02:13 +1100"
+    },
+    "done": true
+  },
+  "minecraft:story/root": {
+    "criteria": {
+      "crafting_table": "2025-03-08 15:02:18 +1100"
+    },
+    "done": true
+  },
+  "DataVersion": 3465
+}

@@ -1,0 +1,1 @@
+{"type":"minecraft:crafting_shaped","category":"misc","group":"engineered_schematics","key":{"C":{"item":"minecraft:crafting_table"},"F":{"item":"immersiveengineering:steel_fence"},"S":{"item":"immersiveengineering:slab_treated_wood_horizontal"}},"pattern":["SSS","C F"],"result":{"item":"engineered_schematics:schematic_table_block"},"show_notification":true}

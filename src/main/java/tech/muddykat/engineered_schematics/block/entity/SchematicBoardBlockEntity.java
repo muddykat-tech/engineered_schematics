@@ -63,7 +63,7 @@ public class SchematicBoardBlockEntity
     @Override
     public PlacementLimitation getFacingLimitation()
     {
-        return PlacementLimitation.PISTON_INVERTED_NO_DOWN;
+        return PlacementLimitation.HORIZONTAL_AXIS;
     }
 
     @Override
@@ -188,6 +188,12 @@ public class SchematicBoardBlockEntity
         }
         return null;
     }
+
+    @Override
+    public boolean useNixieFont(Player player, HitResult hitResult) {
+        return false;
+    }
+
     // Cached map of adjacent blocks of the same type
     private final Map<Direction, Boolean> adjacentBlocks = new EnumMap<>(Direction.class);
 

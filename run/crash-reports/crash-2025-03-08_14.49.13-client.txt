@@ -1,0 +1,196 @@
+---- Minecraft Crash Report ----
+// On the bright side, I bought you a teddy bear!
+
+Time: 2025-03-08 14:49:13
+Description: Rendering overlay
+
+net.minecraftforge.fml.ModLoadingException: Engineered Schematics (engineered_schematics) encountered an error during the done event phase
+§7net.minecraft.server.ChainedJsonException: Invalid shaders/core/rendertype_schematic.json: File not found
+	at net.minecraftforge.fml.javafmlmod.FMLModContainer.acceptEvent(FMLModContainer.java:155) ~[language-java-47.2.2.jar:47.2] {}
+	at net.minecraftforge.fml.ModLoader.lambda$postEvent$29(ModLoader.java:326) ~[core-47.2.2.jar:47.2] {}
+	at java.lang.Iterable.forEach(Iterable.java:75) ~[?:?] {re:computing_frames,re:mixin}
+	at net.minecraftforge.fml.ModList.forEachModInOrder(ModList.java:227) ~[core-47.2.2.jar:47.2] {}
+	at net.minecraftforge.fml.ModLoader.postEvent(ModLoader.java:326) ~[core-47.2.2.jar:47.2] {}
+	at net.minecraft.client.renderer.GameRenderer.reloadShaders(GameRenderer.java:616) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar:?] {re:mixin,pl:accesstransformer:B,pl:runtimedistcleaner:A,re:classloading,pl:accesstransformer:B,pl:runtimedistcleaner:A}
+	at net.minecraft.client.renderer.GameRenderer$1.apply(GameRenderer.java:379) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar:?] {re:classloading}
+	at net.minecraft.client.renderer.GameRenderer$1.apply(GameRenderer.java:357) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar:?] {re:classloading}
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:13) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar:?] {re:classloading}
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire$$$capture(CompletableFuture.java:718) ~[?:?] {}
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java) ~[?:?] {}
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?] {}
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:69) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar:?] {re:classloading}
+	at net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:156) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar:?] {re:mixin,pl:accesstransformer:B,re:computing_frames,pl:accesstransformer:B,re:classloading,pl:accesstransformer:B}
+	at net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar:?] {re:mixin,re:computing_frames,re:classloading}
+	at net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:130) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar:?] {re:mixin,pl:accesstransformer:B,re:computing_frames,pl:accesstransformer:B,re:classloading,pl:accesstransformer:B}
+	at net.minecraft.util.thread.BlockableEventLoop.runAllTasks(BlockableEventLoop.java:115) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar:?] {re:mixin,pl:accesstransformer:B,re:computing_frames,pl:accesstransformer:B,re:classloading,pl:accesstransformer:B}
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1106) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar:?] {re:mixin,pl:accesstransformer:B,pl:runtimedistcleaner:A,re:classloading,pl:accesstransformer:B,pl:mixin:APP:immersiveengineering.mixins.json:accessors.client.MinecraftAccess,pl:mixin:A,pl:runtimedistcleaner:A}
+	at net.minecraft.client.Minecraft.run(Minecraft.java:718) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar:?] {re:mixin,pl:accesstransformer:B,pl:runtimedistcleaner:A,re:classloading,pl:accesstransformer:B,pl:mixin:APP:immersiveengineering.mixins.json:accessors.client.MinecraftAccess,pl:mixin:A,pl:runtimedistcleaner:A}
+	at net.minecraft.client.main.Main.main(Main.java:218) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar:?] {re:classloading,pl:runtimedistcleaner:A}
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?] {}
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?] {}
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?] {}
+	at java.lang.reflect.Method.invoke(Method.java:569) ~[?:?] {}
+	at net.minecraftforge.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-47.2.2.jar:47.2] {}
+	at net.minecraftforge.fml.loading.targets.CommonLaunchHandler.clientService(CommonLaunchHandler.java:114) ~[loader-47.2.2.jar:47.2] {}
+	at net.minecraftforge.fml.loading.targets.ForgeClientUserdevLaunchHandler.runService(ForgeClientUserdevLaunchHandler.java:19) ~[loader-47.2.2.jar:47.2] {}
+	at net.minecraftforge.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-47.2.2.jar:47.2] {}
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.10.jar:?] {}
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.10.jar:?] {}
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.10.jar:?] {}
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.10.jar:?] {}
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.10.jar:?] {}
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.10.jar:?] {}
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.10.jar:?] {}
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?] {}
+Caused by: net.minecraft.server.ChainedJsonException: Invalid shaders/core/rendertype_schematic.json: File not found
+	at net.minecraft.server.ChainedJsonException.forException(ChainedJsonException.java:48) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar%23181!/:?] {re:classloading}
+	at net.minecraft.client.renderer.ShaderInstance.<init>(ShaderInstance.java:187) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar%23181!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at tech.muddykat.engineered_schematics.client.ESShaders.registerShaders(ESShaders.java:31) ~[%23186!/:?] {re:classloading}
+	at tech.muddykat.engineered_schematics.client.__ESShaders_registerShaders_RegisterShadersEvent.invoke(.dynamic) ~[%23186!/:?] {re:classloading,pl:eventbus:B}
+	at net.minecraftforge.eventbus.ASMEventHandler.invoke(ASMEventHandler.java:73) ~[eventbus-6.0.5.jar:?] {}
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:315) ~[eventbus-6.0.5.jar:?] {}
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:296) ~[eventbus-6.0.5.jar:?] {}
+	at net.minecraftforge.fml.javafmlmod.FMLModContainer.acceptEvent(FMLModContainer.java:151) ~[language-java-47.2.2.jar:47.2] {}
+	... 35 more
+Caused by: java.io.FileNotFoundException: engineered_schematics:shaders/core/rendertype_schematic.json
+	at net.minecraft.server.packs.resources.ResourceProvider.lambda$getResourceOrThrow$0(ResourceProvider.java:21) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar%23181!/:?] {re:classloading}
+	at java.util.Optional.orElseThrow(Optional.java:403) ~[?:?] {}
+	at net.minecraft.server.packs.resources.ResourceProvider.getResourceOrThrow(ResourceProvider.java:21) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar%23181!/:?] {re:classloading}
+	at net.minecraft.server.packs.resources.ResourceProvider.openAsReader(ResourceProvider.java:29) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar%23181!/:?] {re:classloading}
+	at net.minecraft.client.renderer.ShaderInstance.<init>(ShaderInstance.java:110) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar%23181!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at tech.muddykat.engineered_schematics.client.ESShaders.registerShaders(ESShaders.java:31) ~[%23186!/:?] {re:classloading}
+	at tech.muddykat.engineered_schematics.client.__ESShaders_registerShaders_RegisterShadersEvent.invoke(.dynamic) ~[%23186!/:?] {re:classloading,pl:eventbus:B}
+	at net.minecraftforge.eventbus.ASMEventHandler.invoke(ASMEventHandler.java:73) ~[eventbus-6.0.5.jar:?] {}
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:315) ~[eventbus-6.0.5.jar:?] {}
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:296) ~[eventbus-6.0.5.jar:?] {}
+	at net.minecraftforge.fml.javafmlmod.FMLModContainer.acceptEvent(FMLModContainer.java:151) ~[language-java-47.2.2.jar:47.2] {}
+	... 35 more
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Render thread
+Stacktrace:
+	at net.minecraftforge.fml.javafmlmod.FMLModContainer.acceptEvent(FMLModContainer.java:155) ~[language-java-47.2.2.jar%23182!/:47.2] {}
+	at net.minecraftforge.fml.ModLoader.lambda$postEvent$29(ModLoader.java:326) ~[core-47.2.2.jar%23185!/:47.2] {}
+	at java.lang.Iterable.forEach(Iterable.java:75) ~[?:?] {re:computing_frames,re:mixin}
+	at net.minecraftforge.fml.ModList.forEachModInOrder(ModList.java:227) ~[core-47.2.2.jar%23185!/:47.2] {}
+	at net.minecraftforge.fml.ModLoader.postEvent(ModLoader.java:326) ~[core-47.2.2.jar%23185!/:47.2] {}
+	at net.minecraft.client.renderer.GameRenderer.reloadShaders(GameRenderer.java:616) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar%23181!/:?] {re:mixin,pl:accesstransformer:B,pl:runtimedistcleaner:A,re:classloading,pl:accesstransformer:B,pl:runtimedistcleaner:A}
+	at net.minecraft.client.renderer.GameRenderer$1.apply(GameRenderer.java:379) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar%23181!/:?] {re:classloading}
+	at net.minecraft.client.renderer.GameRenderer$1.apply(GameRenderer.java:357) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar%23181!/:?] {re:classloading}
+	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:13) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar%23181!/:?] {re:classloading}
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire$$$capture(CompletableFuture.java:718) ~[?:?] {}
+	at java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java) ~[?:?] {}
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:482) ~[?:?] {}
+	at net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$new$3(SimpleReloadInstance.java:69) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar%23181!/:?] {re:classloading}
+	at net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:156) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar%23181!/:?] {re:mixin,pl:accesstransformer:B,re:computing_frames,pl:accesstransformer:B,re:classloading,pl:accesstransformer:B}
+	at net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar%23181!/:?] {re:mixin,re:computing_frames,re:classloading}
+	at net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:130) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar%23181!/:?] {re:mixin,pl:accesstransformer:B,re:computing_frames,pl:accesstransformer:B,re:classloading,pl:accesstransformer:B}
+-- Overlay render details --
+Details:
+	Overlay name: net.minecraftforge.client.loading.ForgeLoadingOverlay
+Stacktrace:
+	at net.minecraft.client.renderer.GameRenderer.render(GameRenderer.java:961) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar:?] {re:mixin,pl:accesstransformer:B,pl:runtimedistcleaner:A,re:classloading,pl:accesstransformer:B,pl:runtimedistcleaner:A}
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1146) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar:?] {re:mixin,pl:accesstransformer:B,pl:runtimedistcleaner:A,re:classloading,pl:accesstransformer:B,pl:mixin:APP:immersiveengineering.mixins.json:accessors.client.MinecraftAccess,pl:mixin:A,pl:runtimedistcleaner:A}
+	at net.minecraft.client.Minecraft.run(Minecraft.java:718) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar:?] {re:mixin,pl:accesstransformer:B,pl:runtimedistcleaner:A,re:classloading,pl:accesstransformer:B,pl:mixin:APP:immersiveengineering.mixins.json:accessors.client.MinecraftAccess,pl:mixin:A,pl:runtimedistcleaner:A}
+	at net.minecraft.client.main.Main.main(Main.java:218) ~[forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar:?] {re:classloading,pl:runtimedistcleaner:A}
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?] {}
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?] {}
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?] {}
+	at java.lang.reflect.Method.invoke(Method.java:569) ~[?:?] {}
+	at net.minecraftforge.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:126) ~[loader-47.2.2.jar:47.2] {}
+	at net.minecraftforge.fml.loading.targets.CommonLaunchHandler.clientService(CommonLaunchHandler.java:114) ~[loader-47.2.2.jar:47.2] {}
+	at net.minecraftforge.fml.loading.targets.ForgeClientUserdevLaunchHandler.runService(ForgeClientUserdevLaunchHandler.java:19) ~[loader-47.2.2.jar:47.2] {}
+	at net.minecraftforge.fml.loading.targets.CommonLaunchHandler.lambda$launchService$4(CommonLaunchHandler.java:108) ~[loader-47.2.2.jar:47.2] {}
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.10.jar:?] {}
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.10.jar:?] {}
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.10.jar:?] {}
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.10.jar:?] {}
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.10.jar:?] {}
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.10.jar:?] {}
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.10.jar:?] {}
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?] {}
+
+
+-- Last reload --
+Details:
+	Reload number: 1
+	Reload reason: initial
+	Finished: No
+	Packs: vanilla, mod_resources
+
+-- System Details --
+Details:
+	Minecraft Version: 1.20.1
+	Minecraft Version ID: 1.20.1
+	Operating System: Linux (amd64) version 6.8.0-54-generic
+	Java Version: 17.0.14, Ubuntu
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Ubuntu
+	Memory: 1085423152 bytes (1035 MiB) / 1711276032 bytes (1632 MiB) up to 16626221056 bytes (15856 MiB)
+	CPUs: 24
+	Processor Vendor: AuthenticAMD
+	Processor Name: AMD Ryzen 9 7900X 12-Core Processor
+	Identifier: AuthenticAMD Family 25 Model 97 Stepping 2
+	Microarchitecture: Zen 3
+	Frequency (GHz): 5.73
+	Number of physical packages: 1
+	Number of physical CPUs: 12
+	Number of logical CPUs: 24
+	Graphics card #0 name: Navi 31 [Radeon RX 7900 XT/7900 XTX/7900M]
+	Graphics card #0 vendor: Advanced Micro Devices, Inc. [AMD/ATI] (0x1002)
+	Graphics card #0 VRAM (MB): 33024.00
+	Graphics card #0 deviceId: 0x744c
+	Graphics card #0 versionInfo: unknown
+	Graphics card #1 name: Raphael
+	Graphics card #1 vendor: Advanced Micro Devices, Inc. [AMD/ATI] (0x1002)
+	Graphics card #1 VRAM (MB): 258.00
+	Graphics card #1 deviceId: 0x164e
+	Graphics card #1 versionInfo: unknown
+	Virtual memory max (MB): 32676.87
+	Virtual memory used (MB): 17413.56
+	Swap memory total (MB): 976.00
+	Swap memory used (MB): 0.00
+	JVM Flags: 0 total; 
+	Launched Version: MOD_DEV
+	Backend library: LWJGL version 3.3.1 build 7
+	Backend API: AMD Radeon RX 7900 XTX (radeonsi, navi31, LLVM 19.1.1, DRM 3.57, 6.8.0-54-generic) GL version 4.6 (Core Profile) Mesa 25.0~git2502210600.64552d~oibaf~n (git-64552db 2025-02-21 noble-oibaf-ppa), AMD
+	Window size: 1532x1405
+	GL Caps: Using framebuffer using OpenGL 3.2
+	GL debug messages: 
+	Using VBOs: Yes
+	Is Modded: Definitely; Client brand changed to 'forge'
+	Type: Client (map_client.txt)
+	Graphics mode: fancy
+	Resource Packs: 
+	Current Language: en_us
+	CPU: 24x AMD Ryzen 9 7900X 12-Core Processor
+	ModLauncher: 10.0.10+10.0.10+main.22f00f84
+	ModLauncher launch target: forgeclientuserdev
+	ModLauncher naming: mcp
+	ModLauncher services: 
+		mixin-0.8.5.jar mixin PLUGINSERVICE 
+		eventbus-6.0.5.jar eventbus PLUGINSERVICE 
+		loader-47.2.2.jar slf4jfixer PLUGINSERVICE 
+		loader-47.2.2.jar object_holder_definalize PLUGINSERVICE 
+		loader-47.2.2.jar runtime_enum_extender PLUGINSERVICE 
+		loader-47.2.2.jar capability_token_subclass PLUGINSERVICE 
+		accesstransformers-8.0.4.jar accesstransformer PLUGINSERVICE 
+		loader-47.2.2.jar runtimedistcleaner PLUGINSERVICE 
+		modlauncher-10.0.10.jar mixin TRANSFORMATIONSERVICE 
+		modlauncher-10.0.10.jar fml TRANSFORMATIONSERVICE 
+	FML Language Providers: 
+		lowcodefml@47.2
+		minecraft@47.2
+		javafml@47.2
+	Mod List: 
+		forge-1.20.1-47.1.106_mapped_parchment_1.19.3-2023|Minecraft                     |minecraft                     |1.20.1              |DONE      |Manifest: a1:d4:5e:04:4f:d3:d6:e0:7b:37:97:cf:77:b0:de:ad:4a:47:ce:8c:96:49:5f:0a:cf:8c:ae:b2:6d:4b:8a:3f
+		                                                  |NeoForge                      |forge                         |47.1.106            |DONE      |Manifest: NOSIGNATURE
+		main                                              |Engineered Schematics         |engineered_schematics         |1.1.0               |DONE      |Manifest: NOSIGNATURE
+		immersive-engineering-231951-5224387_mapped_parchm|Immersive Engineering         |immersiveengineering          |1.20.1-10.1.0-171   |DONE      |Manifest: NOSIGNATURE
+		jei-1.20.1-forge-15.2.0.23_mapped_parchment_1.19.3|Just Enough Items             |jei                           |15.2.0.23           |DONE      |Manifest: NOSIGNATURE
+	Crash Report UUID: d668d694-c043-4053-84e7-599b32bac6ec
+	FML: 47.1
+	NeoForge: net.neoforged:47.1.106

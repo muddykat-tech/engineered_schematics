@@ -14,13 +14,15 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.registries.RegistryObject;
 import tech.muddykat.engineered_schematics.block.entity.SchematicTableBlockEntity;
 import tech.muddykat.engineered_schematics.helper.IInteractionObjectES;
 
 import java.util.function.Supplier;
 
 public class SchematicDeskBlock<T extends BlockEntity> extends DeskBlock<T> {
-    public SchematicDeskBlock(Supplier<BlockEntityType<T>> tileType, Properties props) {
+    public SchematicDeskBlock(RegistryObject<BlockEntityType<T>> tileType, Properties props) {
         super(tileType, props);
     }
 
@@ -41,13 +43,13 @@ public class SchematicDeskBlock<T extends BlockEntity> extends DeskBlock<T> {
                         // This can be removed once IEBaseContainerOld is gone
                         var tempMenu = interaction.createMenu(0, player.getInventory(), player);
                         if(tempMenu instanceof IEBaseContainerOld<?>)
-                            serverPlayer.openMenu(interaction, ((BlockEntity)interaction).getBlockPos());
+                            NetworkHooks.openScreen(serverPlayer, interaction, ((BlockEntity)interaction).getBlockPos());
                         else
-                            serverPlayer.openMenu(interaction);
+                            NetworkHooks.openScreen(serverPlayer, interaction);
                     }
                 }
                 else
-                    serverPlayer.openMenu(menuProvider);
+                    NetworkHooks.openScreen(serverPlayer, menuProvider);
             }
             return InteractionResult.SUCCESS;
         }
