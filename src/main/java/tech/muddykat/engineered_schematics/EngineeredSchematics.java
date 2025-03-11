@@ -22,7 +22,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import org.slf4j.Logger;
 import tech.muddykat.engineered_schematics.client.renderer.CorkboardRenderer;
 import tech.muddykat.engineered_schematics.client.renderer.ESDynamicModel;
 import tech.muddykat.engineered_schematics.event.SchematicPickBlockHandler;
@@ -39,15 +38,11 @@ import static tech.muddykat.engineered_schematics.registry.ESRegistry.BLOCK_ITEM
 @Mod(EngineeredSchematics.MODID)
 public class EngineeredSchematics
 {
-    // Define mod id in a common place for everything to reference
     public static final String MODID = "engineered_schematics";
     public static final String SCHEMATIC_GUIID = "schematic_table";
-    // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
-    // The constructor for the mod class is the first code that is run when your mod is loaded.
-    // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
     public EngineeredSchematics(IEventBus modEventBus)
     {
+        LogUtils.getLogger().info("Starting Engineered Schematics");
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
         ESRegistry.register(modEventBus);
@@ -131,5 +126,4 @@ public class EngineeredSchematics
     public static ResourceLocation makeTextureLocation(String name) {
         return new ResourceLocation(MODID,"textures/gui/" + name + ".png");
     }
-
 }

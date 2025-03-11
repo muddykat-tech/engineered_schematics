@@ -4,12 +4,13 @@ import net.minecraftforge.gradle.common.tasks.SignJar
 import org.gradle.work.Incremental
 
 plugins {
-    id 'net.neoforged.gradle' version '6.0.+'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
     id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     id 'org.jetbrains.gradle.plugin.idea-ext' version '1.1.6'
     id 'eclipse'
+    id 'idea'
 }
 
 version = project.mod_version
@@ -184,14 +185,14 @@ repositories {
 project.ext.lwjglVersion = "3.3.6"
 project.ext.lwjglNatives = "natives-linux"
 dependencies {
-    minecraft "net.neoforged:forge:${version_minecraft}-${version_forge}"
+    minecraft "net.minecraftforge:forge:${version_minecraft}-${version_forge}"
 
     compileOnly fg.deobf("mezz.jei:jei-1.20.1-forge-api:${version_jei}")
     compileOnly fg.deobf("mezz.jei:jei-1.20.1-common-api:${version_jei}")
 
     implementation fg.deobf("mezz.jei:jei-1.20.1-forge:${version_jei}")
 
-    implementation fg.deobf("curse.maven:immersive-engineering-231951:5224387")
+    implementation fg.deobf("curse.maven:immersive-engineering-231951:6206989")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }

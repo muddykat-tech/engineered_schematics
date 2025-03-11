@@ -1,7 +1,6 @@
 package tech.muddykat.engineered_schematics.registry;
 
 import blusunrize.immersiveengineering.api.multiblocks.MultiblockHandler;
-import blusunrize.immersiveengineering.api.multiblocks.TemplateMultiblock;
 import blusunrize.immersiveengineering.common.blocks.multiblocks.IEMultiblocks;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.core.registries.Registries;

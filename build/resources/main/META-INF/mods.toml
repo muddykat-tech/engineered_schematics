@@ -23,7 +23,7 @@ license="All Rights Reserved"
 modId="engineered_schematics" #mandatory
 
 # The version number of the mod
-version="1.1.0" #mandatory
+version="1.1.1" #mandatory
 logoFile = "logo.png"
 # A display name for the mod
 displayName="Engineered Schematics" #mandatory
@@ -94,7 +94,7 @@ description='''A mod designed to assist in the building of multiblock structures
 [[dependencies.engineered_schematics]]
     modId="immersiveengineering"
     mandatory=true
-    versionRange="[1.20.1-10.1.0-171,)"
+    versionRange="[1.20.1-10.2.0-183,)"
     ordering="BEFORE"
     side="BOTH"
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares

@@ -113,6 +113,36 @@
     },
     "done": true
   },
+  "minecraft:recipes/decorations/campfire": {
+    "criteria": {
+      "has_stick": "2025-03-08 15:01:35 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/wooden_hoe": {
+    "criteria": {
+      "has_stick": "2025-03-08 15:01:35 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/wooden_pickaxe": {
+    "criteria": {
+      "has_stick": "2025-03-08 15:01:35 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/wooden_shovel": {
+    "criteria": {
+      "has_stick": "2025-03-08 15:01:35 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/combat/wooden_sword": {
+    "criteria": {
+      "has_stick": "2025-03-08 15:01:35 +1100"
+    },
+    "done": true
+  },
   "minecraft:recipes/decorations/white_candle": {
     "criteria": {
       "has_white_dye": "2025-03-08 15:02:13 +1100"
@@ -122,12 +152,6 @@
   "minecraft:recipes/building_blocks/dye_white_bed": {
     "criteria": {
       "has_needed_dye": "2025-03-08 15:02:13 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/misc/schematic_table": {
-    "criteria": {
-      "has_crafting_table": "2025-03-08 15:02:18 +1100"
     },
     "done": true
   },
@@ -161,30 +185,6 @@
     },
     "done": true
   },
-  "minecraft:recipes/decorations/campfire": {
-    "criteria": {
-      "has_stick": "2025-03-08 15:01:35 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/tools/wooden_hoe": {
-    "criteria": {
-      "has_stick": "2025-03-08 15:01:35 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/tools/wooden_pickaxe": {
-    "criteria": {
-      "has_stick": "2025-03-08 15:01:35 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/tools/wooden_shovel": {
-    "criteria": {
-      "has_stick": "2025-03-08 15:01:35 +1100"
-    },
-    "done": true
-  },
   "minecraft:recipes/building_blocks/dye_white_wool": {
     "criteria": {
       "has_needed_dye": "2025-03-08 15:02:13 +1100"
@@ -194,12 +194,6 @@
   "minecraft:recipes/misc/pink_dye_from_red_white_dye": {
     "criteria": {
       "has_white_dye": "2025-03-08 15:02:13 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/combat/wooden_sword": {
-    "criteria": {
-      "has_stick": "2025-03-08 15:01:35 +1100"
     },
     "done": true
   },
@@ -221,9 +215,21 @@
     },
     "done": true
   },
+  "minecraft:recipes/misc/schematic_table": {
+    "criteria": {
+      "has_crafting_table": "2025-03-08 15:02:18 +1100"
+    },
+    "done": true
+  },
   "minecraft:story/root": {
     "criteria": {
       "crafting_table": "2025-03-08 15:02:18 +1100"
+    },
+    "done": true
+  },
+  "immersiveengineering:main/main_root": {
+    "criteria": {
+      "has_item": "2025-03-09 23:04:40 +1100"
     },
     "done": true
   },
