@@ -19,6 +19,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.glfw.GLFW;
+import tech.muddykat.engineered_schematics.helper.SchematicRenderer;
 import tech.muddykat.engineered_schematics.item.ESSchematicSettings;
 import tech.muddykat.engineered_schematics.item.SchematicProjection;
 import tech.muddykat.engineered_schematics.registry.ESRegistry;
@@ -76,7 +77,7 @@ public class SchematicPickBlockHandler {
 
                 if (structure_block_world_position.getY() == (structure_placed_at.getY() + finalY)) {
                     BlockState worldState = world.getBlockState(structure_block_world_position);
-                    return !worldState.getBlock().equals(p.tBlockInfo.state().getBlock());
+                    return !SchematicRenderer.isValidBlockForSchematic(p.tBlockInfo.state(), worldState, world, structure_block_world_position);
                 }
 
                 return false;

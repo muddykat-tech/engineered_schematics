@@ -263,12 +263,6 @@
     },
     "done": true
   },
-  "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_orange_to_slab": {
-    "criteria": {
-      "has_sheetmetal_colored_orange": "2025-05-24 18:55:54 +1000"
-    },
-    "done": true
-  },
   "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_brown": {
     "criteria": {
       "has_sheetmetal": "2025-05-24 18:55:35 +1000"
@@ -335,12 +329,6 @@
     },
     "done": true
   },
-  "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_orange_from_slab": {
-    "criteria": {
-      "has_sheetmetal_colored_orange": "2025-05-24 18:55:54 +1000"
-    },
-    "done": true
-  },
   "immersiveengineering:recipes/misc/crafting/metal_barrel": {
     "criteria": {
       "has_iron_sheet_slab": "2025-05-24 18:55:35 +1000"
@@ -350,12 +338,6 @@
   "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_cyan": {
     "criteria": {
       "has_sheetmetal": "2025-05-24 18:55:35 +1000"
-    },
-    "done": true
-  },
-  "immersiveengineering:multiblocks/mb_tank": {
-    "criteria": {
-      "form_multiblock": "2025-05-24 18:55:47 +1000"
     },
     "done": true
   },
@@ -398,6 +380,60 @@
   "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_pink": {
     "criteria": {
       "has_sheetmetal": "2025-05-24 18:55:35 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:multiblocks/mb_tank": {
+    "criteria": {
+      "form_multiblock": "2025-05-24 18:55:47 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_orange_to_slab": {
+    "criteria": {
+      "has_sheetmetal_colored_orange": "2025-05-24 18:55:54 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_orange_from_slab": {
+    "criteria": {
+      "has_sheetmetal_colored_orange": "2025-05-24 18:55:54 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/generator": {
+    "criteria": {
+      "has_steel_sheetmetal": "2025-05-24 19:03:30 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/heavy_engineering": {
+    "criteria": {
+      "has_steel_sheetmetal": "2025-05-24 19:03:30 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_steel_from_slab": {
+    "criteria": {
+      "has_sheetmetal_steel": "2025-05-24 19:03:30 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_steel_to_slab": {
+    "criteria": {
+      "has_sheetmetal_steel": "2025-05-24 19:03:30 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/blastbrick_reinforced_from_slab": {
+    "criteria": {
+      "has_blastbrick_reinforced": "2025-05-24 19:07:45 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/blastbrick_reinforced_to_slab": {
+    "criteria": {
+      "has_blastbrick_reinforced": "2025-05-24 19:07:45 +1000"
     },
     "done": true
   },

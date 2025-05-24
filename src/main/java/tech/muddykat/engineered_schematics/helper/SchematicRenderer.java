@@ -176,7 +176,7 @@ public class SchematicRenderer
         return false;
     }
 
-    private static boolean isValidBlockForSchematic(BlockState expected_state, BlockState checkState, Level world, BlockPos position) {
+    public static boolean isValidBlockForSchematic(BlockState expected_state, BlockState checkState, Level world, BlockPos position) {
         return BlockMatcher.matches(expected_state, checkState, world, position).isAllow();
     }
 
