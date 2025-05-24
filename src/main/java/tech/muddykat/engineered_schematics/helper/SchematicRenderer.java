@@ -1,8 +1,15 @@
 package tech.muddykat.engineered_schematics.helper;
 
+import blusunrize.immersiveengineering.api.IEProperties;
+import blusunrize.immersiveengineering.api.multiblocks.BlockMatcher;
 import blusunrize.immersiveengineering.api.multiblocks.MultiblockHandler;
 import blusunrize.immersiveengineering.api.multiblocks.blocks.logic.IMultiblockBE;
+import blusunrize.immersiveengineering.common.blocks.IEBaseBlockEntity;
+import blusunrize.immersiveengineering.common.blocks.multiblocks.IETemplateMultiblock;
+import blusunrize.immersiveengineering.common.register.IEBlockEntities;
+import blusunrize.immersiveengineering.common.register.IEBlocks;
 import blusunrize.immersiveengineering.common.register.IEItems;
+import com.igteam.immersivegeology.core.lib.IGLib;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -19,22 +26,30 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.model.data.ModelData;
 import org.apache.commons.lang3.mutable.MutableBoolean;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
+import tech.muddykat.engineered_schematics.EngineeredSchematics;
 import tech.muddykat.engineered_schematics.client.ESShaders;
 import tech.muddykat.engineered_schematics.item.ESSchematicSettings;
 import tech.muddykat.engineered_schematics.item.SchematicProjection;
@@ -137,7 +152,7 @@ public class SchematicRenderer
             BlockState targetState = info.getModifiedState(world, realPos);
 
             // Check if block is in correct state
-            if (targetState == currentState) {
+            if (targetState == currentState || isValidBlockForSchematic(currentState, targetState, world, realPos)) {
                 toRender.add(Pair.of(RenderLayer.PERFECT, info));
                 goodBlocks.increment();
                 return false;
@@ -161,6 +176,10 @@ public class SchematicRenderer
         return false;
     }
 
+    private static boolean isValidBlockForSchematic(BlockState expected_state, BlockState checkState, Level world, BlockPos position) {
+        return BlockMatcher.matches(expected_state, checkState, world, position).isAllow();
+    }
+
     private static void renderResults(PoseStack matrix, RenderingState state,
                                       ESSchematicSettings settings, MultiBufferSource.BufferSource mainBuffer, Level world, Player player, Vec3i mbSize,
                                       Map<BlockPos, Boolean> badStates, List<Pair<RenderLayer, SchematicProjection.Info>> toRender) {
@@ -180,7 +199,12 @@ public class SchematicRenderer
         int gridLayer = state.currentLayer();
         for (Pair<RenderLayer, SchematicProjection.Info> pair : toRender) {
             SchematicProjection.Info info = pair.getSecond();
-            boolean isHeld = heldStack.getItem() == info.getRawState().getBlock().asItem();
+
+            BlockState schematic_block_state = info.getRawState().getBlock().defaultBlockState();
+            BlockState held_block_state = heldStack.getItem() instanceof BlockItem block ? block.getBlock().defaultBlockState() : null;
+
+            boolean isHeld = held_block_state != null && isValidBlockForSchematic(schematic_block_state, held_block_state, world, info.tPos);
+
             switch (pair.getFirst()) {
                 case ALL -> renderAllLayer(matrix, world, info, isHeld, state.hasWrongBlock(), mainBuffer);
                 case BAD -> renderBadLayer(matrix, mainBuffer, info, badStates);
@@ -201,35 +225,54 @@ public class SchematicRenderer
         matrix.popPose();
         // Render perfect structure outline
         if (state.perfect()) {
-            assert(settings.getMultiblock() != null);
-            BlockPos formPos = settings.getPos().offset(-Mth.floorDiv(mbSize.getX(),2), 0, -Mth.floorDiv(mbSize.getZ(),2)).offset(settings.getMultiblock().getTriggerOffset());
-            matrix.pushPose();
-
-            matrix.translate(formPos.getX(), formPos.getY(), formPos.getZ() + .5f);
-            ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-            ItemStack hammerStack = new ItemStack(IEItems.Tools.HAMMER);
-            BakedModel itemModel = itemRenderer.getModel(hammerStack, world, null, 0);
-            int hammer = 0xaa0000;
-            float red = (hammer >> 16 & 0xFF) / 255F;
-            float green = (hammer >> 8 & 0xFF) / 255F;
-            float blue = (hammer & 0xFF) / 255F;
-
-            ESShaders.setSchematicRenderData(world.getGameTime(), red,green,blue);
-            MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
-            VertexConsumer vertexConsumer = buffer.getBuffer(ESRenderTypes.SCHEMATIC);
-
-            itemRenderer.renderModelLists(itemModel, hammerStack, 15728880, OverlayTexture.NO_OVERLAY, matrix, vertexConsumer);
-
-            matrix.popPose();
+            assert (settings.getMultiblock() != null);
             BlockPos pos = settings.getPos();
-            BlockPos offset = new BlockPos(-Mth.floorDiv(mbSize.getX(),2), 0, -Mth.floorDiv(mbSize.getZ(),2));
-
-            matrix.translate(pos.getX(),pos.getY(),pos.getZ());
-            renderOutlineBox(mainBuffer, matrix, min, max, COLOR_SUCCESS);
             matrix.pushPose();
+            {
+                BlockPos offset = new BlockPos(-Mth.floorDiv(mbSize.getX(), 2), 0, -Mth.floorDiv(mbSize.getZ(), 2));
+                matrix.translate(pos.getX(), pos.getY(), pos.getZ());
+                renderOutlineBox(mainBuffer, matrix, min, max, COLOR_SUCCESS);
+                matrix.pushPose();
+                {
+                    matrix.translate(offset.getX(), offset.getY(), offset.getZ());
+                    drawFrontGroundText(matrix, new Vec3((int) mbSize.getX(), 0, (int) mbSize.getZ()), mainBuffer, settings.getRotation(), settings.getMultiblock(), 0x66ffffff, Component.translatable("item.engineered_schematics.multiblock_schematic.formed"));
+                }
+                matrix.popPose();
 
-            matrix.translate(offset.getX(),offset.getY(),offset.getZ());
-            drawFrontGroundText(matrix, new Vec3((int)mbSize.getX(),0,(int)mbSize.getZ()), mainBuffer, settings.getRotation(), settings.getMultiblock(),0x66ffffff, Component.translatable("item.engineered_schematics.multiblock_schematic.formed"));
+            }
+            matrix.popPose();
+
+            Rotation rotation = settings.getRotation();
+            BlockPos trigger = settings.getMultiblock().getTriggerOffset().rotate(rotation);
+            matrix.pushPose();
+            {
+                BlockPos off = new BlockPos(0,0,1).rotate(rotation);
+                float offA = 0.55f;
+                matrix.translate(pos.getX() + (off.getX() * offA), pos.getY()+ (off.getY() * offA), pos.getZ()+ (off.getZ() * offA));
+                BlockPos offset = new BlockPos(-Mth.floorDiv(mbSize.getX(), 2), 0, -Mth.floorDiv(mbSize.getZ(), 2)).rotate(rotation);
+                matrix.translate(offset.getX(), offset.getY(), offset.getZ());
+                matrix.pushPose();
+                {
+                    if(rotation.equals(Rotation.CLOCKWISE_90)) matrix.translate(0,0,1);
+                    if(rotation.equals(Rotation.COUNTERCLOCKWISE_90)) matrix.translate(1,0,0);
+                    if(rotation.equals(Rotation.CLOCKWISE_180)) matrix.translate(1,0,1);
+                    matrix.translate(trigger.getX(), trigger.getY(),trigger.getZ());
+                    matrix.mulPose(new Quaternionf().rotateY((90 * rotation.ordinal()) * Mth.DEG_TO_RAD));
+                    ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
+                    ItemStack hammerStack = settings.getFormationTool();
+                    BakedModel itemModel = itemRenderer.getModel(hammerStack, world, null, 0);
+                    int hammer = 0xaa0000;
+                    float red = (hammer >> 16 & 0xFF) / 255F;
+                    float green = (hammer >> 8 & 0xFF) / 255F;
+                    float blue = (hammer & 0xFF) / 255F;
+
+                    ESShaders.setSchematicRenderData(world.getGameTime(), red, green, blue);
+                    MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
+                    VertexConsumer vertexConsumer = buffer.getBuffer(ESRenderTypes.SCHEMATIC);
+                    itemRenderer.renderModelLists(itemModel, hammerStack, 15728880, OverlayTexture.NO_OVERLAY, matrix, vertexConsumer);
+                }
+                matrix.popPose();
+            }
             matrix.popPose();
         }
     }

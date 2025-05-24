@@ -52,7 +52,13 @@ public class SchematicInventory extends SimpleContainer
                     settings.setMirror(this.menu.isMirroredSchematic);
                     settings.setRotation(Rotation.NONE);
                     settings.setPlaced(false);
+                    if(EngineeredSchematics.hasFormationItem(template.getUniqueName()))
+                    {
+                        settings.setFormationTool(EngineeredSchematics.getFormationItem(template.getUniqueName()));
+                    }
                     settings.applyTo(schematic);
+
+
                     this.setItem(i, schematic.copy());
                 }
                 else

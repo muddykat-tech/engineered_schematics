@@ -59,7 +59,7 @@ public class SchematicItem extends Item {
             Vec3i size = settings.getMultiblock().getSize(worldIn);
             tooltip.add(Component.translatable("desc.engineered_schematics.info.schematic.size", Component.literal("["+ size.getX() +"x" + size.getY() +"x" + size.getZ()+ "]")));
             MultiblockHandler.IMultiblock mb = settings.getMultiblock();
-            String machine_tier_id = "desc.engineered_schematics.info.schematic.ie_tier";
+            String machine_tier_id = settings.getFormationTool().getDescriptionId();
             tooltip.add(Component.translatable("desc.engineered_schematics.info.schematic.tier", Component.translatable(machine_tier_id).withStyle(ChatFormatting.AQUA)));
             tooltip.add(Component.translatable("desc.engineered_schematics.info.schematic.block_info", Component.keybind("shift").withStyle(ChatFormatting.GOLD)));
         } else{

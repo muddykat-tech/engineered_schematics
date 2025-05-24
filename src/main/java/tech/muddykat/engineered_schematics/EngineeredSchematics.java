@@ -10,6 +10,7 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -19,9 +20,13 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLLoader;
+import org.slf4j.Logger;
 import tech.muddykat.engineered_schematics.client.renderer.CorkboardRenderer;
 import tech.muddykat.engineered_schematics.client.renderer.ESDynamicModel;
 import tech.muddykat.engineered_schematics.event.SchematicPickBlockHandler;
@@ -30,8 +35,8 @@ import tech.muddykat.engineered_schematics.client.screen.SchematicsScreen;
 import tech.muddykat.engineered_schematics.registry.ESMenuTypes;
 import tech.muddykat.engineered_schematics.registry.ESRegistry;
 
+import java.util.HashMap;
 import java.util.function.Supplier;
-
 import static tech.muddykat.engineered_schematics.registry.ESRegistry.BLOCK_ITEM_SCHEMATIC_TABLE;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -40,21 +45,47 @@ public class EngineeredSchematics
 {
     public static final String MODID = "engineered_schematics";
     public static final String SCHEMATIC_GUIID = "schematic_table";
-    public EngineeredSchematics(IEventBus modEventBus)
+    public static final Logger LOGGER = LogUtils.getLogger();
+
+    private static final HashMap<ResourceLocation, ItemStack> ES_FORMATION_TEMPLATE = new HashMap<>();
+
+    public EngineeredSchematics()
     {
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         LogUtils.getLogger().info("Starting Engineered Schematics");
+
         // Register the commonSetup method for modloading
-        modEventBus.addListener(this::commonSetup);
         ESRegistry.register(modEventBus);
         ESMenuTypes.register(modEventBus);
-
         ESRegistry.initialize();
-
         modEventBus.addListener(this::addCreative);
+
+        if(FMLLoader.getDist().isClient())
+        {
+            setupCallbacks();
+        }
+    }
+    public static void setupCallbacks()
+    {
+        IEOBJCallbacks.register(rl("schematic_table_block"), SchematicTableCallbacks.INSTANCE);
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event)
+    public static ResourceLocation rl(String path) {
+        return new ResourceLocation(MODID, path);
+    }
+
+    public static void setTemplateFormationItem(ResourceLocation id, ItemStack item)
     {
+        ES_FORMATION_TEMPLATE.replace(id, item);
+    }
+
+    public static boolean hasFormationItem(ResourceLocation uniqueName) {
+        return ES_FORMATION_TEMPLATE.containsKey(uniqueName);
+    }
+
+    public static ItemStack getFormationItem(ResourceLocation uniqueName)
+    {
+        return ES_FORMATION_TEMPLATE.get(uniqueName);
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event)
@@ -69,7 +100,6 @@ public class EngineeredSchematics
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-            IEOBJCallbacks.register(new ResourceLocation(MODID, "schematic_table_block"), SchematicTableCallbacks.INSTANCE);
             MenuScreens.register(ESMenuTypes.SCHEMATICS.getType(), SchematicsScreen::new);
             MinecraftForge.EVENT_BUS.register(new SchematicPickBlockHandler());
             setupManualEntries();
@@ -81,14 +111,6 @@ public class EngineeredSchematics
             CorkboardRenderer.FRAME_EDGE = new ESDynamicModel("frame_edge");
             CorkboardRenderer.CORNER = new ESDynamicModel("corner");
             CorkboardRenderer.SCHEMATIC = new ESDynamicModel("schematic");
-        }
-
-        private static <T extends BlockEntity>
-        void registerBERenderNoContext(
-                EntityRenderersEvent.RegisterRenderers event, Supplier<BlockEntityType<? extends T>> type, Supplier<BlockEntityRenderer<T>> render
-        )
-        {
-            registerBERenderNoContext(event, type.get(), render);
         }
 
         private static <T extends BlockEntity>

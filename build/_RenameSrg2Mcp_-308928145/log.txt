@@ -1,0 +1,15 @@
+Java Launcher: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+Arguments: '--task, SRG_TO_MCP, --input, /home/muddykat/.gradle/caches/modules-2/files-2.1/curse.maven/canary-665658/5089991/898abd9e337ef1c677ce93f5589497a09c7e9850/canary-665658-5089991.jar, --output, /home/muddykat/.gradle/caches/forge_gradle/deobf_dependencies/curse/maven/canary-665658/5089991_mapped_parchment_1.19.3-2023.06.25-1.20.1/canary-665658-5089991_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar, --mcp, /home/muddykat/.gradle/caches/parchmentgradle/org/parchmentmc/data/parchment-1.19.3-1.20.1/2023.06.25/parchment-1.19.3-1.20.1-2023.06.25.zip, --strip-signatures'
+Classpath:
+ - /home/muddykat/.gradle/caches/forge_gradle/maven_downloader/net/minecraftforge/installertools/1.4.4/installertools-1.4.4-fatjar.jar
+Working directory: /home/muddykat/Documents/Github/engineered-schematics/build/_RenameSrg2Mcp_-308928145
+Main class: net.minecraftforge.installertools.ConsoleTool
+====================================
+Task: SRG_TO_MCP
+Input:  /home/muddykat/.gradle/caches/modules-2/files-2.1/curse.maven/canary-665658/5089991/898abd9e337ef1c677ce93f5589497a09c7e9850/canary-665658-5089991.jar
+Output: /home/muddykat/.gradle/caches/forge_gradle/deobf_dependencies/curse/maven/canary-665658/5089991_mapped_parchment_1.19.3-2023.06.25-1.20.1/canary-665658-5089991_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar
+MCP:    /home/muddykat/.gradle/caches/parchmentgradle/org/parchmentmc/data/parchment-1.19.3-1.20.1/2023.06.25/parchment-1.19.3-1.20.1-2023.06.25.zip
+Loading MCP Data
+Processing ZIP file
+Stripped Manifest of sha digests
+Process complete

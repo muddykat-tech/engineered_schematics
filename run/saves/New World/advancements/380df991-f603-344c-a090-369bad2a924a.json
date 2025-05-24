@@ -1,235 +1,403 @@
 {
   "minecraft:recipes/decorations/crafting_table": {
     "criteria": {
-      "unlock_right_away": "2025-03-08 14:52:13 +1100"
+      "unlock_right_away": "2025-03-21 11:50:49 +1100"
     },
     "done": true
   },
   "minecraft:adventure/adventuring_time": {
     "criteria": {
-      "minecraft:taiga": "2025-03-08 14:52:16 +1100"
+      "minecraft:plains": "2025-03-21 11:50:51 +1100"
     },
     "done": false
   },
+  "immersiveengineering:recipes/misc/crafting/survey_tools": {
+    "criteria": {
+      "has_hammer": "2025-03-21 12:49:37 +1100"
+    },
+    "done": true
+  },
+  "immersiveengineering:main/craft_hammer": {
+    "criteria": {
+      "has_item": "2025-03-21 12:49:37 +1100"
+    },
+    "done": true
+  },
+  "immersiveengineering:multiblocks/mb_crusher": {
+    "criteria": {
+      "form_multiblock": "2025-03-21 12:49:38 +1100"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/powerpack": {
+    "criteria": {
+      "has_connector_lv": "2025-03-21 12:50:09 +1100"
+    },
+    "done": true
+  },
+  "immersiveengineering:multiblocks/mb_refinery": {
+    "criteria": {
+      "form_multiblock": "2025-03-21 12:50:36 +1100"
+    },
+    "done": true
+  },
+  "immersiveengineering:multiblocks/mb_improvedblastfurnace": {
+    "criteria": {
+      "form_multiblock": "2025-03-21 12:50:56 +1100"
+    },
+    "done": true
+  },
   "minecraft:recipes/misc/recycle_schematic": {
     "criteria": {
-      "has_crafting_table": "2025-03-08 14:52:19 +1100"
+      "has_crafting_table": "2025-03-21 12:51:19 +1100"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/radiator": {
+    "criteria": {
+      "has_water_bucket": "2025-03-21 12:54:09 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/brewing/cauldron": {
+    "criteria": {
+      "has_water_bucket": "2025-03-21 12:54:09 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/cherry_boat": {
+    "criteria": {
+      "in_water": "2025-03-21 12:54:12 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/bamboo_raft": {
+    "criteria": {
+      "in_water": "2025-03-21 12:54:12 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/spruce_boat": {
+    "criteria": {
+      "in_water": "2025-03-21 12:54:12 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/birch_boat": {
+    "criteria": {
+      "in_water": "2025-03-21 12:54:12 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/oak_boat": {
+    "criteria": {
+      "in_water": "2025-03-21 12:54:12 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/mangrove_boat": {
+    "criteria": {
+      "in_water": "2025-03-21 12:54:12 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/acacia_boat": {
+    "criteria": {
+      "in_water": "2025-03-21 12:54:12 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/jungle_boat": {
+    "criteria": {
+      "in_water": "2025-03-21 12:54:12 +1100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/dark_oak_boat": {
+    "criteria": {
+      "in_water": "2025-03-21 12:54:12 +1100"
     },
     "done": true
   },
   "immersiveengineering:recipes/misc/crafting/blueprint_molds": {
     "criteria": {
-      "has_paper": "2025-03-08 14:52:25 +1100"
+      "has_paper": "2025-03-21 12:54:34 +1100"
     },
     "done": true
   },
   "immersiveengineering:recipes/misc/crafting/blueprint_bannerpatterns": {
     "criteria": {
-      "has_paper": "2025-03-08 14:52:25 +1100"
+      "has_paper": "2025-03-21 12:54:34 +1100"
     },
     "done": true
   },
   "minecraft:recipes/misc/book": {
     "criteria": {
-      "has_paper": "2025-03-08 14:52:25 +1100"
+      "has_paper": "2025-03-21 12:54:34 +1100"
     },
     "done": true
   },
   "immersiveengineering:recipes/misc/crafting/blueprint_components": {
     "criteria": {
-      "has_paper": "2025-03-08 14:52:25 +1100"
+      "has_paper": "2025-03-21 12:54:34 +1100"
     },
     "done": true
   },
   "immersiveengineering:recipes/misc/crafting/blueprint_bullets": {
     "criteria": {
-      "has_paper": "2025-03-08 14:52:25 +1100"
+      "has_paper": "2025-03-21 12:54:34 +1100"
     },
     "done": true
   },
   "minecraft:recipes/decorations/cartography_table": {
     "criteria": {
-      "has_paper": "2025-03-08 14:52:25 +1100"
+      "has_paper": "2025-03-21 12:54:34 +1100"
     },
     "done": true
   },
   "immersiveengineering:recipes/misc/crafting/stairs_steel_scaffolding_standard": {
     "criteria": {
-      "has_steel_scaffolding_standard": "2025-03-08 14:52:41 +1100"
+      "has_steel_scaffolding_standard": "2025-03-21 13:24:27 +1100"
     },
     "done": true
   },
   "immersiveengineering:recipes/misc/crafting/steel_slope": {
     "criteria": {
-      "has_steel_scaffolding_standard": "2025-03-08 14:52:41 +1100"
+      "has_steel_scaffolding_standard": "2025-03-21 13:24:27 +1100"
     },
     "done": true
   },
   "immersiveengineering:recipes/misc/crafting/steel_scaffolding_grate_top_from_standard": {
     "criteria": {
-      "has_steel_scaffolding_standard": "2025-03-08 14:52:41 +1100"
+      "has_steel_scaffolding_standard": "2025-03-21 13:24:27 +1100"
     },
     "done": true
   },
   "immersiveengineering:recipes/misc/crafting/sample_drill": {
     "criteria": {
-      "has_steel_scaffolding_standard": "2025-03-08 14:52:41 +1100"
+      "has_steel_scaffolding_standard": "2025-03-21 13:24:27 +1100"
     },
     "done": true
   },
   "immersiveengineering:recipes/misc/crafting/steel_scaffolding_standard_to_slab": {
     "criteria": {
-      "has_steel_scaffolding_standard": "2025-03-08 14:52:41 +1100"
+      "has_steel_scaffolding_standard": "2025-03-21 13:24:27 +1100"
     },
     "done": true
   },
   "immersiveengineering:recipes/misc/crafting/steel_scaffolding_standard_from_slab": {
     "criteria": {
-      "has_steel_scaffolding_standard": "2025-03-08 14:52:41 +1100"
+      "has_steel_scaffolding_standard": "2025-03-21 13:24:27 +1100"
     },
     "done": true
   },
-  "immersiveengineering:recipes/misc/crafting/steel_post": {
+  "immersiveengineering:recipes/misc/crafting/fluid_pump": {
     "criteria": {
-      "has_steel_fence": "2025-03-08 14:52:52 +1100"
+      "has_fluid_pipe": "2025-03-21 13:24:31 +1100"
     },
     "done": true
   },
-  "minecraft:recipes/decorations/ladder": {
+  "immersiveengineering:recipes/misc/crafting/fluid_sorter": {
     "criteria": {
-      "has_stick": "2025-03-08 15:01:35 +1100"
+      "has_fluid_pipe": "2025-03-21 13:24:31 +1100"
     },
     "done": true
   },
-  "immersiveengineering:recipes/misc/crafting/torch": {
+  "immersiveengineering:recipes/misc/crafting/drill": {
     "criteria": {
-      "has_stick": "2025-03-08 15:01:35 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/tools/wooden_axe": {
-    "criteria": {
-      "has_stick": "2025-03-08 15:01:35 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/decorations/campfire": {
-    "criteria": {
-      "has_stick": "2025-03-08 15:01:35 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/tools/wooden_hoe": {
-    "criteria": {
-      "has_stick": "2025-03-08 15:01:35 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/tools/wooden_pickaxe": {
-    "criteria": {
-      "has_stick": "2025-03-08 15:01:35 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/tools/wooden_shovel": {
-    "criteria": {
-      "has_stick": "2025-03-08 15:01:35 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/combat/wooden_sword": {
-    "criteria": {
-      "has_stick": "2025-03-08 15:01:35 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/decorations/white_candle": {
-    "criteria": {
-      "has_white_dye": "2025-03-08 15:02:13 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/building_blocks/dye_white_bed": {
-    "criteria": {
-      "has_needed_dye": "2025-03-08 15:02:13 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/decorations/white_stained_glass_pane_from_glass_pane": {
-    "criteria": {
-      "has_white_dye": "2025-03-08 15:02:13 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/misc/lime_dye": {
-    "criteria": {
-      "has_white_dye": "2025-03-08 15:02:13 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/misc/light_blue_dye_from_blue_white_dye": {
-    "criteria": {
-      "has_white_dye": "2025-03-08 15:02:13 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/misc/light_gray_dye_from_gray_white_dye": {
-    "criteria": {
-      "has_white_dye": "2025-03-08 15:02:13 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/building_blocks/dye_white_carpet": {
-    "criteria": {
-      "has_needed_dye": "2025-03-08 15:02:13 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/building_blocks/dye_white_wool": {
-    "criteria": {
-      "has_needed_dye": "2025-03-08 15:02:13 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/misc/pink_dye_from_red_white_dye": {
-    "criteria": {
-      "has_white_dye": "2025-03-08 15:02:13 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/misc/gray_dye": {
-    "criteria": {
-      "has_white_dye": "2025-03-08 15:02:13 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/misc/light_gray_dye_from_black_white_dye": {
-    "criteria": {
-      "has_white_dye": "2025-03-08 15:02:13 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/misc/magenta_dye_from_blue_red_white_dye": {
-    "criteria": {
-      "has_white_dye": "2025-03-08 15:02:13 +1100"
-    },
-    "done": true
-  },
-  "minecraft:recipes/misc/schematic_table": {
-    "criteria": {
-      "has_crafting_table": "2025-03-08 15:02:18 +1100"
-    },
-    "done": true
-  },
-  "minecraft:story/root": {
-    "criteria": {
-      "crafting_table": "2025-03-08 15:02:18 +1100"
+      "has_heavy_engineering": "2025-03-21 13:24:36 +1100"
     },
     "done": true
   },
   "immersiveengineering:main/main_root": {
     "criteria": {
-      "has_item": "2025-03-09 23:04:40 +1100"
+      "has_item": "2025-03-21 13:25:47 +1100"
+    },
+    "done": true
+  },
+  "immersiveengineering:multiblocks/mb_dieselgen": {
+    "criteria": {
+      "form_multiblock": "2025-03-21 13:25:58 +1100"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/steel_post": {
+    "criteria": {
+      "has_steel_fence": "2025-03-24 20:56:49 +1100"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/storage_steel_to_slab": {
+    "criteria": {
+      "has_storage_steel": "2025-05-24 18:33:05 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/storage_steel_from_slab": {
+    "criteria": {
+      "has_storage_steel": "2025-05-24 18:33:05 +1000"
+    },
+    "done": true
+  },
+  "mekanism:root": {
+    "criteria": {
+      "automatic": "2025-05-24 18:35:24 +1000"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/chest": {
+    "criteria": {
+      "has_lots_of_items": "2025-05-24 18:40:14 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_red": {
+    "criteria": {
+      "has_sheetmetal": "2025-05-24 18:55:35 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_magenta": {
+    "criteria": {
+      "has_sheetmetal": "2025-05-24 18:55:35 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_orange_to_slab": {
+    "criteria": {
+      "has_sheetmetal_colored_orange": "2025-05-24 18:55:54 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_brown": {
+    "criteria": {
+      "has_sheetmetal": "2025-05-24 18:55:35 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_gray": {
+    "criteria": {
+      "has_sheetmetal": "2025-05-24 18:55:35 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_light_gray": {
+    "criteria": {
+      "has_sheetmetal": "2025-05-24 18:55:35 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:multiblocks/craft_sheetmetal": {
+    "criteria": {
+      "has_item": "2025-05-24 18:55:35 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_purple": {
+    "criteria": {
+      "has_sheetmetal": "2025-05-24 18:55:35 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_yellow": {
+    "criteria": {
+      "has_sheetmetal": "2025-05-24 18:55:35 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_orange": {
+    "criteria": {
+      "has_sheetmetal": "2025-05-24 18:55:35 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_lime": {
+    "criteria": {
+      "has_sheetmetal": "2025-05-24 18:55:35 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/light_engineering": {
+    "criteria": {
+      "has_iron_sheetmetal": "2025-05-24 18:55:35 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_green": {
+    "criteria": {
+      "has_sheetmetal": "2025-05-24 18:55:35 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/rs_engineering": {
+    "criteria": {
+      "has_iron_sheetmetal": "2025-05-24 18:55:35 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_orange_from_slab": {
+    "criteria": {
+      "has_sheetmetal_colored_orange": "2025-05-24 18:55:54 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/metal_barrel": {
+    "criteria": {
+      "has_iron_sheet_slab": "2025-05-24 18:55:35 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_cyan": {
+    "criteria": {
+      "has_sheetmetal": "2025-05-24 18:55:35 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:multiblocks/mb_tank": {
+    "criteria": {
+      "form_multiblock": "2025-05-24 18:55:47 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_black": {
+    "criteria": {
+      "has_sheetmetal": "2025-05-24 18:55:35 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_iron_to_slab": {
+    "criteria": {
+      "has_sheetmetal_iron": "2025-05-24 18:55:35 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_iron_from_slab": {
+    "criteria": {
+      "has_sheetmetal_iron": "2025-05-24 18:55:35 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_blue": {
+    "criteria": {
+      "has_sheetmetal": "2025-05-24 18:55:35 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_light_blue": {
+    "criteria": {
+      "has_sheetmetal": "2025-05-24 18:55:35 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_white": {
+    "criteria": {
+      "has_sheetmetal": "2025-05-24 18:55:35 +1000"
+    },
+    "done": true
+  },
+  "immersiveengineering:recipes/misc/crafting/sheetmetal_colored_pink": {
+    "criteria": {
+      "has_sheetmetal": "2025-05-24 18:55:35 +1000"
     },
     "done": true
   },

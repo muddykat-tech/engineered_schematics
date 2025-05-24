@@ -1,6 +1,7 @@
 package tech.muddykat.engineered_schematics.item;
 
 import blusunrize.immersiveengineering.api.multiblocks.MultiblockHandler;
+import blusunrize.immersiveengineering.common.register.IEItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -20,6 +21,7 @@ public class ESSchematicSettings {
     public static final String KEY_ROTATION = "rotation";
     public static final String KEY_POSITION = "pos";
 
+    private ItemStack formationTool;
     private Rotation rotation;
     private BlockPos pos = null;
     private MultiblockHandler.IMultiblock multiblock = null;
@@ -45,11 +47,12 @@ public class ESSchematicSettings {
             this.rotation = Rotation.NONE;
             this.mirror = false;
             this.isPlaced = false;
+            this.formationTool = new ItemStack(IEItems.Tools.HAMMER);
         }else{
             this.rotation = Rotation.values()[settingsNbt.contains(KEY_ROTATION) ? settingsNbt.getInt(KEY_ROTATION) : 0];
             this.mirror = settingsNbt.getBoolean(KEY_MIRROR);
             this.isPlaced = settingsNbt.getBoolean(KEY_PLACED);
-
+            this.formationTool = ItemStack.of(settingsNbt.getCompound("formation_tool"));
             if(settingsNbt.contains(KEY_MULTIBLOCK, Tag.TAG_STRING)){
                 String str = settingsNbt.getString("multiblock");
                 this.multiblock = MultiblockHandler.getByUniqueName(new ResourceLocation(str));
@@ -85,6 +88,11 @@ public class ESSchematicSettings {
 
     public void setMultiblock(@Nullable MultiblockHandler.IMultiblock multiblock){
         this.multiblock = multiblock;
+    }
+
+    public void setFormationTool(ItemStack tool)
+    {
+        this.formationTool = tool;
     }
 
     public void setMirror(boolean mirror){
@@ -135,6 +143,11 @@ public class ESSchematicSettings {
             nbt.putString(KEY_MULTIBLOCK, this.multiblock.getUniqueName().toString());
         }
 
+        if(this.formationTool != null)
+        {
+            nbt.put("formation_tool", this.formationTool.serializeNBT());
+        }
+
         if(this.pos != null){
             CompoundTag pos = new CompoundTag();
             pos.putInt("x", this.pos.getX());
@@ -155,6 +168,10 @@ public class ESSchematicSettings {
     @Override
     public String toString(){
         return "\"Settings\":[" + toNbt().toString() + "]";
+    }
+
+    public ItemStack getFormationTool() {
+        return formationTool;
     }
 
     public enum Mode{

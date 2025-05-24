@@ -1,0 +1,1172 @@
+
+[ores]
+
+	#Ore Generation Config - Acanthite
+	[ores.Acanthite]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.85
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 24
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 212
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = -64
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 1
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 1200
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 30
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = false
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "TUBE"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Apatite
+	[ores.Apatite]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.85
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 24
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 212
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = -64
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 1
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 600
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 30
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = false
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "TUBE"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Alumina
+	[ores.Alumina]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.5
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 33
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 80
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = 0
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 2
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 2000
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 20
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = false
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "DEFAULT"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Anatase
+	[ores.Anatase]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.5
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 32
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 80
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = 0
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 1
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 3000
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 70
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = true
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "DEFAULT"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Bauxite
+	[ores.Bauxite]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.8
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 30
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 180
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = -64
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 1
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 1470
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 50
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = false
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "DEFAULT"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Bituminous
+	[ores.Bituminous]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.75
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 30
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 320
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = -64
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 1
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 1000
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 50
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = false
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "BANDED"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Anthracite
+	[ores.Anthracite]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.6
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 30
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 32
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = -64
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 1
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 750
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 50
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = false
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "BANDED"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Cassiterite
+	[ores.Cassiterite]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.5
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 40
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 175
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = -64
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 1
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 2590
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 50
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = false
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "DEFAULT"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Chalcocite
+	[ores.Chalcocite]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.75
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 24
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 200
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = -64
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 1
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 400
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 40
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = false
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "TUBE"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Chalcopyrite
+	[ores.Chalcopyrite]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.75
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 14
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 256
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = -64
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 1
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 350
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 35
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = false
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "TUBE"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Chromite
+	[ores.Chromite]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.5
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 30
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 24
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = -64
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 1
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 1350
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 45
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = false
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "DEFAULT"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Cobaltite
+	[ores.Cobaltite]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.5
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 21
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 72
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = -64
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 1
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 1200
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 60
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = false
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "TUBE"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Cryolite
+	[ores.Cryolite]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.8
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 31
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 80
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = 0
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 1
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 2000
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 90
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = true
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "DEFAULT"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Cuprite
+	[ores.Cuprite]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.7
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 30
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 200
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = -64
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 1
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 3570
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 50
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = false
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "DEFAULT"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Fluorite
+	[ores.Fluorite]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.8
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 24
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 220
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = -64
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 2
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 1200
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 60
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = true
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "DEFAULT"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Galena
+	[ores.Galena]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.5
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 32
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 128
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = -64
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 2
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 1250
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 45
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = false
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "TUBE"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Gypsum
+	[ores.Gypsum]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.5
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 22
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 80
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = -64
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 3
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 700
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 30
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = false
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "DEFAULT"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Hematite
+	[ores.Hematite]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.66
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 32
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 256
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = -64
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 2
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 2000
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 50
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = false
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "BANDED"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Ilmenite
+	[ores.Ilmenite]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.5
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 33
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 140
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = 5
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 2
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 2000
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 40
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = false
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "DEFAULT"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Lignite
+	[ores.Lignite]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.9
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 30
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 320
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = 0
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 1
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 3500
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 50
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = true
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "BANDED"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Magnetite
+	[ores.Magnetite]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.6
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 43
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 320
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = -64
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 1
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 1150
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 35
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = false
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "BANDED"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Molybdenite
+	[ores.Molybdenite]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.75
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 12
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 212
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = -64
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 1
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 1000
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 70
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = false
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "TUBE"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Monazite
+	[ores.Monazite]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.5
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 22
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 120
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = 12
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 1
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 900
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 90
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = true
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "DEFAULT"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Pyrite
+	[ores.Pyrite]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.5
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 12
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 112
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = -64
+		#The number of veins attempted to be generated per chunk
+		#Range: > 0
+		attempts_per_chunk = 3
+		#The chance that this mineral is selected for a vein to generate in a chunk, 50000 is a guaranteed spawn 0 prevents spawns
+		#Range: 0 ~ 50000
+		generation_chance = 2000
+		#Controls ore quality distribution. Lower values favor richer ores, while higher values increase the likelihood of poorer ores. 50 is balanced.
+		#Range: 0 ~ 100
+		rarity = 30
+		#If enabled, mineral vein will only have a chance to spawn once every [16] chunks on average, inplace of every chunk.
+		useSparsePlacement = false
+		#The type of generation that is used for this mineral
+		#Allowed Values: DEFAULT, BANDED, EVAPORATE, TUBE
+		generationPattern = "TUBE"
+		#The chance that this material will generate with any additional 'friend' materials
+		#Range: 0.0 ~ 1.0
+		associateChance = 1.0
+		#The minimum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		min_temp = -1.0
+		#The maximum temperature that this material can spawn in
+		#Range: -2.0 ~ 2.0
+		max_temp = 2.0
+		#The minimum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		min_downfall = 0.0
+		#The maximum downfall that this material can spawn in
+		#Range: 0.0 ~ 1.0
+		max_downfall = 1.0
+		#A List of dimensions that this ore can generate in.
+		dimension_whitelist = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+
+	#Ore Generation Config - Pyrolusite
+	[ores.Pyrolusite]
+		#Can this Mineral / Ore generate in world, if set to false this mineral will not spawn in world, unless a secondary mineral happens to include it as an assoicate mineral for spawning.
+		canSpawn = true
+		#how dense is the vein? 0 for all stone, 1 for all ore
+		#Range: 0.0 ~ 1.0
+		density = 0.5
+		#The maximum size of a vein. Set to 0 to disable generation
+		#Range: > 0
+		vein_size = 32
+		#The maximum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		max_y = 112
+		#The minimum Y coordinate this ore can spawn at
+		#Range: > -2147483648
+		min_y = -64
+		#The

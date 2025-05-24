@@ -15,7 +15,9 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import tech.muddykat.engineered_schematics.EngineeredSchematics;
 import tech.muddykat.engineered_schematics.block.SchematicCorkBoard;
@@ -33,8 +35,8 @@ import java.util.stream.Collectors;
 public class ESRegistry {
 
     private static final DeferredRegister<BlockEntityType<?>> TE_REGISTER = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, EngineeredSchematics.MODID);
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Registries.BLOCK, EngineeredSchematics.MODID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM,EngineeredSchematics.MODID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, EngineeredSchematics.MODID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS,EngineeredSchematics.MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, EngineeredSchematics.MODID);
 
 
@@ -85,9 +87,9 @@ public class ESRegistry {
         SCHEMATIC_TABLE_TYPE = TE_REGISTER.register("schematic_table_type", makeType(SchematicTableBlockEntity::new, BLOCK_SCHEMATIC_TABLE));
         BLOCK_ITEM_SCHEMATIC_TABLE = ITEMS.register("schematic_table_block", () -> new SchematicTableBlockItem(BLOCK_SCHEMATIC_TABLE.get()));
 
-        BLOCK_CORKBOARD = BLOCKS.register("corkboard", SchematicCorkBoard::new);
-        SCHEMATIC_BOARD_TYPE = TE_REGISTER.register("corkboard_type", makeType(SchematicBoardBlockEntity::new, BLOCK_CORKBOARD));
         BLOCK_ITEM_CORKBOARD = ITEMS.register("corkboard", () -> new BlockItem(BLOCK_CORKBOARD.get(), new Item.Properties()));
+        BLOCK_CORKBOARD = BLOCKS.register("corkboard", SchematicCorkBoard::new);
+        SCHEMATIC_BOARD_TYPE = TE_REGISTER.register("corkboard_type", makeType(SchematicBoardBlockEntity::new, () -> BLOCK_CORKBOARD.get()));
     }
 
     public static <T extends BlockEntity> Supplier<BlockEntityType<T>> makeType(BlockEntityType.BlockEntitySupplier<T> create, Supplier<? extends Block> valid)

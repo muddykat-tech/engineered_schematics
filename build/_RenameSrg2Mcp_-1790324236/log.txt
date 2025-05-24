@@ -1,0 +1,17 @@
+Java Launcher: /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+Arguments: '--task, SRG_TO_MCP, --input, /home/muddykat/.gradle/caches/modules-2/files-2.1/curse.maven/ferritecore-429235/4810975/417fb6ce8f52abf40bd9d0390371790f9576f8ba/ferritecore-429235-4810975.jar, --output, /home/muddykat/.gradle/caches/forge_gradle/deobf_dependencies/curse/maven/ferritecore-429235/4810975_mapped_parchment_1.19.3-2023.06.25-1.20.1/ferritecore-429235-4810975_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar, --mcp, /home/muddykat/.gradle/caches/parchmentgradle/org/parchmentmc/data/parchment-1.19.3-1.20.1/2023.06.25/parchment-1.19.3-1.20.1-2023.06.25.zip, --strip-signatures'
+Classpath:
+ - /home/muddykat/.gradle/caches/forge_gradle/maven_downloader/net/minecraftforge/installertools/1.4.4/installertools-1.4.4-fatjar.jar
+Working directory: /home/muddykat/Documents/Github/engineered-schematics/build/_RenameSrg2Mcp_-1790324236
+Main class: net.minecraftforge.installertools.ConsoleTool
+====================================
+Task: SRG_TO_MCP
+Input:  /home/muddykat/.gradle/caches/modules-2/files-2.1/curse.maven/ferritecore-429235/4810975/417fb6ce8f52abf40bd9d0390371790f9576f8ba/ferritecore-429235-4810975.jar
+Output: /home/muddykat/.gradle/caches/forge_gradle/deobf_dependencies/curse/maven/ferritecore-429235/4810975_mapped_parchment_1.19.3-2023.06.25-1.20.1/ferritecore-429235-4810975_mapped_parchment_1.19.3-2023.06.25-1.20.1.jar
+MCP:    /home/muddykat/.gradle/caches/parchmentgradle/org/parchmentmc/data/parchment-1.19.3-1.20.1/2023.06.25/parchment-1.19.3-1.20.1-2023.06.25.zip
+Loading MCP Data
+Processing ZIP file
+Stripped Manifest of sha digests
+Stripped signature entry data META-INF/MALTE081.SF
+Stripped signature entry data META-INF/MALTE081.RSA
+Process complete
