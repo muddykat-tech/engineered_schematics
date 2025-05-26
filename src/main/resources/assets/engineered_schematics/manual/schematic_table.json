@@ -1,0 +1,7 @@
+{
+  "schematic_table":
+  {
+    "type":"crafting",
+    "recipe":"engineered_schematics:crafting/schematic_table"
+  }
+}

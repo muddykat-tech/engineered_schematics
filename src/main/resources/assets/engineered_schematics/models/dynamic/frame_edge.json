@@ -1,0 +1,23 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "engineered_schematics:block/schematic_table",
+		"particle": "engineered_schematics:block/schematic_table"
+	},
+	"elements": [
+		{
+			"name": "left_frame",
+			"from": [0, 1, 2],
+			"to": [1, 15, 3],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 1, 2]},
+			"faces": {
+				"north": {"uv": [0, 14.33333, 4.66667, 14.66667], "rotation": 90, "texture": "#0"},
+				"east": {"uv": [0, 14.33333, 4.66667, 14.66667], "rotation": 270, "texture": "#0"},
+				"south": {"uv": [1.33333, 14.66667, 6.66667, 15], "rotation": 270, "texture": "#0"},
+				"west": {"uv": [0, 14.33333, 4.66667, 14.66667], "rotation": 270, "texture": "#0"},
+				"up": {"uv": [0, 14.33333, 0.33333, 14.66667], "rotation": 270, "texture": "#0"},
+				"down": {"uv": [0, 14.33333, 0.33333, 14.66667], "rotation": 270, "texture": "#0"}
+			}
+		}
+	]
+}
