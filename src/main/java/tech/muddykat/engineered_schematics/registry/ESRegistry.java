@@ -3,7 +3,6 @@ package tech.muddykat.engineered_schematics.registry;
 import blusunrize.immersiveengineering.api.multiblocks.MultiblockHandler;
 import blusunrize.immersiveengineering.common.blocks.multiblocks.IEMultiblocks;
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
@@ -18,7 +17,6 @@ import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.*;
 import tech.muddykat.engineered_schematics.EngineeredSchematics;
-import tech.muddykat.engineered_schematics.block.SchematicCorkBoard;
 import tech.muddykat.engineered_schematics.block.SchematicDeskBlock;
 import tech.muddykat.engineered_schematics.block.entity.SchematicBoardBlockEntity;
 import tech.muddykat.engineered_schematics.block.entity.SchematicTableBlockEntity;
@@ -85,9 +83,6 @@ public class ESRegistry {
         SCHEMATIC_TABLE_TYPE = TE_REGISTER.register("schematic_table_type", makeType(SchematicTableBlockEntity::new, BLOCK_SCHEMATIC_TABLE));
         BLOCK_ITEM_SCHEMATIC_TABLE = ITEMS.register("schematic_table_block", () -> new SchematicTableBlockItem(BLOCK_SCHEMATIC_TABLE.get()));
 
-        BLOCK_ITEM_CORKBOARD = ITEMS.register("corkboard", () -> new BlockItem(BLOCK_CORKBOARD.get(), new Item.Properties()));
-        BLOCK_CORKBOARD = BLOCKS.register("corkboard", SchematicCorkBoard::new);
-        SCHEMATIC_BOARD_TYPE = TE_REGISTER.register("corkboard_type", makeType(SchematicBoardBlockEntity::new, () -> BLOCK_CORKBOARD.get()));
     }
 
     public static <T extends BlockEntity> Supplier<BlockEntityType<T>> makeType(BlockEntityType.BlockEntitySupplier<T> create, Supplier<? extends Block> valid)

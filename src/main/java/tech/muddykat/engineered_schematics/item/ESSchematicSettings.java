@@ -2,7 +2,10 @@ package tech.muddykat.engineered_schematics.item;
 
 import blusunrize.immersiveengineering.api.multiblocks.MultiblockHandler;
 import blusunrize.immersiveengineering.common.register.IEItems;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -35,7 +38,7 @@ public class ESSchematicSettings {
     public ESSchematicSettings(@Nullable final ItemStack stack){
         this(((Supplier<CompoundTag>) () -> {
             CompoundTag nbt = null;
-            if(stack != null && (nbt = stack.getTagElement(KEY_SELF)) == null){
+            if(stack != null && (stack.get(DataComponents.CUSTOM_DATA) != null && !stack.has(DataComponents.CUSTOM_DATA))){
                 nbt = new CompoundTag();
             }
             return nbt;
@@ -52,10 +55,15 @@ public class ESSchematicSettings {
             this.rotation = Rotation.values()[settingsNbt.contains(KEY_ROTATION) ? settingsNbt.getInt(KEY_ROTATION) : 0];
             this.mirror = settingsNbt.getBoolean(KEY_MIRROR);
             this.isPlaced = settingsNbt.getBoolean(KEY_PLACED);
-            this.formationTool = ItemStack.of(settingsNbt.getCompound("formation_tool"));
+            this.formationTool = ItemStack.EMPTY;
+            CompoundTag stored = settingsNbt.getCompound("formation_tool");
+            assert Minecraft.getInstance().level != null;
+            HolderLookup.Provider provider = Minecraft.getInstance().level.registryAccess();
+
+            formationTool = ItemStack.parse(provider, stored).orElseGet(() -> ItemStack.EMPTY);
             if(settingsNbt.contains(KEY_MULTIBLOCK, Tag.TAG_STRING)){
                 String str = settingsNbt.getString("multiblock");
-                this.multiblock = MultiblockHandler.getByUniqueName(new ResourceLocation(str));
+                this.multiblock = MultiblockHandler.getByUniqueName(ResourceLocation.parse(str));
             }
 
             if(settingsNbt.contains(KEY_POSITION, Tag.TAG_COMPOUND)){
@@ -145,7 +153,7 @@ public class ESSchematicSettings {
 
         if(this.formationTool != null)
         {
-            nbt.put("formation_tool", this.formationTool.serializeNBT());
+            nbt.putString("formation_tool", this.formationTool.getDisplayName().getString());
         }
 
         if(this.pos != null){
@@ -160,8 +168,7 @@ public class ESSchematicSettings {
     }
 
     public ItemStack applyTo(ItemStack stack){
-        stack.getOrCreateTagElement("settings");
-        stack.getTag().put("settings", this.toNbt());
+
         return stack;
     }
 
@@ -172,18 +179,5 @@ public class ESSchematicSettings {
 
     public ItemStack getFormationTool() {
         return formationTool;
-    }
-
-    public enum Mode{
-        MULTIBLOCK_SELECTION, PROJECTION;
-
-        final String translation;
-        Mode(){
-            this.translation = "desc.engineered_schematics.info.schematic.mode_" + ordinal();
-        }
-
-        public Component getTranslated(){
-            return Component.translatable(this.translation);
-        }
     }
 }

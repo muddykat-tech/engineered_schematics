@@ -5,15 +5,15 @@ import com.mojang.blaze3d.shaders.AbstractUniform;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterShadersEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RegisterShadersEvent;
 import tech.muddykat.engineered_schematics.EngineeredSchematics;
 
 import java.io.IOException;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid =  EngineeredSchematics.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(value = Dist.CLIENT, modid =  EngineeredSchematics.MODID, bus =EventBusSubscriber.Bus.MOD)
 public class ESShaders {
     private static ShaderInstance shader_schematic;
     private static AbstractUniform projection_time;
@@ -28,7 +28,7 @@ public class ESShaders {
     @SubscribeEvent
     public static void registerShaders(RegisterShadersEvent event) throws IOException
     {
-        ShaderInstance instance = new ShaderInstance(event.getResourceProvider(), new ResourceLocation(EngineeredSchematics.MODID,"rendertype_schematic"), DefaultVertexFormat.POSITION_COLOR_TEX);
+        ShaderInstance instance = new ShaderInstance(event.getResourceProvider(), ResourceLocation.fromNamespaceAndPath(EngineeredSchematics.MODID,"rendertype_schematic"), DefaultVertexFormat.POSITION_TEX_COLOR);
 
         event.registerShader(instance,  s -> {
             shader_schematic = s;

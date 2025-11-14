@@ -5,9 +5,6 @@ import blusunrize.immersiveengineering.common.blocks.IEBaseBlockEntity;
 import blusunrize.immersiveengineering.common.blocks.IEBlockInterfaces;
 import blusunrize.immersiveengineering.common.blocks.PlacementLimitation;
 import blusunrize.immersiveengineering.common.util.inventory.IIEInventory;
-import com.mojang.datafixers.util.Pair;
-import com.mojang.logging.LogUtils;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -21,7 +18,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
@@ -29,8 +25,6 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
-import tech.muddykat.engineered_schematics.EngineeredSchematics;
-import tech.muddykat.engineered_schematics.block.SchematicCorkBoard;
 import tech.muddykat.engineered_schematics.client.renderer.BorderState;
 import tech.muddykat.engineered_schematics.item.SchematicItem;
 import tech.muddykat.engineered_schematics.registry.ESRegistry;
@@ -101,21 +95,12 @@ public class SchematicBoardBlockEntity
     @Override
     public void getBlockEntityDrop(LootContext context, Consumer<ItemStack> drop)
     {
-        ItemStack stack = new ItemStack(getBlockState().getBlock(), 1);
-        CompoundTag nbt = new CompoundTag();
-        ContainerHelper.saveAllItems(nbt, inventory);
-        if(!nbt.isEmpty()) {
-            stack.setTag(nbt);
-        }
-        drop.accept(stack);
+
     }
 
     @Override
     public void onBEPlaced(BlockPlaceContext ctx)
     {
-        final ItemStack stack = ctx.getItemInHand();
-        if(stack.hasTa)
-            readCustomNBT(stack., false);
     }
 
     @Override

@@ -1,15 +1,9 @@
 package tech.muddykat.engineered_schematics.helper;
 
-import blusunrize.immersiveengineering.api.IEProperties;
 import blusunrize.immersiveengineering.api.multiblocks.BlockMatcher;
 import blusunrize.immersiveengineering.api.multiblocks.MultiblockHandler;
 import blusunrize.immersiveengineering.api.multiblocks.blocks.logic.IMultiblockBE;
-import blusunrize.immersiveengineering.common.blocks.IEBaseBlockEntity;
-import blusunrize.immersiveengineering.common.blocks.multiblocks.IETemplateMultiblock;
-import blusunrize.immersiveengineering.common.register.IEBlockEntities;
-import blusunrize.immersiveengineering.common.register.IEBlocks;
-import blusunrize.immersiveengineering.common.register.IEItems;
-import com.igteam.immersivegeology.core.lib.IGLib;
+import com.mojang.blaze3d.vertex.ByteBufferBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -26,30 +20,23 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.model.data.ModelData;
+import net.neoforged.neoforge.client.model.data.ModelData;
 import org.apache.commons.lang3.mutable.MutableBoolean;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
-import tech.muddykat.engineered_schematics.EngineeredSchematics;
 import tech.muddykat.engineered_schematics.client.ESShaders;
 import tech.muddykat.engineered_schematics.item.ESSchematicSettings;
 import tech.muddykat.engineered_schematics.item.SchematicProjection;
@@ -94,7 +81,7 @@ public class SchematicRenderer
             }
         }
         // Render results
-        MultiBufferSource.BufferSource mainBuffer = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+        MultiBufferSource.BufferSource mainBuffer = null;
         renderResults(matrix, renderState, settings, mainBuffer, world, player, mbSize,
                 badStates, toRender);
         mainBuffer.endBatch();
@@ -350,7 +337,7 @@ public class SchematicRenderer
         // Centers the preview block
         matrix.translate(rInfo.tPos.getX(), rInfo.tPos.getY(), rInfo.tPos.getZ());
 
-        MultiBufferSource.BufferSource buffer = MultiBufferSource.immediate(PHANTOM_TESSELATOR.getBuilder());
+        MultiBufferSource.BufferSource buffer = MultiBufferSource.immediate(new ByteBufferBuilder(512));
 
         BlockState state = rInfo.getModifiedState(realWorld, rInfo.tPos);
         state.updateNeighbourShapes(realWorld, rInfo.tPos, 3);
@@ -427,7 +414,7 @@ public class SchematicRenderer
 
         matrix.pushPose();
         {
-            boolean isDebug = Minecraft.getInstance().options.renderDebug;
+            boolean isDebug = Minecraft.getInstance().options.glDebugVerbosity > 0;
             for (float a = 0; a <= normal.z; a += stepSize) {
                 rgba = color;
                 if ((a == 0 || a == normal.z) && isDebug) {
@@ -521,7 +508,7 @@ public class SchematicRenderer
             Vec3i mb_size = settings.getMultiblock().getSize(world);
             matrix.translate(hit.getX(), hit.getY(), hit.getZ());
             Component name = settings.getMultiblock().getDisplayName();
-            MultiBufferSource.BufferSource mainBuffer = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+            MultiBufferSource.BufferSource mainBuffer = MultiBufferSource.immediate(new ByteBufferBuilder(512));
             matrix.pushPose();
             {
                 if(settings.getRotation().equals(Rotation.CLOCKWISE_180) || settings.getRotation().equals(Rotation.NONE))
@@ -569,14 +556,13 @@ public class SchematicRenderer
         Vector3f end = combine(min, max, endBits);
         Vector3f delta = new Vector3f(end);
         delta.sub(start);
-        out.vertex(mat.last().pose(), start.x(), start.y(), start.z())
-                .color(rgba)
-                .normal(mat.last().normal(), delta.x(), delta.y(), delta.z())
-                .endVertex();
-        out.vertex(mat.last().pose(), end.x(), end.y(), end.z())
-                .color(rgba)
-                .normal(mat.last().normal(), delta.x(), delta.y(), delta.z())
-                .endVertex();
+        out.addVertex(mat.last().pose(), start.x(), start.y(), start.z())
+                .setColor(rgba)
+                .setNormal(mat.last(), delta.x(), delta.y(), delta.z());
+
+        out.addVertex(mat.last().pose(), end.x(), end.y(), end.z())
+                .setColor(rgba)
+                .setNormal(mat.last(), delta.x(), delta.y(), delta.z());
     }
 
     private static Vector3f combine(Vec3 start, Vec3 end, int mixBits){

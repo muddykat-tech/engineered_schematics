@@ -4,7 +4,10 @@ import blusunrize.immersiveengineering.api.multiblocks.MultiblockHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Vec3i;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
@@ -14,15 +17,19 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.client.event.InputEvent;
 import org.lwjgl.glfw.GLFW;
 import tech.muddykat.engineered_schematics.helper.SchematicRenderer;
 import tech.muddykat.engineered_schematics.item.ESSchematicSettings;
 import tech.muddykat.engineered_schematics.item.SchematicProjection;
+import tech.muddykat.engineered_schematics.item.SchematicProjectionData;
+import tech.muddykat.engineered_schematics.registry.ESDataComponents;
 import tech.muddykat.engineered_schematics.registry.ESRegistry;
+
+import java.util.Optional;
 
 public class SchematicPickBlockHandler {
 
@@ -36,15 +43,17 @@ public class SchematicPickBlockHandler {
 
             if (player != null && mc.hitResult instanceof BlockHitResult hit &&
                     player.getOffhandItem().is(ESRegistry.SCHEMATIC_ITEM.get())) {
+
                 Item schematic = ESRegistry.SCHEMATIC_ITEM.get();
                 ItemStack secondItem = mc.player.getOffhandItem();
-                if(secondItem.getTag()!=null) {
-                    // Allows multiple schematics to be visible at once as long as they're in the hot bar.
-                    for (int i = 0; i <= 10; i++) {
-                        ItemStack stack = (i == 10 ? secondItem : mc.player.getInventory().getItem(i));
-                        if (stack.is(schematic) && secondItem.hasTag() && secondItem.getTag().contains("settings", Tag.TAG_COMPOUND)) {
-                            handleSchematicPick(stack, player, hit, event);
-                        }
+
+                for (int i = 0; i <= 10; i++) {
+                    ItemStack stack = (i == 10 ? secondItem : mc.player.getInventory().getItem(i));
+
+                    if (stack.is(schematic)) {
+                        // Use new parseOptional helper
+                        HolderLookup.Provider registryAccess = mc.player.registryAccess();
+                        if(stack.has(ESDataComponents.SCHEMATIC_PROJECTION_DATA)) handleSchematicPick(stack, player, hit, event);
                     }
                 }
             }

@@ -2,6 +2,7 @@ package tech.muddykat.engineered_schematics.block.entity;
 
 import blusunrize.immersiveengineering.api.IEProperties;
 import blusunrize.immersiveengineering.api.client.IModelOffsetProvider;
+import blusunrize.immersiveengineering.api.utils.DirectionalBlockPos;
 import blusunrize.immersiveengineering.common.blocks.IEBaseBlockEntity;
 import blusunrize.immersiveengineering.common.blocks.IEBlockInterfaces;
 import blusunrize.immersiveengineering.common.blocks.PlacementLimitation;
@@ -116,7 +117,7 @@ public class SchematicTableBlockEntity extends IEBaseBlockEntity implements IIEI
         if(inventory != null && !inventory.isEmpty()){
             for(ItemStack item : inventory)
             {
-                Utils.dropStackAtPos(level, pos, item);
+                Utils.dropStackAtPos(level, new DirectionalBlockPos(pos, dummyDir), item);
             }
         }
     }

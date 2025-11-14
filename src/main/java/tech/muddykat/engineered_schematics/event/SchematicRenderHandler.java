@@ -1,41 +1,29 @@
 package tech.muddykat.engineered_schematics.event;
 
-import blusunrize.immersiveengineering.client.BlockOverlayUtils;
 import blusunrize.immersiveengineering.client.ClientUtils;
-import blusunrize.immersiveengineering.common.items.EngineersBlueprintItem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.resources.language.I18n;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.client.event.RenderLevelStageEvent;
-import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import tech.muddykat.engineered_schematics.EngineeredSchematics;
 import tech.muddykat.engineered_schematics.helper.SchematicRenderer;
 import tech.muddykat.engineered_schematics.item.ESSchematicSettings;
+import tech.muddykat.engineered_schematics.registry.ESDataComponents;
 import tech.muddykat.engineered_schematics.registry.ESRegistry;
 
-import java.util.List;
-
-import static tech.muddykat.engineered_schematics.item.SchematicItem.getSettings;
-
-@Mod.EventBusSubscriber(modid = EngineeredSchematics.MODID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = EngineeredSchematics.MODID, value = Dist.CLIENT)
 public class SchematicRenderHandler {
     @SubscribeEvent
     public static void renderLevelStage(RenderLevelStageEvent event)
@@ -58,12 +46,12 @@ public class SchematicRenderHandler {
         {
             Vec3 renderView = mc.gameRenderer.getMainCamera().getPosition();
             matrix.translate(-renderView.x, -renderView.y, -renderView.z);
-            if(secondItem.getTag()!=null)
+            if(secondItem.has(ESDataComponents.SCHEMATIC_PROJECTION_DATA))
             {
                 // Allows multiple schematics to be visible at once as long as they're in the hot bar.
                 for(int i = 0;i <= 10;i++){
                     ItemStack stack = (i == 10 ? secondItem : mc.player.getInventory().getItem(i));
-                    if(stack.is(schematic) && secondItem.hasTag() && secondItem.getTag().contains("settings", Tag.TAG_COMPOUND))
+                    if(stack.is(schematic) && secondItem.has(ESDataComponents.SCHEMATIC_PROJECTION_DATA))
                     {
                         matrix.pushPose();
                         {
@@ -75,11 +63,11 @@ public class SchematicRenderHandler {
                 }
             }
             else
-            if(mainItem.getTag() != null)
+            if(mainItem.has(ESDataComponents.SCHEMATIC_PROJECTION_DATA))
             {
                 for(int i = 0;i <= 9;i++) {
                     ItemStack stack = mc.player.getInventory().getItem(i);
-                    if (mainItem.is(schematic) && mainItem.hasTag() && mainItem.getTag().contains("settings", Tag.TAG_COMPOUND)) {
+                    if (mainItem.is(schematic)) {
                         matrix.pushPose();
                         ESSchematicSettings settings = new ESSchematicSettings(stack);
                         SchematicRenderer.renderSchematicGrid(matrix, settings, mainItem.equals(stack) ? 0xffffff : 0x666666, mc.player.level());
@@ -92,8 +80,8 @@ public class SchematicRenderHandler {
     }
 
     @SubscribeEvent
-    public static void onRenderOverlay(RenderGuiOverlayEvent.Post event) {
-        if (!event.getOverlay().id().equals(VanillaGuiOverlay.ITEM_NAME.id())) {
+    public static void onRenderOverlay(RenderGuiLayerEvent.Post event) {
+        if (!event.getName().equals(VanillaGuiLayers.SELECTED_ITEM_NAME)) {
             return;
         }
 

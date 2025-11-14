@@ -37,7 +37,7 @@ public class SchematicProjection
         this.realWorld = world;
 
         List<StructureTemplate.StructureBlockInfo> blocks = multiblock.getStructure(world);
-        this.templateWorld = TemplateWorldCreator.CREATOR.getValue().makeWorld(blocks, pos -> true, world.registryAccess());
+        this.templateWorld = TemplateWorldCreator.CREATOR.get().makeWorld(blocks, pos -> true, world.registryAccess());
         this.blockcount = blocks.size();
         for (StructureTemplate.StructureBlockInfo info : blocks) {
             List<StructureTemplate.StructureBlockInfo> list = this.layers.get(info.pos().getY());
@@ -61,12 +61,8 @@ public class SchematicProjection
 
     /**
      * Sets the mirrored state.
-     *
-     * <pre>
      * true = {@link Mirror#FRONT_BACK}
-     *
      * false = {@link Mirror#NONE}
-     * </pre>
      */
     public SchematicProjection setFlip(boolean mirror){
         Mirror m = mirror ? Mirror.FRONT_BACK : Mirror.NONE;
@@ -205,8 +201,6 @@ public class SchematicProjection
         }
         return offset;
     }
-
-    // STATIC CLASSES
 
     public static final class Info{
 

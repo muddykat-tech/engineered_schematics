@@ -21,6 +21,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
+import tech.muddykat.engineered_schematics.registry.ESDataComponents;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -37,7 +38,7 @@ public class SchematicItem extends Item {
     public @NotNull Component getName(ItemStack stack)
     {
         String selfKey = getDescriptionId(stack);
-        if(stack.hasTag())
+        if(stack.has(ESDataComponents.SCHEMATIC_PROJECTION_DATA))
         {
             ESSchematicSettings settings = getSettings(stack);
             if(settings.getMultiblock() != null)
@@ -50,7 +51,6 @@ public class SchematicItem extends Item {
         return Component.translatable(selfKey).withStyle(ChatFormatting.AQUA);
     }
 
-    @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag pIsAdvanced)
     {
         ESSchematicSettings settings = getSettings(stack);

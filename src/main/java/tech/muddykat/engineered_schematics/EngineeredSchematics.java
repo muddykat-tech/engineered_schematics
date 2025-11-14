@@ -32,6 +32,7 @@ import tech.muddykat.engineered_schematics.client.renderer.ESDynamicModel;
 import tech.muddykat.engineered_schematics.event.SchematicPickBlockHandler;
 import tech.muddykat.engineered_schematics.helper.SchematicTableCallbacks;
 import tech.muddykat.engineered_schematics.client.screen.SchematicsScreen;
+import tech.muddykat.engineered_schematics.registry.ESDataComponents;
 import tech.muddykat.engineered_schematics.registry.ESMenuTypes;
 import tech.muddykat.engineered_schematics.registry.ESRegistry;
 
@@ -58,7 +59,7 @@ public class EngineeredSchematics
         ESMenuTypes.register(modEventBus);
         ESRegistry.initialize();
         modEventBus.addListener(this::addCreative);
-
+        ESDataComponents.registerComponents();
         if(FMLLoader.getDist().isClient())
         {
             setupCallbacks();
