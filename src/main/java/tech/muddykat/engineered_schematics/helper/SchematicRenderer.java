@@ -202,10 +202,23 @@ public class SchematicRenderer
         // Render perfect structure outline
         if (state.perfect()) {
             assert(settings.getMultiblock() != null);
-            BlockPos formPos = settings.getPos().offset(-Mth.floorDiv(mbSize.getX(),2), 0, -Mth.floorDiv(mbSize.getZ(),2)).offset(settings.getMultiblock().getTriggerOffset());
-            matrix.pushPose();
+            Rotation rotation = settings.getRotation();
 
-            matrix.translate(formPos.getX(), formPos.getY(), formPos.getZ() + .5f);
+            matrix.pushPose();
+            matrix.translate(settings.getPos().getX() + 0.5f, settings.getPos().getY(), settings.getPos().getZ() + 0.5f);
+
+            float degrees = 0;
+            switch (rotation) {
+                case CLOCKWISE_90 -> degrees = -90f;
+                case CLOCKWISE_180 -> degrees = 180f;
+                case COUNTERCLOCKWISE_90 -> degrees = 90f;
+                default -> degrees = 0f;
+            }
+            matrix.mulPose(com.mojang.math.Axis.YP.rotationDegrees(degrees));
+            BlockPos localMinCorner = new BlockPos(-Mth.floorDiv(mbSize.getX(), 2), 0, -Mth.floorDiv(mbSize.getZ(), 2));
+            BlockPos localTriggerPos = localMinCorner.offset(settings.getMultiblock().getTriggerOffset());
+
+            matrix.translate(localTriggerPos.getX() - 0.5f, localTriggerPos.getY(), localTriggerPos.getZ());
             ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
             ItemStack hammerStack = new ItemStack(IEItems.Tools.HAMMER);
             BakedModel itemModel = itemRenderer.getModel(hammerStack, world, null, 0);
