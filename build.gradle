@@ -57,6 +57,7 @@ minecraft {
     mcpMappingVersion = common.mcp_mappings.toString().split('-')[0]
     username = 'Muddykat'
     extraRunJvmArguments.addAll(
+            '-Xmx4G',
             '-Dforge.logging.console.level=debug'
     )
 }
