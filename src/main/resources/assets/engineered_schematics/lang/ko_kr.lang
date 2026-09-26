@@ -45,6 +45,42 @@ desc.engineered_schematics.multiblock.IE:Feedthrough=피드스루 절연체
 desc.engineered_schematics.multiblock.IP:DistillationTower=정유탑
 desc.engineered_schematics.multiblock.IP:Pumpjack=시추기
 
+#Multiblock names, sourced from Immersive Intelligence's own block names
+desc.engineered_schematics.multiblock.II:RadioStation=무선 기지국
+desc.engineered_schematics.multiblock.II:PrintingPress=인쇄기
+desc.engineered_schematics.multiblock.II:DataInputMachine=데이터 입력기
+desc.engineered_schematics.multiblock.II:ArithmeticLogicMachine=산술 논리 기계
+desc.engineered_schematics.multiblock.II:ChemicalBath=화학 수조
+desc.engineered_schematics.multiblock.II:Electrolyzer=전기분해기
+desc.engineered_schematics.multiblock.II:PrecisionAssembler=정밀 조립기
+desc.engineered_schematics.multiblock.II:BallisticComputer=탄도 컴퓨터
+desc.engineered_schematics.multiblock.II:ArtilleryHowitzer=곡사포
+desc.engineered_schematics.multiblock.II:ScanningConveyor=검사 컨베이어
+desc.engineered_schematics.multiblock.II:Packer=포장기
+desc.engineered_schematics.multiblock.II:RedstoneDataInterface=레드스톤 데이터 인터페이스
+desc.engineered_schematics.multiblock.II:Filler=필러
+desc.engineered_schematics.multiblock.II:Coagulator=응고기
+desc.engineered_schematics.multiblock.II:ProjectileWorkshop=탄두 공방
+desc.engineered_schematics.multiblock.II:AmmunitionAssembler=탄약 조립기
+desc.engineered_schematics.multiblock.II:HeavyAmmunitionAssembler=중형 탄약 조립기
+desc.engineered_schematics.multiblock.II:FuelStation=연료 충전소
+desc.engineered_schematics.multiblock.II:VehicleWorkshop=차량 공방
+desc.engineered_schematics.multiblock.II:Flagpole=깃대
+desc.engineered_schematics.multiblock.II:Radar=레이더
+desc.engineered_schematics.multiblock.II:Emplacement=포좌
+desc.engineered_schematics.multiblock.II:ChemicalPainter=화학 도색기
+desc.engineered_schematics.multiblock.II:Vulcanizer=가황기
+desc.engineered_schematics.multiblock.II:SkycratePost=스카이크레이트 기둥
+desc.engineered_schematics.multiblock.II:SkycrateStation=스카이크레이트 정거장
+desc.engineered_schematics.multiblock.II:SkycartStation=스카이카트 정거장
+desc.engineered_schematics.multiblock.II:Sawmill=제재소
+desc.engineered_schematics.multiblock.II:WoodenFenceGate=나무 울타리 문
+desc.engineered_schematics.multiblock.II:WoodenChainFenceGate=나무 철망 울타리 문
+desc.engineered_schematics.multiblock.II:SteelFenceGate=강철 울타리 문
+desc.engineered_schematics.multiblock.II:SteelChainFenceGate=강철 철망 울타리 문
+desc.engineered_schematics.multiblock.II:AluminiumFenceGate=알루미늄 울타리 문
+desc.engineered_schematics.multiblock.II:AluminiumChainFenceGate=알루미늄 철망 울타리 문
+
 #MANUAL
 ie.manual.category.engineered_schematics.name=Engineered Schematics
 ie.manual.entry.es.name=소개

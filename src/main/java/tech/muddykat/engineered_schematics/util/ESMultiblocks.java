@@ -18,10 +18,12 @@ public class ESMultiblocks {
 
     private static final String METHOD_TRIGGER = "primaryTrigger";
     private static final String IC_REGISTRY = "com.immersiveconvergence.common.multiblock.IEMultiblockRegistry";
+    private static final String IC_API_REGISTRY = "com.immersiveconvergence.api.multiblock.MultiblockRegistry";
     private static final String IC_TEMPLATE = "com.immersiveconvergence.api.multiblock.TemplateMultiblock";
     private static final BlockPos NO_TRIGGER = new BlockPos(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
     private static final Map<String, BlockPos> TRIGGERS = triggers();
     private static final Map<String, BlockPos> RESOLVED = new HashMap<>();
+    private static final Map<String, Object> IC_OBJECTS = new HashMap<>();
     private static final Set<String> REVERSED_LENGTH = new HashSet<>(Arrays.asList("IE:Crusher", "IE:Squeezer", "IE:Fermenter", "IE:Mixer",
             "IE:Refinery", "IE:DieselGenerator", "IE:ArcFurnace", "IE:Excavator", "IE:AutoWorkbench", "IE:BottlingMachine", "IP:Pumpjack"));
 
@@ -57,10 +59,39 @@ public class ESMultiblocks {
     public static boolean hasReversedLength(MultiblockHandler.IMultiblock multiblock) { return REVERSED_LENGTH.contains(multiblock.getUniqueName()) || isTemplateMultiblock(multiblock); }
 
     private static boolean isTemplateMultiblock(MultiblockHandler.IMultiblock multiblock) {
+        if (walksToTemplate(multiblock)) { return true; }
+        return walksToTemplate(fromConvergenceApi(multiblock.getUniqueName()));
+    }
+
+    private static boolean walksToTemplate(@Nullable Object multiblock) {
+        if (multiblock == null) { return false; }
         for (Class<?> type = multiblock.getClass(); type != null; type = type.getSuperclass()) {
             if (IC_TEMPLATE.equals(type.getName())) { return true; }
         }
         return false;
+    }
+
+    @Nullable
+    private static Object fromConvergenceApi(String uniqueName) {
+        Object cached = IC_OBJECTS.get(uniqueName);
+        if (cached != null) { return cached == IC_OBJECTS ? null : cached; }
+        Object found = findInConvergenceApi(uniqueName);
+        IC_OBJECTS.put(uniqueName, found == null ? IC_OBJECTS : found);
+        return found;
+    }
+
+    @Nullable
+    private static Object findInConvergenceApi(String uniqueName) {
+        try {
+            Object list = Class.forName(IC_API_REGISTRY).getMethod("getMultiblocks").invoke(null);
+            if (!(list instanceof Iterable)) { return null; }
+            for (Object candidate : (Iterable<?>)list) {
+                Object name = candidate.getClass().getMethod("getUniqueName").invoke(candidate);
+                if (uniqueName.equals(name)) { return candidate; }
+            }
+            return null;
+        }
+        catch (ReflectiveOperationException | LinkageError exception) { return null; }
     }
 
     @Nullable
@@ -69,6 +100,7 @@ public class ESMultiblocks {
         BlockPos resolved = RESOLVED.get(uniqueName);
         if (resolved == null) {
             resolved = toCanonical(multiblock, fromConvergence(uniqueName));
+            if (resolved == null) { resolved = toCanonical(multiblock, readTriggerField(fromConvergenceApi(uniqueName))); }
             if (resolved == null) { resolved = TRIGGERS.get(uniqueName); }
             if (resolved == null) { resolved = toCanonical(multiblock, readTriggerField(multiblock)); }
             RESOLVED.put(uniqueName, resolved == null ? NO_TRIGGER : resolved);
@@ -95,7 +127,8 @@ public class ESMultiblocks {
     }
 
     @Nullable
-    private static BlockPos readTriggerField(MultiblockHandler.IMultiblock multiblock) {
+    private static BlockPos readTriggerField(@Nullable Object multiblock) {
+        if (multiblock == null) { return null; }
         try {
             Object value = multiblock.getClass().getMethod(METHOD_TRIGGER).invoke(multiblock);
             return value instanceof BlockPos ? (BlockPos)value : null;

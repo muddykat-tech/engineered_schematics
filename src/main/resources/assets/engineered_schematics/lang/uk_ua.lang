@@ -1,0 +1,98 @@
+#GENERAL
+itemGroup.engineered_schematics=Engineered Schematics
+manual.engineered_schematics.main=Engineered Schematics
+tile.engineered_schematics.schematic_table_block.name=Креслярський стіл
+desc.engineered_schematics.schematic_table=Креслярський стіл
+engineered_schematics.gui.schematic_table.mirror=Дзеркально
+item.engineered_schematics.multiblock_schematic.name=Порожня схема
+item.engineered_schematics.multiblock_schematic.specific.name=Схема: %s
+item.engineered_schematics.multiblock_schematic.specific.mirrored.name=Дзеркальна схема: %s
+item.engineered_schematics.multiblock_schematic.formed=Готово
+item.engineered_schematics.multiblock_schematic.error=Помилка блока
+desc.engineered_schematics.info.schematic.size=%s
+desc.engineered_schematics.info.schematic.tier=Її можна сформувати за допомогою %s
+desc.engineered_schematics.info.schematic.ie_tier=Engineer's Hammer
+desc.engineered_schematics.info.schematic.block_info=Утримуйте [%s], щоб побачити матеріали
+desc.engineered_schematics.info.schematic.no_multiblock=Порожні схеми
+desc.engineered_schematics.info.schematic.moved=Схему переміщено
+desc.engineered_schematics.info.schematic.rotated=Схему повернуто
+desc.engineered_schematics.info.schematic.placed=(Лише творчий режим) Схему розміщено
+
+#Immersive Engineering and Immersive Petroleum ship no uk_ua, so their names below stay English to match
+#what those blocks are called in game.
+desc.engineered_schematics.multiblock.IE:CokeOven=Coke Oven
+desc.engineered_schematics.multiblock.IE:AlloySmelter=Alloy Kiln
+desc.engineered_schematics.multiblock.IE:BlastFurnace=Crude Blast Furnace
+desc.engineered_schematics.multiblock.IE:BlastFurnaceAdvanced=Improved Blast Furnace
+desc.engineered_schematics.multiblock.IE:MetalPress=Metal Press
+desc.engineered_schematics.multiblock.IE:Crusher=Crusher
+desc.engineered_schematics.multiblock.IE:SheetmetalTank=Fluid Tank
+desc.engineered_schematics.multiblock.IE:Silo=Item Silo
+desc.engineered_schematics.multiblock.IE:Assembler=Assembler
+desc.engineered_schematics.multiblock.IE:AutoWorkbench=Automated Engineer's Workbench
+desc.engineered_schematics.multiblock.IE:BottlingMachine=Bottling Machine
+desc.engineered_schematics.multiblock.IE:Squeezer=Industrial Squeezer
+desc.engineered_schematics.multiblock.IE:Fermenter=Industrial Fermenter
+desc.engineered_schematics.multiblock.IE:Refinery=Refinery
+desc.engineered_schematics.multiblock.IE:DieselGenerator=Diesel Generator
+desc.engineered_schematics.multiblock.IE:Excavator=Excavator
+desc.engineered_schematics.multiblock.IE:BucketWheel=Bucket Wheel
+desc.engineered_schematics.multiblock.IE:ArcFurnace=Arc Furnace
+desc.engineered_schematics.multiblock.IE:Lightningrod=Lightning Rod
+desc.engineered_schematics.multiblock.IE:Mixer=Mixer
+desc.engineered_schematics.multiblock.IE:Feedthrough=Feedthrough Insulator
+
+#Multiblock names, sourced from Immersive Petroleum's own block names
+desc.engineered_schematics.multiblock.IP:DistillationTower=Distillation Tower
+desc.engineered_schematics.multiblock.IP:Pumpjack=Pumpjack
+
+#Multiblock names, sourced from Immersive Intelligence's own block names
+desc.engineered_schematics.multiblock.II:RadioStation=Радіостанція
+desc.engineered_schematics.multiblock.II:PrintingPress=Друкарський верстат
+desc.engineered_schematics.multiblock.II:DataInputMachine=Машина введення даних
+desc.engineered_schematics.multiblock.II:ArithmeticLogicMachine=Арифметико-логічна машина
+desc.engineered_schematics.multiblock.II:ChemicalBath=Хімічна ванна
+desc.engineered_schematics.multiblock.II:Electrolyzer=Електролізер
+desc.engineered_schematics.multiblock.II:PrecisionAssembler=Точний асемблер
+desc.engineered_schematics.multiblock.II:BallisticComputer=Балістичний комп'ютер
+desc.engineered_schematics.multiblock.II:ArtilleryHowitzer=Артилерійська гаубиця
+desc.engineered_schematics.multiblock.II:ScanningConveyor=Скануючий конвеєр
+desc.engineered_schematics.multiblock.II:Packer=Пакувальник
+desc.engineered_schematics.multiblock.II:RedstoneDataInterface=Інтерфейс даних редстоуна
+desc.engineered_schematics.multiblock.II:Filler=Наповнювач
+desc.engineered_schematics.multiblock.II:Coagulator=Коагулятор
+desc.engineered_schematics.multiblock.II:ProjectileWorkshop=Майстерня снарядів
+desc.engineered_schematics.multiblock.II:AmmunitionAssembler=Складач боєприпасів
+desc.engineered_schematics.multiblock.II:HeavyAmmunitionAssembler=Складач важких боєприпасів
+desc.engineered_schematics.multiblock.II:FuelStation=АЗС
+desc.engineered_schematics.multiblock.II:VehicleWorkshop=Майстерня транспортних засобів
+desc.engineered_schematics.multiblock.II:Flagpole=Флагшток
+desc.engineered_schematics.multiblock.II:Radar=Радар
+desc.engineered_schematics.multiblock.II:Emplacement=Укріплення
+desc.engineered_schematics.multiblock.II:ChemicalPainter=Хімічний фарбувальник
+desc.engineered_schematics.multiblock.II:Vulcanizer=Вулканізатор
+desc.engineered_schematics.multiblock.II:SkycratePost=Пост фунікулера
+desc.engineered_schematics.multiblock.II:SkycrateStation=Вантажна станція фунікулера
+desc.engineered_schematics.multiblock.II:SkycartStation=Пасажирська станція фунікулера
+desc.engineered_schematics.multiblock.II:Sawmill=Лісопилка
+desc.engineered_schematics.multiblock.II:WoodenFenceGate=Дерев'яні ворота
+desc.engineered_schematics.multiblock.II:WoodenChainFenceGate=Дерев'яні сітчасті ворота
+desc.engineered_schematics.multiblock.II:SteelFenceGate=Сталеві ворота
+desc.engineered_schematics.multiblock.II:SteelChainFenceGate=Сталеві сітчасті ворота
+desc.engineered_schematics.multiblock.II:AluminiumFenceGate=Алюмінієві ворота
+desc.engineered_schematics.multiblock.II:AluminiumChainFenceGate=Алюмінієві сітчасті ворота
+
+#MANUAL
+ie.manual.category.engineered_schematics.name=Engineered Schematics
+ie.manual.entry.es.name=Вступ
+ie.manual.entry.es.subtext=Проєктуючи майбутнє
+ie.manual.entry.es0=Вітаємо в Engineered Schematics.<br><br>Engineered Schematics задуманий як незамінний помічник у будівництві для гравців, які користуються Immersive Engineering та його численними доповненнями.<br><br>Цей мод докладно веде крізь спорудження складних мультиблокових машин, щоб зводити їх швидко, точно та без зайвих витрат.
+ie.manual.entry.es1=Байдуже, досвідчений ви інженер чи лише починаєте, — Engineered Schematics легко проведе вас цими непростими спорудами.<br>Тож <link;schematicTable;берімося до справи>.
+ie.manual.entry.schematicTable.name=Креслярський стіл
+ie.manual.entry.schematicTable.subtext=Кодекс архітектора
+ie.manual.entry.schematicTable0=Спершу виготовте Креслярський стіл.<br>Цей стіл перетворює папір на <link;schematicItem;схему> будь-якої мультиблокової структури, зареєстрованої в Immersive Engineering.
+ie.manual.entry.schematicItem.name=Схема мультиблока
+ie.manual.entry.schematicItem.subtext=Блок за блоком
+ie.manual.entry.schematicItem0=Цей посібник пояснює, як користуватися схемою мультиблока.<br>Виконуйте наведені нижче кроки, щоб легко розміщувати, переміщувати та будувати мультиблокові структури з наочними підказками.
+ie.manual.entry.schematicItem1=§lРозміщення та переміщення:§r ПКМ зі схемою в ОСНОВНІЙ руці задає або переносить основу мультиблока.<br>§lПоворот мультиблока:§r Присядьте й натисніть ПКМ зі схемою в ОСНОВНІЙ руці, щоб повернути структуру до себе.<br>§lПідказка будівництва:§r Тримайте схему в ДРУГІЙ руці, щоб увімкнути підказку. Поки в руці правильний блок, відповідні позиції підсвічуються §lзеленим§r. Неправильно поставлений блок вимикає підказку й підсвічується §lчервоним§r. Хибна орієнтація чи стан підсвічуються §lжовтим§r.
+ie.manual.entry.schematicItem2=§lБлок формування:§r Коли структуру завершено, схема показує блок, по якому треба вдарити молотом.

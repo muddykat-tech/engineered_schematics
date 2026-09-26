@@ -23,6 +23,23 @@ public class ESPreviewConfig {
     private static Map<String, Float> defaultScales() {
         Map<String, Float> scales = new HashMap<>();
         scales.put("IE:ArcFurnace", 0.75F);
+        scales.put("II:AluminiumChainFenceGate", 1.1F);
+        scales.put("II:AluminiumFenceGate", 1.1F);
+        scales.put("II:ArithmeticLogicMachine", 0.85F);
+        scales.put("II:ArtilleryHowitzer", 0.85F);
+        scales.put("II:BallisticComputer", 0.7F);
+        scales.put("II:DataInputMachine", 0.9F);
+        scales.put("II:Electrolyzer", 0.8F);
+        scales.put("II:Filler", 0.7F);
+        scales.put("II:FuelStation", 0.85F);
+        scales.put("II:Packer", 0.85F);
+        scales.put("II:ProjectileWorkshop", 0.85F);
+        scales.put("II:SkycartStation", 0.7F);
+        scales.put("II:SkycrateStation", 0.7F);
+        scales.put("II:SteelChainFenceGate", 1.1F);
+        scales.put("II:SteelFenceGate", 1.1F);
+        scales.put("II:WoodenChainFenceGate", 1.1F);
+        scales.put("II:WoodenFenceGate", 1.1F);
         scales.put("IP:DistillationTower", 0.5F);
         scales.put("IT:Alternator", 1.25F);
         scales.put("IT:BoilerLiquid", 0.75F);
@@ -42,6 +59,7 @@ public class ESPreviewConfig {
         shifts.put("IE:BlastFurnace", new float[]{1.0F, 0.0F});
         shifts.put("IE:BottlingMachine", new float[]{-1.0F, 0.0F});
         shifts.put("IE:CokeOven", new float[]{1.0F, 0.0F});
+        shifts.put("II:RedstoneDataInterface", new float[]{0.5F, 0.0F});
         shifts.put("IP:DistillationTower", new float[]{-4.0F, -5.0F});
         shifts.put("IP:Pumpjack", new float[]{1.0F, 0.0F});
         shifts.put("IT:AdvancedCokeOven", new float[]{1.0F, 0.0F});

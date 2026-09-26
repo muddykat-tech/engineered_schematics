@@ -45,6 +45,42 @@ desc.engineered_schematics.multiblock.IE:Feedthrough=Durchgangsisolator
 desc.engineered_schematics.multiblock.IP:DistillationTower=Rektifikationskolonne
 desc.engineered_schematics.multiblock.IP:Pumpjack=Tiefpumpe
 
+#Multiblock names, sourced from Immersive Intelligence's own block names
+desc.engineered_schematics.multiblock.II:RadioStation=Radio Station
+desc.engineered_schematics.multiblock.II:PrintingPress=Druckerpresse
+desc.engineered_schematics.multiblock.II:DataInputMachine=Daten Input Maschine
+desc.engineered_schematics.multiblock.II:ArithmeticLogicMachine=Arithmetik-Logik Maschine
+desc.engineered_schematics.multiblock.II:ChemicalBath=Chemisches Bad
+desc.engineered_schematics.multiblock.II:Electrolyzer=Elektrolyzegerät
+desc.engineered_schematics.multiblock.II:PrecisionAssembler=Präzisions Montagegerät
+desc.engineered_schematics.multiblock.II:BallisticComputer=Ballistischer Computer
+desc.engineered_schematics.multiblock.II:ArtilleryHowitzer=Artillerie Haubitze
+desc.engineered_schematics.multiblock.II:ScanningConveyor=Scannendes Fließband
+desc.engineered_schematics.multiblock.II:Packer=Verpacker
+desc.engineered_schematics.multiblock.II:RedstoneDataInterface=Redstone-Daten Interface
+desc.engineered_schematics.multiblock.II:Filler=Füller
+desc.engineered_schematics.multiblock.II:Coagulator=Koagulanz
+desc.engineered_schematics.multiblock.II:ProjectileWorkshop=Projektil Werkstatt
+desc.engineered_schematics.multiblock.II:AmmunitionAssembler=Munitionsmonteur
+desc.engineered_schematics.multiblock.II:HeavyAmmunitionAssembler=Schwerer Munitionsmonteur
+desc.engineered_schematics.multiblock.II:FuelStation=Treibstoff Station
+desc.engineered_schematics.multiblock.II:VehicleWorkshop=Fahrzeug Werkstatt
+desc.engineered_schematics.multiblock.II:Flagpole=Fahnenstange
+desc.engineered_schematics.multiblock.II:Radar=Radar
+desc.engineered_schematics.multiblock.II:Emplacement=Befestigung
+desc.engineered_schematics.multiblock.II:ChemicalPainter=Chemischer Färber
+desc.engineered_schematics.multiblock.II:Vulcanizer=Vulkanisator
+desc.engineered_schematics.multiblock.II:SkycratePost=Himmelskisten Pfosten
+desc.engineered_schematics.multiblock.II:SkycrateStation=Himmelskisten Station
+desc.engineered_schematics.multiblock.II:SkycartStation=Himmelsloren Station
+desc.engineered_schematics.multiblock.II:Sawmill=Sägemühle
+desc.engineered_schematics.multiblock.II:WoodenFenceGate=Hölzernes Zauntor
+desc.engineered_schematics.multiblock.II:WoodenChainFenceGate=Hölzernes Gitterzauntor
+desc.engineered_schematics.multiblock.II:SteelFenceGate=Stahlzauntor
+desc.engineered_schematics.multiblock.II:SteelChainFenceGate=Stahlgitterzauntor
+desc.engineered_schematics.multiblock.II:AluminiumFenceGate=Aluminiumzauntor
+desc.engineered_schematics.multiblock.II:AluminiumChainFenceGate=Aluminiumgitterzauntor
+
 #MANUAL
 ie.manual.category.engineered_schematics.name=Engineered Schematics
 ie.manual.entry.es.name=Einführung

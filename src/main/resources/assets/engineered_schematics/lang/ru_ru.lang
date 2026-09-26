@@ -66,6 +66,7 @@ desc.engineered_schematics.multiblock.II:Filler=Наполнитель
 desc.engineered_schematics.multiblock.II:Coagulator=Коагулятор
 desc.engineered_schematics.multiblock.II:ProjectileWorkshop=Мастерская пуль
 desc.engineered_schematics.multiblock.II:AmmunitionAssembler=Сборщик боеприпасов
+desc.engineered_schematics.multiblock.II:HeavyAmmunitionAssembler=Сборщик тяжёлых боеприпасов
 desc.engineered_schematics.multiblock.II:FuelStation=Заправочная станция
 desc.engineered_schematics.multiblock.II:VehicleWorkshop=Автомастерская
 desc.engineered_schematics.multiblock.II:Flagpole=Флагшток

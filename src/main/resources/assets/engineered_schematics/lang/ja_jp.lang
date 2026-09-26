@@ -45,6 +45,42 @@ desc.engineered_schematics.multiblock.IE:Feedthrough=貫通碍子
 desc.engineered_schematics.multiblock.IP:DistillationTower=蒸留塔
 desc.engineered_schematics.multiblock.IP:Pumpjack=ポンプジャック
 
+#Multiblock names, sourced from Immersive Intelligence's own block names
+desc.engineered_schematics.multiblock.II:RadioStation=無線局
+desc.engineered_schematics.multiblock.II:PrintingPress=印刷機
+desc.engineered_schematics.multiblock.II:DataInputMachine=データ入力機
+desc.engineered_schematics.multiblock.II:ArithmeticLogicMachine=算術論理機
+desc.engineered_schematics.multiblock.II:ChemicalBath=化学浴槽
+desc.engineered_schematics.multiblock.II:Electrolyzer=電解装置
+desc.engineered_schematics.multiblock.II:PrecisionAssembler=精密組立機
+desc.engineered_schematics.multiblock.II:BallisticComputer=弾道計算機
+desc.engineered_schematics.multiblock.II:ArtilleryHowitzer=榴弾砲
+desc.engineered_schematics.multiblock.II:ScanningConveyor=スキャンコンベア
+desc.engineered_schematics.multiblock.II:Packer=梱包機
+desc.engineered_schematics.multiblock.II:RedstoneDataInterface=レッドストーンデータインターフェース
+desc.engineered_schematics.multiblock.II:Filler=充填機
+desc.engineered_schematics.multiblock.II:Coagulator=凝固機
+desc.engineered_schematics.multiblock.II:ProjectileWorkshop=弾頭工房
+desc.engineered_schematics.multiblock.II:AmmunitionAssembler=弾薬組立機
+desc.engineered_schematics.multiblock.II:HeavyAmmunitionAssembler=重弾薬組立機
+desc.engineered_schematics.multiblock.II:FuelStation=給油所
+desc.engineered_schematics.multiblock.II:VehicleWorkshop=車両工房
+desc.engineered_schematics.multiblock.II:Flagpole=旗竿
+desc.engineered_schematics.multiblock.II:Radar=レーダー
+desc.engineered_schematics.multiblock.II:Emplacement=砲座
+desc.engineered_schematics.multiblock.II:ChemicalPainter=化学塗装機
+desc.engineered_schematics.multiblock.II:Vulcanizer=加硫機
+desc.engineered_schematics.multiblock.II:SkycratePost=スカイクレート支柱
+desc.engineered_schematics.multiblock.II:SkycrateStation=スカイクレート駅
+desc.engineered_schematics.multiblock.II:SkycartStation=スカイカート駅
+desc.engineered_schematics.multiblock.II:Sawmill=製材所
+desc.engineered_schematics.multiblock.II:WoodenFenceGate=木のフェンスゲート
+desc.engineered_schematics.multiblock.II:WoodenChainFenceGate=木の金網フェンスゲート
+desc.engineered_schematics.multiblock.II:SteelFenceGate=鋼鉄のフェンスゲート
+desc.engineered_schematics.multiblock.II:SteelChainFenceGate=鋼鉄の金網フェンスゲート
+desc.engineered_schematics.multiblock.II:AluminiumFenceGate=アルミのフェンスゲート
+desc.engineered_schematics.multiblock.II:AluminiumChainFenceGate=アルミの金網フェンスゲート
+
 #MANUAL
 ie.manual.category.engineered_schematics.name=Engineered Schematics
 ie.manual.entry.es.name=はじめに

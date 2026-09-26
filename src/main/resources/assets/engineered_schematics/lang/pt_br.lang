@@ -45,6 +45,42 @@ desc.engineered_schematics.multiblock.IE:Feedthrough=Isolador de Passagem Direta
 desc.engineered_schematics.multiblock.IP:DistillationTower=Torre de destilação
 desc.engineered_schematics.multiblock.IP:Pumpjack=Unidade de bombeio
 
+#Multiblock names, sourced from Immersive Intelligence's own block names
+desc.engineered_schematics.multiblock.II:RadioStation=Estação de Rádio
+desc.engineered_schematics.multiblock.II:PrintingPress=Prensa de Impressão
+desc.engineered_schematics.multiblock.II:DataInputMachine=Máquina de Entrada de Dados
+desc.engineered_schematics.multiblock.II:ArithmeticLogicMachine=Máquina Aritmético-Lógica
+desc.engineered_schematics.multiblock.II:ChemicalBath=Banho Químico
+desc.engineered_schematics.multiblock.II:Electrolyzer=Eletrolisador
+desc.engineered_schematics.multiblock.II:PrecisionAssembler=Montador de Precisão
+desc.engineered_schematics.multiblock.II:BallisticComputer=Computador Balístico
+desc.engineered_schematics.multiblock.II:ArtilleryHowitzer=Obuseiro de Artilharia
+desc.engineered_schematics.multiblock.II:ScanningConveyor=Esteira de Escaneamento
+desc.engineered_schematics.multiblock.II:Packer=Empacotadora
+desc.engineered_schematics.multiblock.II:RedstoneDataInterface=Interface de Dados de Redstone
+desc.engineered_schematics.multiblock.II:Filler=Preenchedora
+desc.engineered_schematics.multiblock.II:Coagulator=Coagulador
+desc.engineered_schematics.multiblock.II:ProjectileWorkshop=Oficina de Projéteis
+desc.engineered_schematics.multiblock.II:AmmunitionAssembler=Montador de Munição
+desc.engineered_schematics.multiblock.II:HeavyAmmunitionAssembler=Montador de Munição Pesada
+desc.engineered_schematics.multiblock.II:FuelStation=Posto de Combustível
+desc.engineered_schematics.multiblock.II:VehicleWorkshop=Oficina de Veículos
+desc.engineered_schematics.multiblock.II:Flagpole=Mastro de Bandeira
+desc.engineered_schematics.multiblock.II:Radar=Radar
+desc.engineered_schematics.multiblock.II:Emplacement=Posição de Tiro
+desc.engineered_schematics.multiblock.II:ChemicalPainter=Pintor Químico
+desc.engineered_schematics.multiblock.II:Vulcanizer=Vulcanizador
+desc.engineered_schematics.multiblock.II:SkycratePost=Poste de Teleférico
+desc.engineered_schematics.multiblock.II:SkycrateStation=Estação de Teleférico de Carga
+desc.engineered_schematics.multiblock.II:SkycartStation=Estação de Teleférico de Passageiros
+desc.engineered_schematics.multiblock.II:Sawmill=Serraria
+desc.engineered_schematics.multiblock.II:WoodenFenceGate=Portão de Cerca de Madeira
+desc.engineered_schematics.multiblock.II:WoodenChainFenceGate=Portão de Alambrado de Madeira
+desc.engineered_schematics.multiblock.II:SteelFenceGate=Portão de Cerca de Aço
+desc.engineered_schematics.multiblock.II:SteelChainFenceGate=Portão de Alambrado de Aço
+desc.engineered_schematics.multiblock.II:AluminiumFenceGate=Portão de Cerca de Alumínio
+desc.engineered_schematics.multiblock.II:AluminiumChainFenceGate=Portão de Alambrado de Alumínio
+
 #MANUAL
 ie.manual.category.engineered_schematics.name=Engineered Schematics
 ie.manual.entry.es.name=Introdução

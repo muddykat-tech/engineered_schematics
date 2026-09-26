@@ -1,24 +1,25 @@
 #GENERAL
 itemGroup.engineered_schematics=Engineered Schematics
 manual.engineered_schematics.main=Engineered Schematics
-tile.engineered_schematics.schematic_table_block.name=Schematic Table
-desc.engineered_schematics.schematic_table=Schematic Table
-engineered_schematics.gui.schematic_table.mirror=Mirrored
-item.engineered_schematics.multiblock_schematic.name=Blank Schematic
-item.engineered_schematics.multiblock_schematic.specific.name=%s Schematic
-item.engineered_schematics.multiblock_schematic.specific.mirrored.name=Mirrored %s Schematic
-item.engineered_schematics.multiblock_schematic.formed=Complete
-item.engineered_schematics.multiblock_schematic.error=Block Error
+tile.engineered_schematics.schematic_table_block.name=Tavolo degli schemi
+desc.engineered_schematics.schematic_table=Tavolo degli schemi
+engineered_schematics.gui.schematic_table.mirror=Speculare
+item.engineered_schematics.multiblock_schematic.name=Schema vuoto
+item.engineered_schematics.multiblock_schematic.specific.name=Schema di %s
+item.engineered_schematics.multiblock_schematic.specific.mirrored.name=Schema speculare di %s
+item.engineered_schematics.multiblock_schematic.formed=Completo
+item.engineered_schematics.multiblock_schematic.error=Errore di blocco
 desc.engineered_schematics.info.schematic.size=%s
-desc.engineered_schematics.info.schematic.tier=This can be formed using the %s
+desc.engineered_schematics.info.schematic.tier=Può essere formato con il %s
 desc.engineered_schematics.info.schematic.ie_tier=Engineer's Hammer
-desc.engineered_schematics.info.schematic.block_info=Hold [%s] for Materials
-desc.engineered_schematics.info.schematic.no_multiblock=Blank Schematics
-desc.engineered_schematics.info.schematic.moved=Schematic Moved
-desc.engineered_schematics.info.schematic.rotated=Schematic Rotated
-desc.engineered_schematics.info.schematic.placed=(Creative Only) Schematic Placed
+desc.engineered_schematics.info.schematic.block_info=Tieni premuto [%s] per i materiali
+desc.engineered_schematics.info.schematic.no_multiblock=Schemi vuoti
+desc.engineered_schematics.info.schematic.moved=Schema spostato
+desc.engineered_schematics.info.schematic.rotated=Schema ruotato
+desc.engineered_schematics.info.schematic.placed=(Solo creativa) Schema posizionato
 
-#Multiblock names, sourced from Immersive Engineering's own block names
+#Immersive Engineering, Immersive Petroleum and Immersive Intelligence ship no it_it, so the names
+#below stay English to match what those blocks are called in game.
 desc.engineered_schematics.multiblock.IE:CokeOven=Coke Oven
 desc.engineered_schematics.multiblock.IE:AlloySmelter=Alloy Kiln
 desc.engineered_schematics.multiblock.IE:BlastFurnace=Crude Blast Furnace
@@ -45,15 +46,11 @@ desc.engineered_schematics.multiblock.IE:Feedthrough=Feedthrough Insulator
 desc.engineered_schematics.multiblock.IP:DistillationTower=Distillation Tower
 desc.engineered_schematics.multiblock.IP:Pumpjack=Pumpjack
 
-# Multiblock names, sourced from Immersive Intelligence's own block names (0.3.1-Dev6)
-desc.engineered_schematics.multiblock.II:SkycratePost=Skycrate Post
-desc.engineered_schematics.multiblock.II:SkycrateStation=Skycrate Station
-desc.engineered_schematics.multiblock.II:Sawmill=Sawmill
-desc.engineered_schematics.multiblock.II:SkycartStation=Skycart Station
+#Multiblock names, sourced from Immersive Intelligence's own block names
 desc.engineered_schematics.multiblock.II:RadioStation=Radio Station
 desc.engineered_schematics.multiblock.II:PrintingPress=Printing Press
 desc.engineered_schematics.multiblock.II:DataInputMachine=Data Input Machine
-desc.engineered_schematics.multiblock.II:ArithmeticLogicMachine=Arithmetic Logic Machine
+desc.engineered_schematics.multiblock.II:ArithmeticLogicMachine=Arithmetic-Logic Machine
 desc.engineered_schematics.multiblock.II:ChemicalBath=Chemical Bath
 desc.engineered_schematics.multiblock.II:Electrolyzer=Electrolyzer
 desc.engineered_schematics.multiblock.II:PrecisionAssembler=Precision Assembler
@@ -61,7 +58,7 @@ desc.engineered_schematics.multiblock.II:BallisticComputer=Ballistic Computer
 desc.engineered_schematics.multiblock.II:ArtilleryHowitzer=Artillery Howitzer
 desc.engineered_schematics.multiblock.II:ScanningConveyor=Scanning Conveyor
 desc.engineered_schematics.multiblock.II:Packer=Packer
-desc.engineered_schematics.multiblock.II:RedstoneDataInterface=Redstone Data Interface
+desc.engineered_schematics.multiblock.II:RedstoneDataInterface=Redstone-Data Interface
 desc.engineered_schematics.multiblock.II:Filler=Filler
 desc.engineered_schematics.multiblock.II:Coagulator=Coagulator
 desc.engineered_schematics.multiblock.II:ProjectileWorkshop=Projectile Workshop
@@ -87,15 +84,15 @@ desc.engineered_schematics.multiblock.II:AluminiumChainFenceGate=Aluminium Chain
 
 #MANUAL
 ie.manual.category.engineered_schematics.name=Engineered Schematics
-ie.manual.entry.es.name=Introduction
-ie.manual.entry.es.subtext=Projecting the Future
-ie.manual.entry.es0=Greetings and welcome to Engineered Schematics.<br><br>Engineered Schematics is designed to be the ultimate building companion for players using Immersive Engineering and its many add-ons.<br><br>This mod provides a detailed guide to constructing complex multiblock machines, ensuring you build them quickly, accurately, and efficiently.
-ie.manual.entry.es1=Whether you're a seasoned engineer or just getting started, Engineered Schematics will help you navigate these advanced builds with ease.<br>Let's <link;schematicTable;get started>.
-ie.manual.entry.schematicTable.name=Schematic Table
-ie.manual.entry.schematicTable.subtext=The Architect’s Codex
-ie.manual.entry.schematicTable0=To begin, you'll need to craft a Schematic Table.<br>This table turns paper into a <link;schematicItem;schematic> for any multiblock structure registered with Immersive Engineering.
-ie.manual.entry.schematicItem.name=Multiblock Schematic
-ie.manual.entry.schematicItem.subtext=Block by Block
-ie.manual.entry.schematicItem0=This guide explains how to use the Multiblock Schematic.<br>Follow the steps below to easily place, move, and build your multiblock structures with visual feedback.
-ie.manual.entry.schematicItem1=§lPlace and Move:§r Right-click with the schematic in your MAIN hand to set or reposition the multiblock footprint.<br>§lRotate Multiblock:§r Sneak and right-click with the schematic in your MAIN hand to rotate the structure so that it faces you.<br>§lBuild Guide:§r Hold the schematic in your OFF hand to enable the build guide. When holding the correct block, matching positions highlight §lgreen§r. A wrongly placed block disables the guide and highlights §lred§r. Wrong orientation or state highlights §lyellow§r.
-ie.manual.entry.schematicItem2=§lFormation Block:§r Once the structure is complete, the schematic shows the formation block to hit with a hammer.
+ie.manual.entry.es.name=Introduzione
+ie.manual.entry.es.subtext=Progettare il futuro
+ie.manual.entry.es0=Benvenuto in Engineered Schematics.<br><br>Engineered Schematics vuole essere il compagno di costruzione definitivo per chi usa Immersive Engineering e i suoi numerosi add-on.<br><br>Questa mod offre una guida dettagliata alla costruzione di macchine multiblocco complesse, per realizzarle in modo rapido, preciso ed efficiente.
+ie.manual.entry.es1=Che tu sia un ingegnere navigato o alle prime armi, Engineered Schematics ti accompagnerà senza fatica in queste costruzioni avanzate.<br>Allora <link;schematicTable;cominciamo>.
+ie.manual.entry.schematicTable.name=Tavolo degli schemi
+ie.manual.entry.schematicTable.subtext=Il codice dell'architetto
+ie.manual.entry.schematicTable0=Per cominciare serve un Tavolo degli schemi.<br>Questo tavolo trasforma la carta nello <link;schematicItem;schema> di qualsiasi struttura multiblocco registrata in Immersive Engineering.
+ie.manual.entry.schematicItem.name=Schema di multiblocco
+ie.manual.entry.schematicItem.subtext=Blocco dopo blocco
+ie.manual.entry.schematicItem0=Questa guida spiega come usare lo Schema di multiblocco.<br>Segui i passaggi qui sotto per posizionare, spostare e costruire facilmente le tue strutture multiblocco con riscontro visivo.
+ie.manual.entry.schematicItem1=§lPosizionare e spostare:§r Clic destro con lo schema nella mano PRINCIPALE per fissare o riposizionare l'ingombro del multiblocco.<br>§lRuotare il multiblocco:§r Accovacciati e fai clic destro con lo schema nella mano PRINCIPALE per girare la struttura verso di te.<br>§lGuida alla costruzione:§r Tieni lo schema nella mano SECONDARIA per attivare la guida. Con il blocco giusto in mano, le posizioni corrispondenti si illuminano di §lverde§r. Un blocco posato male disattiva la guida e si illumina di §lrosso§r. Orientamento o stato sbagliato si illumina di §lgiallo§r.
+ie.manual.entry.schematicItem2=§lBlocco di formazione:§r Quando la struttura è completa, lo schema mostra il blocco da colpire con un martello.

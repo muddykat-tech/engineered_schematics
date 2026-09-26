@@ -18,7 +18,7 @@ file('version.properties').withInputStream { versionProps.load(it) }
 def gradleProps = new Properties()
 file('gradle.properties').withInputStream { gradleProps.load(it) }
 
-def building = gradle.startParameter.taskNames*.toLowerCase().any { it.contains('build') || it.contains('jar') || it.contains('assemble') }
+def building = gradle.startParameter.taskNames*.toLowerCase().findAll { !(it ==~ /(.*:)?dev(jar|sync)/) }.any { it.contains('build') || it.contains('jar') || it.contains('assemble') }
 if (building) {
     versionProps['build_number'] = ((versionProps.getProperty('build_number')?.toInteger() ?: 0) + 1).toString()
     file('version.properties').withOutputStream { versionProps.store(it, null) }
@@ -57,6 +57,7 @@ minecraft {
     mcpMappingVersion = common.mcp_mappings.toString().split('-')[0]
     username = 'Muddykat'
     extraRunJvmArguments.addAll(
+            '-Xmx4G',
             '-Dforge.logging.console.level=debug'
     )
 }
@@ -74,37 +75,33 @@ repositories {
     mavenCentral()
 }
 
-def icJar = null
-def icDir = file('../ImmersiveConvergence-Legacy/build/libs')
-def icJars = icDir.exists() ? fileTree(icDir) {
-    include '*-dev.jar'
-    exclude '**/*-sources.jar'
-}.files : []
-
-if (!icJars.isEmpty()) {
-    icJar = icJars.sort { a, b -> a.lastModified() <=> b.lastModified() }.last()
-    logger.lifecycle("Found Immersive Convergence dev JAR: ${icJar.name}")
-} else {
-    logger.warn('No Immersive Convergence dev JAR found in ../ImmersiveConvergence-Legacy/build/libs, build one there first')
+configurations {
+    clientRuntime {
+        canBeConsumed = false
+        canBeResolved = true
+    }
 }
 
-def itJar = null
-def itDir = file('../MCT-Immersive-Technology-Legacy/build/libs')
-def itJars = itDir.exists() ? fileTree(itDir) {
-    include '*-dev.jar'
-    exclude '**/*-sources.jar'
-}.files : []
-
-if (!itJars.isEmpty()) {
-    itJar = itJars.sort { a, b -> a.lastModified() <=> b.lastModified() }.last()
-    logger.lifecycle("Found Immersive Technology dev JAR: ${itJar.name}")
-} else {
-    logger.warn('No Immersive Technology dev JAR found in ../MCT-Immersive-Technology-Legacy/build/libs, build one there first')
+def devSyncScript = null
+for (def dir = rootDir; dir != null && devSyncScript == null; dir = dir.parentFile) {
+    def candidate = new File(dir, '#scripts/mods-devsync.gradle')
+    if (candidate.isFile()) { devSyncScript = candidate }
 }
+if (devSyncScript != null) {
+    apply from: devSyncScript
+    build.finalizedBy 'devSync'
+}
+
+def icJar = devSyncScript == null ? null : devSyncStaged(devSyncPin('ImmersiveConvergence-Legacy', versionProps['devsync_ic']), 'build/devsync-pins/ImmersiveConvergence-Legacy.jar')
+if (icJar == null) { logger.warn('No Immersive Convergence devSync pin: set devsync_ic in version.properties to a snapshot in the devsync cache') }
+
+def itJar = devSyncScript == null ? null : devSyncStaged(devSyncPin('MCT-Immersive-Technology-Legacy', versionProps['devsync_it']), 'build/devsync-pins/MCT-Immersive-Technology-Legacy.jar')
+if (itJar == null) { logger.warn('No Immersive Technology devSync pin: set devsync_it in version.properties to a snapshot in the devsync cache') }
 
 dependencies {
     implementation rfg.deobf("curse.maven:${common.imme_version}")
     implementation rfg.deobf("curse.maven:${common.imps_version}")
+    implementation rfg.deobf("curse.maven:${common.imin_version}")
     if (icJar != null) {
         implementation files(icJar)
     }
@@ -112,10 +109,13 @@ dependencies {
         implementation files(itJar)
     }
     runtimeOnly('zone.rong:mixinbooter:10.7') { transitive = false }
+
+    clientRuntime rfg.deobf("curse.maven:${common.bf3r_version}")
 }
 
 tasks.named('runClient').configure {
     extraArgs.addAll('--width', '1920', '--height', '1080')
+    classpath configurations.clientRuntime
 }
 
 tasks.named('runServer').configure {

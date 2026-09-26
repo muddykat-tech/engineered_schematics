@@ -45,6 +45,42 @@ desc.engineered_schematics.multiblock.IE:Feedthrough=Macarrón aislante
 desc.engineered_schematics.multiblock.IP:DistillationTower=Torre de destilación
 desc.engineered_schematics.multiblock.IP:Pumpjack=Unidad de bombeo
 
+#Multiblock names, sourced from Immersive Intelligence's own block names
+desc.engineered_schematics.multiblock.II:RadioStation=Estación de radio
+desc.engineered_schematics.multiblock.II:PrintingPress=Imprenta
+desc.engineered_schematics.multiblock.II:DataInputMachine=Máquina de entrada de datos
+desc.engineered_schematics.multiblock.II:ArithmeticLogicMachine=Máquina aritmético-lógica
+desc.engineered_schematics.multiblock.II:ChemicalBath=Baño químico
+desc.engineered_schematics.multiblock.II:Electrolyzer=Electrolizador
+desc.engineered_schematics.multiblock.II:PrecisionAssembler=Ensamblador de precisión
+desc.engineered_schematics.multiblock.II:BallisticComputer=Ordenador balístico
+desc.engineered_schematics.multiblock.II:ArtilleryHowitzer=Obús de artillería
+desc.engineered_schematics.multiblock.II:ScanningConveyor=Cinta de escaneo
+desc.engineered_schematics.multiblock.II:Packer=Empaquetadora
+desc.engineered_schematics.multiblock.II:RedstoneDataInterface=Interfaz de datos de redstone
+desc.engineered_schematics.multiblock.II:Filler=Rellenadora
+desc.engineered_schematics.multiblock.II:Coagulator=Coagulador
+desc.engineered_schematics.multiblock.II:ProjectileWorkshop=Taller de proyectiles
+desc.engineered_schematics.multiblock.II:AmmunitionAssembler=Ensamblador de munición
+desc.engineered_schematics.multiblock.II:HeavyAmmunitionAssembler=Ensamblador de munición pesada
+desc.engineered_schematics.multiblock.II:FuelStation=Estación de combustible
+desc.engineered_schematics.multiblock.II:VehicleWorkshop=Taller de vehículos
+desc.engineered_schematics.multiblock.II:Flagpole=Asta de bandera
+desc.engineered_schematics.multiblock.II:Radar=Radar
+desc.engineered_schematics.multiblock.II:Emplacement=Emplazamiento
+desc.engineered_schematics.multiblock.II:ChemicalPainter=Pintor químico
+desc.engineered_schematics.multiblock.II:Vulcanizer=Vulcanizador
+desc.engineered_schematics.multiblock.II:SkycratePost=Poste de teleférico
+desc.engineered_schematics.multiblock.II:SkycrateStation=Estación de teleférico de carga
+desc.engineered_schematics.multiblock.II:SkycartStation=Estación de teleférico de pasajeros
+desc.engineered_schematics.multiblock.II:Sawmill=Aserradero
+desc.engineered_schematics.multiblock.II:WoodenFenceGate=Puerta de valla de madera
+desc.engineered_schematics.multiblock.II:WoodenChainFenceGate=Puerta de valla de malla de madera
+desc.engineered_schematics.multiblock.II:SteelFenceGate=Puerta de valla de acero
+desc.engineered_schematics.multiblock.II:SteelChainFenceGate=Puerta de valla de malla de acero
+desc.engineered_schematics.multiblock.II:AluminiumFenceGate=Puerta de valla de aluminio
+desc.engineered_schematics.multiblock.II:AluminiumChainFenceGate=Puerta de valla de malla de aluminio
+
 #MANUAL
 ie.manual.category.engineered_schematics.name=Engineered Schematics
 ie.manual.entry.es.name=Introducción
