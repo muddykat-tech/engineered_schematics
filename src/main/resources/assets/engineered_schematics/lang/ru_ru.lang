@@ -45,7 +45,11 @@ desc.engineered_schematics.multiblock.IE:Feedthrough=Проходной изол
 desc.engineered_schematics.multiblock.IP:DistillationTower=Ректификационная колонна
 desc.engineered_schematics.multiblock.IP:Pumpjack=Штанговый насос
 
-#Multiblock names, sourced from Immersive Intelligence's own block names
+#Multiblock names, sourced from Immersive Intelligence's own block names (0.3.1-Dev6)
+desc.engineered_schematics.multiblock.II:SkycratePost=Фуникулёрный столб
+desc.engineered_schematics.multiblock.II:SkycrateStation=Станция фуникулёра
+desc.engineered_schematics.multiblock.II:Sawmill=Лесопилка
+desc.engineered_schematics.multiblock.II:SkycartStation=Станция пассажирского фуникулёра
 desc.engineered_schematics.multiblock.II:RadioStation=Радиостанция
 desc.engineered_schematics.multiblock.II:PrintingPress=Печатный пресс
 desc.engineered_schematics.multiblock.II:DataInputMachine=Машина ввода данных
@@ -70,10 +74,7 @@ desc.engineered_schematics.multiblock.II:Radar=Радар
 desc.engineered_schematics.multiblock.II:Emplacement=Огневая точка
 desc.engineered_schematics.multiblock.II:ChemicalPainter=Химический маляр
 desc.engineered_schematics.multiblock.II:Vulcanizer=Вулканизатор
-desc.engineered_schematics.multiblock.II:SkycratePost=Фуникулёрный столб
-desc.engineered_schematics.multiblock.II:SkycrateStation=Станция фуникулёра
-desc.engineered_schematics.multiblock.II:SkycartStation=Станция пассажирского фуникулёра
-desc.engineered_schematics.multiblock.II:Sawmill=Лесопилка
+desc.engineered_schematics.multiblock.II:HeavyAmmunitionAssembler=Сборщик тяжёлых боеприпасов
 desc.engineered_schematics.multiblock.II:WoodenFenceGate=Деревянные ворота
 desc.engineered_schematics.multiblock.II:WoodenChainFenceGate=Деревянные сеточные ворота
 desc.engineered_schematics.multiblock.II:SteelFenceGate=Стальные ворота
