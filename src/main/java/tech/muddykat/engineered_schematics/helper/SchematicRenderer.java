@@ -51,6 +51,7 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import tech.muddykat.engineered_schematics.EngineeredSchematics;
 import tech.muddykat.engineered_schematics.client.ESShaders;
+import tech.muddykat.engineered_schematics.client.TintedVertexConsumer;
 import tech.muddykat.engineered_schematics.item.ESSchematicSettings;
 import tech.muddykat.engineered_schematics.item.SchematicProjection;
 import tech.muddykat.engineered_schematics.registry.ESRenderTypes;
@@ -66,6 +67,9 @@ public class SchematicRenderer
     private static final int COLOR_HIGHLIGHT = 0x44FF44;
     private static final float[] COLOR_HELD = {0.2f, 1.0f, 0.5f};
     private static final float[] COLOR_NORMAL = {0.2f, 0.5f, 1.0f};
+    private static final float FALLBACK_ALPHA = 0.75f;
+    // Lines, outlines and the name are drawn solid; translucent ones turn muddy over the world, worse with shader packs
+    private static final int OPAQUE = 0xff000000;
     static final BlockPos.MutableBlockPos FULL_MAX = new BlockPos.MutableBlockPos(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE);
     public static void renderSchematic(PoseStack matrix, ESSchematicSettings settings,
                                        Player player, Level world) {
@@ -235,7 +239,7 @@ public class SchematicRenderer
                 matrix.pushPose();
                 {
                     matrix.translate(offset.getX(), offset.getY(), offset.getZ());
-                    drawFrontGroundText(matrix, new Vec3((int) mbSize.getX(), 0, (int) mbSize.getZ()), mainBuffer, settings.getRotation(), settings.getMultiblock(), 0x66ffffff, Component.translatable("item.engineered_schematics.multiblock_schematic.formed"));
+                    drawFrontGroundText(matrix, new Vec3((int) mbSize.getX(), 0, (int) mbSize.getZ()), mainBuffer, settings.getRotation(), settings.getMultiblock(), 0xffffffff, Component.translatable("item.engineered_schematics.multiblock_schematic.formed"));
                 }
                 matrix.popPose();
 
@@ -260,16 +264,20 @@ public class SchematicRenderer
                     matrix.mulPose(new Quaternionf().rotateY((90 * rotation.ordinal()) * Mth.DEG_TO_RAD));
                     ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
                     ItemStack hammerStack = settings.getFormationTool();
+                    // Schematics saved without a formation tool load an empty stack, which would render nothing
+                    if(hammerStack.isEmpty())
+                        hammerStack = new ItemStack(IEItems.Tools.HAMMER);
                     BakedModel itemModel = itemRenderer.getModel(hammerStack, world, null, 0);
                     int hammer = 0xaa0000;
                     float red = (hammer >> 16 & 0xFF) / 255F;
                     float green = (hammer >> 8 & 0xFF) / 255F;
                     float blue = (hammer & 0xFF) / 255F;
 
-                    ESShaders.setSchematicRenderData(world.getGameTime(), red, green, blue);
                     MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
-                    VertexConsumer vertexConsumer = buffer.getBuffer(ESRenderTypes.SCHEMATIC);
+                    VertexConsumer vertexConsumer = schematicBuffer(buffer, world.getGameTime(), red, green, blue);
                     itemRenderer.renderModelLists(itemModel, hammerStack, 15728880, OverlayTexture.NO_OVERLAY, matrix, vertexConsumer);
+                    // Draw now, while the shader still holds the hammer's tint, instead of at vanilla's next flush
+                    buffer.endBatch();
                 }
                 matrix.popPose();
             }
@@ -353,7 +361,6 @@ public class SchematicRenderer
         MultiBufferSource.BufferSource buffer = MultiBufferSource.immediate(PHANTOM_TESSELATOR.getBuilder());
 
         BlockState state = rInfo.getModifiedState(realWorld, rInfo.tPos);
-        state.updateNeighbourShapes(realWorld, rInfo.tPos, 3);
 
         ModelData modelData = ModelData.EMPTY;
         BlockEntity te = rInfo.templateWorld.getBlockEntity(rInfo.tBlockInfo.pos());
@@ -372,8 +379,7 @@ public class SchematicRenderer
                 float blue = (i & 0xFF) / 255F;
 
                 modelData = ibakedmodel.getModelData(rInfo.templateWorld, rInfo.tBlockInfo.pos(), state, modelData);
-                ESShaders.setSchematicRenderData(0, color[0],color[1],color[2]);
-                VertexConsumer vc = buffer.getBuffer(ESRenderTypes.SCHEMATIC);
+                VertexConsumer vc = schematicBuffer(buffer, 0, color[0], color[1], color[2]);
                 matrix.scale(0.5f, 0.5f,0.5f);
                 matrix.translate(0.5f,0.5f,0.5f);
                 blockRenderer.renderModel(matrix.last(), vc, state, ibakedmodel, red, green, blue, 0xF000F0, OverlayTexture.NO_OVERLAY, modelData, null);
@@ -392,6 +398,16 @@ public class SchematicRenderer
         }
 
         buffer.endBatch();
+    }
+
+    private static VertexConsumer schematicBuffer(MultiBufferSource buffer, float time, float red, float green, float blue)
+    {
+        if(ESShaders.useSchematicShader())
+        {
+            ESShaders.setSchematicRenderData(time, red, green, blue);
+            return buffer.getBuffer(ESRenderTypes.SCHEMATIC);
+        }
+        return new TintedVertexConsumer(buffer.getBuffer(ESRenderTypes.SCHEMATIC_FALLBACK), red, green, blue, FALLBACK_ALPHA);
     }
 
     public static void renderCenteredOutlineBox(MultiBufferSource buffer, PoseStack matrix, int rgb){
@@ -418,8 +434,7 @@ public class SchematicRenderer
         Rotation rotation = settings.getRotation();
         MultiblockHandler.IMultiblock multiblock = settings.getMultiblock();
         assert(multiblock != null);
-        float alpha = 0.3f;
-        int rgba = rgb | (((int) (alpha * 255)) << 24);
+        int rgba = rgb | OPAQUE;
         int color = rgba;
         int guideColor = 0x0000ff00;
         Vec3 max = origin.add(normal);
@@ -431,10 +446,10 @@ public class SchematicRenderer
             for (float a = 0; a <= normal.z; a += stepSize) {
                 rgba = color;
                 if ((a == 0 || a == normal.z) && isDebug) {
-                    if (rotation.equals(Rotation.NONE) && a == 0) rgba = 0x66ff0000;
-                    if (rotation.equals(Rotation.CLOCKWISE_180) && a != 0) rgba = 0x66ff0000;
-                    if (rotation.equals(Rotation.CLOCKWISE_90) && a == 0) rgba = 0x660000ff;
-                    if (rotation.equals(Rotation.COUNTERCLOCKWISE_90) && a != 0) rgba = 0x660000ff;
+                    if (rotation.equals(Rotation.NONE) && a == 0) rgba = 0xffff0000;
+                    if (rotation.equals(Rotation.CLOCKWISE_180) && a != 0) rgba = 0xffff0000;
+                    if (rotation.equals(Rotation.CLOCKWISE_90) && a == 0) rgba = 0xff0000ff;
+                    if (rotation.equals(Rotation.COUNTERCLOCKWISE_90) && a != 0) rgba = 0xff0000ff;
                 }
                 matrix.translate(0, 0, a);
                 line(builder, matrix, origin, max, 0b010, 0b110, rgba);
@@ -443,10 +458,10 @@ public class SchematicRenderer
             for (float a = 0; a <= normal.x; a += stepSize) {
                 rgba = color;
                 if ((a == 0 || a == normal.x) && isDebug) {
-                    if (rotation.equals(Rotation.NONE) && a == 0) rgba = 0x660000ff;
-                    if (rotation.equals(Rotation.CLOCKWISE_90) && a != 0) rgba = 0x66ff0000;
-                    if (rotation.equals(Rotation.COUNTERCLOCKWISE_90) && a == 0) rgba = 0x66ff0000;
-                    if (rotation.equals(Rotation.CLOCKWISE_180) && a != 0) rgba = 0x660000ff;
+                    if (rotation.equals(Rotation.NONE) && a == 0) rgba = 0xff0000ff;
+                    if (rotation.equals(Rotation.CLOCKWISE_90) && a != 0) rgba = 0xffff0000;
+                    if (rotation.equals(Rotation.COUNTERCLOCKWISE_90) && a == 0) rgba = 0xffff0000;
+                    if (rotation.equals(Rotation.CLOCKWISE_180) && a != 0) rgba = 0xff0000ff;
                 }
                 matrix.translate(a, 0, 0);
                 line(builder, matrix, origin, max, 0b010, 0b011, rgba);
@@ -456,7 +471,7 @@ public class SchematicRenderer
             if (isDebug) {
                 matrix.pushPose();
                 matrix.translate(0, normal.y, 0);
-                guideColor = guideColor | 0x66000000;
+                guideColor = guideColor | OPAQUE;
                 if (rotation.equals(Rotation.NONE)) line(builder, matrix, origin, max, 0b010, 0b000, guideColor);
                 if (rotation.equals(Rotation.CLOCKWISE_90))
                     line(builder, matrix, origin, max, 0b110, 0b100, guideColor);
@@ -544,9 +559,7 @@ public class SchematicRenderer
     private static void renderBox(MultiBufferSource buffer, PoseStack matrix, Vec3 min, Vec3 max, int rgb){
         VertexConsumer builder = buffer.getBuffer(RenderType.LINES);
 
-        float alpha = 0.3f;
-
-        int rgba = rgb | (((int) (alpha * 255)) << 24);
+        int rgba = rgb | OPAQUE;
 
         line(builder, matrix, min, max, 0b010, 0b110, rgba);
         line(builder, matrix, min, max, 0b110, 0b111, rgba);
@@ -567,8 +580,9 @@ public class SchematicRenderer
     private static void line(VertexConsumer out, PoseStack mat, Vec3 min, Vec3 max, int startBits, int endBits, int rgba){
         Vector3f start = combine(min, max, startBits);
         Vector3f end = combine(min, max, endBits);
-        Vector3f delta = new Vector3f(end);
-        delta.sub(start);
+        // The lines shader projects position + normal to find the screen direction, so a long normal can land
+        // behind the camera and make the whole line vanish when standing inside the grid
+        Vector3f delta = new Vector3f(end).sub(start).normalize();
         out.vertex(mat.last().pose(), start.x(), start.y(), start.z())
                 .color(rgba)
                 .normal(mat.last().normal(), delta.x(), delta.y(), delta.z())

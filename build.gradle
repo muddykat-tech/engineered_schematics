@@ -195,6 +195,7 @@ dependencies {
     implementation fg.deobf("curse.maven:immersive-engineering-231951:6206989")
     implementation fg.deobf("curse.maven:immersive-geology-370614:6449479")
     implementation fg.deobf("curse.maven:mekanism-268560:6552911")
+
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 

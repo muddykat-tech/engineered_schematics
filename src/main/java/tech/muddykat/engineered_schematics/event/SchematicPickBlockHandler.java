@@ -38,7 +38,7 @@ public class SchematicPickBlockHandler {
                     player.getOffhandItem().is(ESRegistry.SCHEMATIC_ITEM.get())) {
                 Item schematic = ESRegistry.SCHEMATIC_ITEM.get();
                 ItemStack secondItem = mc.player.getOffhandItem();
-                if(secondItem.getTag()!=null) {
+                if(secondItem.hasTag()) {
                     // Allows multiple schematics to be visible at once as long as they're in the hot bar.
                     for (int i = 0; i <= 10; i++) {
                         ItemStack stack = (i == 10 ? secondItem : mc.player.getInventory().getItem(i));

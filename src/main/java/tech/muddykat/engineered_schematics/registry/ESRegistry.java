@@ -67,6 +67,7 @@ public class ESRegistry {
     public static void getDisplayItems(CreativeModeTab.ItemDisplayParameters parameters, CreativeModeTab.Output output)
     {
         output.accept(BLOCK_ITEM_SCHEMATIC_TABLE.get());
+        output.accept(BLOCK_ITEM_CORKBOARD.get());
         for(MultiblockHandler.IMultiblock mb : IEMultiblocks.IE_MULTIBLOCKS)
         {
             ItemStack blueprint = new ItemStack(SCHEMATIC_ITEM.get());

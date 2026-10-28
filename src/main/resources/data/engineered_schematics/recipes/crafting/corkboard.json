@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "engineered_schematics",
+  "key": {
+    "S": {
+      "tag": "forge:rods/treated_wood"
+    },
+    "W": {
+      "tag": "forge:treated_wood"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    }
+  },
+  "pattern": [
+    "SPS",
+    "PWP",
+    "SPS"
+  ],
+  "result": {
+    "item": "engineered_schematics:corkboard",
+    "count": 2
+  },
+  "show_notification": true
+}

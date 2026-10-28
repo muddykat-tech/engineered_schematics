@@ -4,6 +4,7 @@ import blusunrize.immersiveengineering.api.crafting.BlueprintCraftingRecipe;
 import blusunrize.immersiveengineering.api.multiblocks.MultiblockHandler;
 import blusunrize.immersiveengineering.common.items.EngineersBlueprintItem;
 import net.minecraft.ChatFormatting;
+import tech.muddykat.engineered_schematics.client.SchematicTooltip;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -61,7 +62,8 @@ public class SchematicItem extends Item {
             MultiblockHandler.IMultiblock mb = settings.getMultiblock();
             String machine_tier_id = settings.getFormationTool().getDescriptionId();
             tooltip.add(Component.translatable("desc.engineered_schematics.info.schematic.tier", Component.translatable(machine_tier_id).withStyle(ChatFormatting.AQUA)));
-            tooltip.add(Component.translatable("desc.engineered_schematics.info.schematic.block_info", Component.keybind("shift").withStyle(ChatFormatting.GOLD)));
+            // Only ever runs on the client; the server never builds tooltips, so it never loads SchematicTooltip
+            SchematicTooltip.addMaterials(mb, tooltip);
         } else{
             tooltip.add(Component.translatable("desc.engineered_schematics.info.schematic.no_multiblock"));
         }

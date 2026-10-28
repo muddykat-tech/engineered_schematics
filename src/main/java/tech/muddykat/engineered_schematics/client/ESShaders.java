@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 import tech.muddykat.engineered_schematics.EngineeredSchematics;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid =  EngineeredSchematics.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ESShaders {
@@ -19,8 +20,14 @@ public class ESShaders {
     private static AbstractUniform projection_time;
     private static AbstractUniform color_tint;
 
+    private static final String IRIS_API = "net.irisshaders.iris.api.v0.IrisApi";
+    private static Object irisApi;
+    private static Method shaderPackInUse;
+    private static boolean irisChecked;
+
     public static void setSchematicRenderData(float time, float red, float green, float blue)
     {
+        if(shader_schematic == null) return;
         ESShaders.projection_time.set(time);
         ESShaders.color_tint.set(red, green, blue);
     }
@@ -40,5 +47,36 @@ public class ESShaders {
     public static ShaderInstance getSchematicShader()
     {
         return shader_schematic;
+    }
+
+    /** Oculus/Iris shader packs replace the pipeline our shader runs in, which leaves the projection invisible. */
+    public static boolean isShaderPackActive()
+    {
+        if(!irisChecked)
+        {
+            irisChecked = true;
+            try
+            {
+                Class<?> api = Class.forName(IRIS_API);
+                irisApi = api.getMethod("getInstance").invoke(null);
+                shaderPackInUse = api.getMethod("isShaderPackInUse");
+            }
+            catch(ReflectiveOperationException|LinkageError ignored) {}
+        }
+        if(shaderPackInUse == null) return false;
+        try
+        {
+            return (Boolean)shaderPackInUse.invoke(irisApi);
+        }
+        catch(ReflectiveOperationException e)
+        {
+            return false;
+        }
+    }
+
+    /** Whether the projection can use the schematic shader rather than the vanilla fallback. */
+    public static boolean useSchematicShader()
+    {
+        return shader_schematic != null && !isShaderPackActive();
     }
 }

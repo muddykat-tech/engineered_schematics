@@ -42,6 +42,8 @@ public class SchematicBoardBlockEntity
         IEBlockInterfaces.IStateBasedDirectional, IEBlockInterfaces.IBlockOverlayText
 {
     public static final int NUM_SLOTS = 4;
+    // Boards loaded on this client, so their pinned projections can be shown to players nearby
+    private static final Set<SchematicBoardBlockEntity> CLIENT_BOARDS = Collections.newSetFromMap(new WeakHashMap<>());
 
     BorderState borderState = new BorderState();
 
@@ -87,8 +89,41 @@ public class SchematicBoardBlockEntity
     @Override
     public void readCustomNBT(CompoundTag nbt, boolean descPacket)
     {
-        ContainerHelper.loadAllItems(nbt, inventory);
+        loadPinned(nbt);
         borderState.updateFromNBT(nbt);
+    }
+
+    // loadAllItems only fills the slots it finds, so a removed schematic would otherwise linger on clients
+    private void loadPinned(CompoundTag nbt)
+    {
+        Collections.fill(inventory, ItemStack.EMPTY);
+        ContainerHelper.loadAllItems(nbt, inventory);
+    }
+
+    @Override
+    public void onLoad()
+    {
+        super.onLoad();
+        if(level != null && level.isClientSide)
+            CLIENT_BOARDS.add(this);
+    }
+
+    @Override
+    public void onChunkUnloaded()
+    {
+        super.onChunkUnloaded();
+        CLIENT_BOARDS.remove(this);
+    }
+
+    @Override
+    public void setRemovedIE()
+    {
+        CLIENT_BOARDS.remove(this);
+    }
+
+    public static Set<SchematicBoardBlockEntity> getClientBoards()
+    {
+        return CLIENT_BOARDS;
     }
 
     @Override
@@ -101,19 +136,26 @@ public class SchematicBoardBlockEntity
     public void getBlockEntityDrop(LootContext context, Consumer<ItemStack> drop)
     {
         ItemStack stack = new ItemStack(getBlockState().getBlock(), 1);
-        CompoundTag nbt = new CompoundTag();
-        ContainerHelper.saveAllItems(nbt, inventory);
-        if(!nbt.isEmpty())
-            stack.setTag(nbt);
+        // Only tag boards that hold something, so empty ones still stack with fresh corkboards
+        if(inventory.stream().anyMatch(s -> !s.isEmpty()))
+            stack.setTag(ContainerHelper.saveAllItems(new CompoundTag(), inventory));
         drop.accept(stack);
     }
 
     @Override
     public void onBEPlaced(BlockPlaceContext ctx)
     {
-        final ItemStack stack = ctx.getItemInHand();
+        restorePinned(ctx.getItemInHand());
+    }
+
+    public void restorePinned(ItemStack stack)
+    {
+        // Only the pinned schematics come from the item; the border was already worked out on placement
         if(stack.hasTag())
-            readCustomNBT(stack.getOrCreateTag(), false);
+        {
+            loadPinned(stack.getOrCreateTag());
+            doGraphicalUpdates();
+        }
     }
 
     @Override
@@ -159,16 +201,17 @@ public class SchematicBoardBlockEntity
             else if(!getLevelNonnull().isClientSide())
                 player.spawnAtLocation(stackInSlot, 0);
             this.inventory.set(targetedSlot, ItemStack.EMPTY);
+            // Save the change and send it to clients, otherwise it is lost on reload and invisible to other players
+            doGraphicalUpdates();
             return InteractionResult.sidedSuccess(getLevelNonnull().isClientSide);
         }
         else if(isStackValid(targetedSlot, heldItem))
         {
             this.inventory.set(targetedSlot, heldItem.copyWithCount(1));
             heldItem.shrink(1);
+            doGraphicalUpdates();
             return InteractionResult.sidedSuccess(getLevelNonnull().isClientSide);
         }
-        markChunkDirty();
-        markBlockForUpdate(getBlockPos(), getBlockState());
         return InteractionResult.FAIL;
     }
 

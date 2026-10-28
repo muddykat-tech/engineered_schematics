@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.inventory.InventoryMenu;
 import org.lwjgl.opengl.GL11;
 import tech.muddykat.engineered_schematics.EngineeredSchematics;
 import tech.muddykat.engineered_schematics.client.ESShaders;
@@ -15,6 +16,8 @@ public class ESRenderTypes extends RenderStateShard {
 
     static final RenderStateShard.DepthTestStateShard DEPTH_ALWAYS = new RenderStateShard.DepthTestStateShard("greater", GL11.GL_LESS);
     public static final RenderType SCHEMATIC;
+    // Used while a shader pack is loaded; vanilla types are the ones shader packs know how to render
+    public static final RenderType SCHEMATIC_FALLBACK = RenderType.entityTranslucent(InventoryMenu.BLOCK_ATLAS);
 
     static final RenderStateShard.ShaderStateShard BLUEPRINT_SHADER = new RenderStateShard.ShaderStateShard(ESShaders::getSchematicShader);
     static
