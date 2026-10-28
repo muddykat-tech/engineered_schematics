@@ -3,6 +3,10 @@ package tech.muddykat.engineered_schematics.block;
 import blusunrize.immersiveengineering.api.IEProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.TooltipFlag;
+import java.util.List;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -35,6 +39,11 @@ import javax.annotation.Nullable;
 public class SchematicCorkBoard extends Block implements EntityBlock {
     public static final Property<Direction> FACING;
 
+    @Override
+    public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter level, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+        tooltip.add(Component.translatable("desc.engineered_schematics.info.board.lore").withStyle(ChatFormatting.GRAY));
+    }
+
     public SchematicCorkBoard() {
         super(Properties.of());
     }
@@ -52,6 +61,14 @@ public class SchematicCorkBoard extends Block implements EntityBlock {
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         InteractionResult superResult = super.use(state, world, pos, player, hand, hit);
+
+        if(player.isShiftKeyDown() && world.getBlockEntity(pos) instanceof SchematicBoardBlockEntity board)
+        {
+            if(hand != InteractionHand.MAIN_HAND) return InteractionResult.PASS;
+            if(!world.isClientSide)
+                player.displayClientMessage(Component.translatable("desc.engineered_schematics.info.board.mode", board.cycleMode().getTranslated()), true);
+            return InteractionResult.sidedSuccess(world.isClientSide);
+        }
 
         if(superResult.consumesAction())
             return superResult;

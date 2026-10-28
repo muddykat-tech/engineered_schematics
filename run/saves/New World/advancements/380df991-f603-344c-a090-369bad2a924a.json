@@ -437,5 +437,41 @@
     },
     "done": true
   },
+  "immersivegeology:recipes/misc/crafting/stainlesssteel_get_ingots_from_block": {
+    "criteria": {
+      "stainlesssteelhas_ingot": "2026-10-28 19:52:45 +1100"
+    },
+    "done": true
+  },
+  "immersivegeology:recipes/misc/crafting/hastelloy_get_ingots_from_block": {
+    "criteria": {
+      "hastelloyhas_ingot": "2026-10-28 19:53:04 +1100"
+    },
+    "done": true
+  },
+  "immersivegeology:recipes/building_blocks/crafting/storage_to_stair_hastelloy": {
+    "criteria": {
+      "has_storage_hastelloy": "2026-10-28 20:19:21 +1100"
+    },
+    "done": true
+  },
+  "immersivegeology:recipes/building_blocks/crafting/storage_to_slab_hastelloy": {
+    "criteria": {
+      "has_storage_hastelloy": "2026-10-28 20:19:21 +1100"
+    },
+    "done": true
+  },
+  "immersivegeology:recipes/building_blocks/crafting/sheetmetal_to_slab_hastelloy": {
+    "criteria": {
+      "has_sheetmetal_hastelloy": "2026-10-28 20:19:21 +1100"
+    },
+    "done": true
+  },
+  "immersivegeology:recipes/building_blocks/crafting/sheetmetal_to_stair_hastelloy": {
+    "criteria": {
+      "has_sheetmetal_hastelloy": "2026-10-28 20:19:21 +1100"
+    },
+    "done": true
+  },
   "DataVersion": 3465
 }

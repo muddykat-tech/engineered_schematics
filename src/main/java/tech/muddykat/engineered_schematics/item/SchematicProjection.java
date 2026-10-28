@@ -196,6 +196,12 @@ public class SchematicProjection
         this.offset.setWithOffset(this.offset, x, 0, z);
     }
 
+    /** Where the template's origin block ends up, relative to the projection's position, with rotation and mirror applied */
+    public BlockPos getOriginOffset(){
+        updateData();
+        return BlockPos.ZERO.subtract(this.offset);
+    }
+
     public BlockPos getRealPos(BlockPos offset)
     {
         List<StructureTemplate.StructureBlockInfo> blocks = this.layers.get(0);

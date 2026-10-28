@@ -19,12 +19,15 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.glfw.GLFW;
+import tech.muddykat.engineered_schematics.block.entity.BoardMode;
+import tech.muddykat.engineered_schematics.block.entity.SchematicBoardBlockEntity;
 import tech.muddykat.engineered_schematics.helper.SchematicRenderer;
 import tech.muddykat.engineered_schematics.item.ESSchematicSettings;
 import tech.muddykat.engineered_schematics.item.SchematicProjection;
 import tech.muddykat.engineered_schematics.registry.ESRegistry;
 
 public class SchematicPickBlockHandler {
+    private static final double BOARD_PROJECTION_RANGE = 64;
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
@@ -34,18 +37,34 @@ public class SchematicPickBlockHandler {
             Minecraft mc = Minecraft.getInstance();
             LocalPlayer player = mc.player;
 
-            if (player != null && mc.hitResult instanceof BlockHitResult hit &&
-                    player.getOffhandItem().is(ESRegistry.SCHEMATIC_ITEM.get())) {
+            if (player != null && mc.hitResult instanceof BlockHitResult hit) {
                 Item schematic = ESRegistry.SCHEMATIC_ITEM.get();
-                ItemStack secondItem = mc.player.getOffhandItem();
-                if(secondItem.hasTag()) {
+                ItemStack secondItem = player.getOffhandItem();
+                if (secondItem.is(schematic) && secondItem.hasTag()) {
                     // Allows multiple schematics to be visible at once as long as they're in the hot bar.
                     for (int i = 0; i <= 10; i++) {
                         ItemStack stack = (i == 10 ? secondItem : mc.player.getInventory().getItem(i));
                         if (stack.is(schematic) && secondItem.hasTag() && secondItem.getTag().contains("settings", Tag.TAG_COMPOUND)) {
                             handleSchematicPick(stack, player, hit, event);
+                            if (event.isCanceled()) return;
                         }
                     }
+                }
+                pickFromBoards(schematic, player, hit, event);
+            }
+        }
+    }
+
+    // Projections pinned to corkboards are shown in Building mode, so they can be picked from like a held schematic
+    private static void pickFromBoards(Item schematic, LocalPlayer player, BlockHitResult hit, InputEvent.MouseButton.Pre event)
+    {
+        for (SchematicBoardBlockEntity board : SchematicBoardBlockEntity.getClientBoards()) {
+            if (board.isRemoved() || board.getLevel() != player.level() || board.getMode() != BoardMode.BUILDING) continue;
+            if (!board.getBlockPos().closerToCenterThan(player.position(), BOARD_PROJECTION_RANGE)) continue;
+            for (ItemStack stack : board.getInventory()) {
+                if (stack.is(schematic) && stack.hasTag() && stack.getTag().contains("settings", Tag.TAG_COMPOUND)) {
+                    handleSchematicPick(stack, player, hit, event);
+                    if (event.isCanceled()) return;
                 }
             }
         }

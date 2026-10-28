@@ -21,6 +21,11 @@
   "desc.engineered_schematics.info.schematic.tier": "This can be formed using the %s",
   "desc.engineered_schematics.info.schematic.ie_tier": "Engineer's Hammer",
   "item.engineered_schematics.multiblock_schematic.formed": "Complete",
+  "desc.engineered_schematics.info.board.mode": "Corkboard Mode: %s",
+  "desc.engineered_schematics.info.board.lore": "When placed in world Sneak Right-Click to change display modes",
+  "desc.engineered_schematics.info.board.mode_0": "Building",
+  "desc.engineered_schematics.info.board.mode_1": "Planning",
+  "desc.engineered_schematics.info.board.mode_2": "Simulation",
   "item.engineered_schematics.multiblock_schematic.error": "Block Error",
   "manual.engineered_schematics.main": "Engineered Schematics"
 }

@@ -4,6 +4,7 @@ import blusunrize.immersiveengineering.api.IEProperties;
 import blusunrize.immersiveengineering.api.multiblocks.BlockMatcher;
 import blusunrize.immersiveengineering.api.multiblocks.MultiblockHandler;
 import blusunrize.immersiveengineering.api.multiblocks.blocks.logic.IMultiblockBE;
+import blusunrize.immersiveengineering.api.multiblocks.ClientMultiblocks;
 import blusunrize.immersiveengineering.common.blocks.IEBaseBlockEntity;
 import blusunrize.immersiveengineering.common.blocks.multiblocks.IETemplateMultiblock;
 import blusunrize.immersiveengineering.common.register.IEBlockEntities;
@@ -102,6 +103,84 @@ public class SchematicRenderer
         renderResults(matrix, renderState, settings, mainBuffer, world, player, mbSize,
                 badStates, toRender);
         mainBuffer.endBatch();
+    }
+
+    private static final float[] COLOR_SIMULATION = {0.75f, 0.85f, 1.0f};
+
+    /** Footprint grid with the name, a box around the whole structure and a camera facing label; no blocks are drawn */
+    public static void renderPlanning(PoseStack matrix, ESSchematicSettings settings, Level world)
+    {
+        if(settings.getMultiblock() == null || settings.getPos() == null) return;
+        Vec3i mbSize = settings.getMultiblock().getSize(world);
+        boolean swapped = settings.getRotation() == Rotation.CLOCKWISE_90 || settings.getRotation() == Rotation.COUNTERCLOCKWISE_90;
+        int width = swapped ? mbSize.getZ() : mbSize.getX();
+        int depth = swapped ? mbSize.getX() : mbSize.getZ();
+        BlockPos pos = settings.getPos();
+
+        matrix.pushPose();
+        renderSchematicGrid(matrix, settings, 0xffffff, world);
+        matrix.popPose();
+
+        MultiBufferSource.BufferSource buffer = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+        matrix.pushPose();
+        {
+            matrix.translate(pos.getX() - Math.floorDiv(width, 2), pos.getY(), pos.getZ() - Math.floorDiv(depth, 2));
+            renderOutlineBox(buffer, matrix, BlockPos.ZERO, new BlockPos(width - 1, mbSize.getY() - 1, depth - 1), COLOR_WARNING);
+            matrix.translate(width / 2f, mbSize.getY() + 1.5f, depth / 2f);
+            drawBillboardText(matrix, buffer, settings.getMultiblock().getDisplayName(), COLOR_WARNING | OPAQUE);
+        }
+        matrix.popPose();
+        buffer.endBatch();
+    }
+
+    /** The formed multiblock, drawn the way IE draws it in its manual, as a translucent ghost with the grid and name at its foot */
+    public static void renderSimulation(PoseStack matrix, ESSchematicSettings settings, Level world)
+    {
+        if(settings.getMultiblock() == null || settings.getPos() == null) return;
+        SchematicProjection projection = setupProjection(world, settings);
+        // Same detection Building mode uses: once the real multiblock stands there is nothing left to simulate
+        // The block state is checked too, since the block entity may not have reached the client yet
+        Block multiblockBlock = settings.getMultiblock().getBlock();
+        boolean formed = projection.processAll((layer, info) -> {
+            BlockPos realPos = info.tPos.offset(settings.getPos());
+            return world.getBlockEntity(realPos) instanceof IMultiblockBE<?>
+                    || (multiblockBlock != null && world.getBlockState(realPos).is(multiblockBlock));
+        });
+        matrix.pushPose();
+        renderSchematicGrid(matrix, settings, formed ? 0x009900 : 0xffffff, world);
+        matrix.popPose();
+        if(formed) return;
+
+        ClientMultiblocks.MultiblockManualData model = ClientMultiblocks.get(settings.getMultiblock());
+        if(model == null || !model.canRenderFormedStructure()) return;
+
+        BlockPos pos = settings.getPos().offset(projection.getOriginOffset());
+        float[] color = COLOR_SIMULATION;
+        MultiBufferSource.BufferSource source = MultiBufferSource.immediate(PHANTOM_TESSELATOR.getBuilder());
+        // IE asks for its own render types; everything is redirected to the projection one so it is tinted and translucent
+        MultiBufferSource ghost = renderType -> schematicBuffer(source, 0, color[0], color[1], color[2]);
+
+        matrix.pushPose();
+        {
+            matrix.translate(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+            matrix.mulPose(new Quaternionf().rotateY(-90 * settings.getRotation().ordinal() * Mth.DEG_TO_RAD));
+            if(settings.isMirrored()) matrix.scale(-1, 1, 1);
+            matrix.translate(-0.5, 0, -0.5);
+            model.renderFormedStructure(matrix, ghost);
+        }
+        matrix.popPose();
+        source.endBatch();
+    }
+
+    private static void drawBillboardText(PoseStack matrix, MultiBufferSource buffer, Component text, int color)
+    {
+        Font font = Minecraft.getInstance().font;
+        matrix.pushPose();
+        matrix.mulPose(Minecraft.getInstance().gameRenderer.getMainCamera().rotation());
+        matrix.scale(-0.05f, -0.05f, 0.05f);
+        font.drawInBatch(text, -font.width(text) / 2f, 0, color, false, matrix.last().pose(), buffer,
+                Font.DisplayMode.SEE_THROUGH, 0, 15728880);
+        matrix.popPose();
     }
 
     private static BlockPos.MutableBlockPos initializePosition(ESSchematicSettings settings) {

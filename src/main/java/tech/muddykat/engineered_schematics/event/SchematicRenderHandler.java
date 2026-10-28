@@ -28,6 +28,7 @@ import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import tech.muddykat.engineered_schematics.EngineeredSchematics;
+import tech.muddykat.engineered_schematics.block.entity.BoardMode;
 import tech.muddykat.engineered_schematics.block.entity.SchematicBoardBlockEntity;
 import tech.muddykat.engineered_schematics.helper.SchematicRenderer;
 import tech.muddykat.engineered_schematics.item.ESSchematicSettings;
@@ -93,12 +94,12 @@ public class SchematicRenderHandler {
                     }
                 }
             }
-            renderBoardProjections(matrix, mc, schematic, rendered);
+            renderBoardProjections(matrix, mc, schematic, rendered, equippedKeys(mc.player, schematic));
         }
         matrix.popPose();
     }
 
-    private static void renderBoardProjections(PoseStack matrix, Minecraft mc, Item schematic, Set<String> rendered)
+    private static void renderBoardProjections(PoseStack matrix, Minecraft mc, Item schematic, Set<String> rendered, Set<String> equipped)
     {
         Player player = mc.player;
         for(SchematicBoardBlockEntity board : SchematicBoardBlockEntity.getClientBoards())
@@ -111,11 +112,31 @@ public class SchematicRenderHandler {
                 if(!hasSettings(stack, schematic)) continue;
                 ESSchematicSettings settings = new ESSchematicSettings(stack);
                 if(settings.getMultiblock() == null || settings.getPos() == null || !rendered.add(projectionKey(settings))) continue;
+                // A schematic the player has equipped already has its own projection, so the simulation is skipped
+                if(board.getMode() == BoardMode.SIMULATION && equipped.contains(projectionKey(settings))) continue;
                 matrix.pushPose();
-                SchematicRenderer.renderSchematic(matrix, settings, player, player.level());
+                switch(board.getMode())
+                {
+                    case PLANNING -> SchematicRenderer.renderPlanning(matrix, settings, player.level());
+                    case SIMULATION -> SchematicRenderer.renderSimulation(matrix, settings, player.level());
+                    default -> SchematicRenderer.renderSchematic(matrix, settings, player, player.level());
+                }
                 matrix.popPose();
             }
         }
+    }
+
+    private static Set<String> equippedKeys(Player player, Item schematic)
+    {
+        Set<String> keys = new HashSet<>();
+        for(int i = 0;i <= Inventory.getSelectionSize();i++)
+        {
+            ItemStack stack = i == Inventory.getSelectionSize() ? player.getOffhandItem() : player.getInventory().getItem(i);
+            if(!hasSettings(stack, schematic)) continue;
+            ESSchematicSettings settings = new ESSchematicSettings(stack);
+            if(settings.getMultiblock() != null && settings.getPos() != null) keys.add(projectionKey(settings));
+        }
+        return keys;
     }
 
     // Identifies a projection, so the same one pinned to several boards or also held is only drawn once

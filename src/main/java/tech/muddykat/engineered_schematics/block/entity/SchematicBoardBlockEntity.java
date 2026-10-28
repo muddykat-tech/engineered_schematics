@@ -45,7 +45,11 @@ public class SchematicBoardBlockEntity
     // Boards loaded on this client, so their pinned projections can be shown to players nearby
     private static final Set<SchematicBoardBlockEntity> CLIENT_BOARDS = Collections.newSetFromMap(new WeakHashMap<>());
 
+    private static final String KEY_MODE = "board_mode";
+    private static final int MAX_CONNECTED_BOARDS = 512;
+
     BorderState borderState = new BorderState();
+    private BoardMode mode = BoardMode.BUILDING;
 
     private final NonNullList<ItemStack> inventory = NonNullList.withSize(NUM_SLOTS, ItemStack.EMPTY);
 
@@ -90,6 +94,7 @@ public class SchematicBoardBlockEntity
     public void readCustomNBT(CompoundTag nbt, boolean descPacket)
     {
         loadPinned(nbt);
+        mode = BoardMode.byOrdinal(nbt.getInt(KEY_MODE));
         borderState.updateFromNBT(nbt);
     }
 
@@ -129,7 +134,57 @@ public class SchematicBoardBlockEntity
     @Override
     public void writeCustomNBT(CompoundTag nbt, boolean descPacket) {
         ContainerHelper.saveAllItems(nbt, inventory);
+        nbt.putInt(KEY_MODE, mode.ordinal());
         borderState.writeToNBT(nbt);
+    }
+
+    public BoardMode getMode()
+    {
+        return mode;
+    }
+
+    /** Switches this board and every board connected to it, so a wall of boards always shows the same mode */
+    public BoardMode cycleMode()
+    {
+        BoardMode next = mode.next();
+        applyModeToConnected(next);
+        return next;
+    }
+
+    public void applyModeToConnected(BoardMode newMode)
+    {
+        if(level == null) return;
+        Direction facing = getFacing();
+        Set<BlockPos> visited = new HashSet<>();
+        Deque<BlockPos> queue = new ArrayDeque<>();
+        queue.add(worldPosition);
+        visited.add(worldPosition);
+        while(!queue.isEmpty() && visited.size() <= MAX_CONNECTED_BOARDS)
+        {
+            BlockPos current = queue.poll();
+            if(!(level.getBlockEntity(current) instanceof SchematicBoardBlockEntity board) || board.getFacing() != facing)
+                continue;
+            if(board.mode != newMode)
+            {
+                board.mode = newMode;
+                board.doGraphicalUpdates();
+            }
+            for(Direction dir : Direction.values())
+            {
+                BlockPos neighbor = current.relative(dir);
+                if(visited.add(neighbor))
+                    queue.add(neighbor);
+            }
+        }
+    }
+
+    private BoardMode connectedMode()
+    {
+        Direction facing = getFacing();
+        for(Direction dir : Direction.values())
+            if(level.getBlockEntity(worldPosition.relative(dir)) instanceof SchematicBoardBlockEntity board && board.getFacing() == facing)
+                return board.mode;
+        return mode;
     }
 
     @Override
@@ -342,6 +397,12 @@ public class SchematicBoardBlockEntity
         if(randomStates.isEmpty()) {
             rand = new Random(getBlockPos().asLong());
             while(randomStates.size() < 8) randomStates.add(rand.nextFloat());
+        }
+        // Join the mode of the boards we were placed next to
+        if(level != null && !level.isClientSide)
+        {
+            mode = connectedMode();
+            doGraphicalUpdates();
         }
         // Refresh our own borders
         refreshAdjacentBlocks();
