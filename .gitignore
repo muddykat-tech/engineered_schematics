@@ -34,3 +34,4 @@ flatdir
 .cache
 __pycache__
 Thumbs.db
+/libs/

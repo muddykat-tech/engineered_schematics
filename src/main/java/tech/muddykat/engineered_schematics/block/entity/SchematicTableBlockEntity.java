@@ -63,7 +63,10 @@ public class SchematicTableBlockEntity extends TileEntityIEBase implements IIEIn
         return state.getBlock() instanceof SchematicDeskBlock && state.getValue(SchematicDeskBlock.DUMMY);
     }
 
-    public EnumFacing getDummyDirection() { return isDummy() ? getFacing().rotateYCCW() : getFacing().rotateY(); }
+    public EnumFacing getDummyDirection() {
+        IBlockState state = state();
+        return state.getBlock() instanceof SchematicDeskBlock ? SchematicDeskBlock.partnerDirection(state) : EnumFacing.EAST;
+    }
 
     public void placeDummy() {
         if (isDummy()) { return; }
@@ -71,8 +74,6 @@ public class SchematicTableBlockEntity extends TileEntityIEBase implements IIEIn
         if (!world.getBlockState(dummyPos).getBlock().isReplaceable(world, dummyPos)) { return; }
         world.setBlockState(dummyPos, state().withProperty(SchematicDeskBlock.DUMMY, true));
     }
-
-    public void breakDummy() { world.setBlockToAir(this.pos.offset(getDummyDirection())); }
 
     @Override public boolean canOpenGui() { return true; }
 

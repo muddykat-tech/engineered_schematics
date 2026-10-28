@@ -90,6 +90,12 @@ public class SchematicCorkboardBlock extends Block {
         if (te instanceof SchematicBoardBlockEntity) { ((SchematicBoardBlockEntity)te).updateEdges(neighbor); }
     }
 
+    @SuppressWarnings("deprecation")
+    @Override public void neighborChanged(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Block block, @Nonnull BlockPos fromPos) {
+        TileEntity te = world.getTileEntity(pos);
+        if (te instanceof SchematicBoardBlockEntity) { ((SchematicBoardBlockEntity)te).updateEdges(fromPos); }
+    }
+
     @Override public boolean onBlockActivated(World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull EntityPlayer player, @Nonnull EnumHand hand, @Nonnull EnumFacing side, float hitX, float hitY, float hitZ) {
         TileEntity te = world.getTileEntity(pos);
         if (!(te instanceof SchematicBoardBlockEntity)) { return false; }

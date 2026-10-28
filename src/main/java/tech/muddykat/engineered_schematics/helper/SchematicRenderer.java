@@ -13,11 +13,13 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
@@ -57,7 +59,11 @@ public class SchematicRenderer {
     private static final double GRID_LIFT = 0.02;
     private static final float TRIGGER_LIFT = 0.05F;
     private static final float TRIGGER_SCALE = 0.75F;
+    private static final double QUAD_LINE_HALF_WIDTH = 0.015;
+    private static final float QUAD_LINE_ALPHA = 1.0F;
     private static final Set<Block> ANY_STATE = new HashSet<>(Arrays.asList(Blocks.HOPPER, Blocks.PISTON));
+    private static DynamicTexture whiteTexture;
+    private static boolean quadLines;
 
     private SchematicRenderer() {}
 
@@ -297,9 +303,7 @@ public class SchematicRenderer {
     }
 
     private static void renderOutlineBoxes(List<BlockPos> positions, int rgb) {
-        beginLines();
-        BufferBuilder buffer = Tessellator.getInstance().getBuffer();
-        buffer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
+        BufferBuilder buffer = beginLines();
         for (BlockPos pos : positions) {
             addBox(buffer, pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1, rgb);
         }
@@ -317,9 +321,7 @@ public class SchematicRenderer {
     private static void renderOutlineBox(Vec3i min, Vec3i max) { renderBox(min.getX(), min.getY(), min.getZ(), max.getX() + 1, max.getY() + 1, max.getZ() + 1, COLOR_SUCCESS); }
 
     private static void renderGrid(Vec3i size, int rgb, int currentLayer, String name, Rotation rotation) {
-        beginLines();
-        BufferBuilder buffer = Tessellator.getInstance().getBuffer();
-        buffer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
+        BufferBuilder buffer = beginLines();
         for (int z = 0; z <= size.getZ(); z++) {
             line(buffer, 0, GRID_LIFT, z, size.getX(), GRID_LIFT, z, rgb);
         }
@@ -335,9 +337,7 @@ public class SchematicRenderer {
     }
 
     private static void renderBox(double minX, double minY, double minZ, double maxX, double maxY, double maxZ, int rgb) {
-        beginLines();
-        BufferBuilder buffer = Tessellator.getInstance().getBuffer();
-        buffer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
+        BufferBuilder buffer = beginLines();
         addBox(buffer, minX, minY, minZ, maxX, maxY, maxZ, rgb);
         Tessellator.getInstance().draw();
         endLines();
@@ -369,25 +369,77 @@ public class SchematicRenderer {
         float red = (rgb >> 16 & 0xFF) / 255.0F;
         float green = (rgb >> 8 & 0xFF) / 255.0F;
         float blue = (rgb & 0xFF) / 255.0F;
-        buffer.pos(x1, y1, z1).color(red, green, blue, LINE_ALPHA).endVertex();
-        buffer.pos(x2, y2, z2).color(red, green, blue, LINE_ALPHA).endVertex();
+        if (!quadLines) {
+            buffer.pos(x1, y1, z1).color(red, green, blue, LINE_ALPHA).endVertex();
+            buffer.pos(x2, y2, z2).color(red, green, blue, LINE_ALPHA).endVertex();
+            return;
+        }
+        // Every line here is axis aligned, so two crossed quads widened along the other two axes stand in for it
+        double h = QUAD_LINE_HALF_WIDTH;
+        if (x1 != x2) {
+            quad(buffer, x1, y1, z1, x2, y2, z2, 0, h, 0, red, green, blue);
+            quad(buffer, x1, y1, z1, x2, y2, z2, 0, 0, h, red, green, blue);
+        }
+        else if (y1 != y2) {
+            quad(buffer, x1, y1, z1, x2, y2, z2, h, 0, 0, red, green, blue);
+            quad(buffer, x1, y1, z1, x2, y2, z2, 0, 0, h, red, green, blue);
+        }
+        else {
+            quad(buffer, x1, y1, z1, x2, y2, z2, h, 0, 0, red, green, blue);
+            quad(buffer, x1, y1, z1, x2, y2, z2, 0, h, 0, red, green, blue);
+        }
     }
 
-    private static void beginLines() {
-        GlStateManager.disableTexture2D();
+    // Opaque like the ground text, since shader packs light and blend these and a faint strip turns muddy
+    private static void quad(BufferBuilder buffer, double x1, double y1, double z1, double x2, double y2, double z2, double ox, double oy, double oz, float red, float green, float blue) {
+        buffer.pos(x1 - ox, y1 - oy, z1 - oz).tex(0, 0).color(red, green, blue, QUAD_LINE_ALPHA).endVertex();
+        buffer.pos(x1 + ox, y1 + oy, z1 + oz).tex(0, 1).color(red, green, blue, QUAD_LINE_ALPHA).endVertex();
+        buffer.pos(x2 + ox, y2 + oy, z2 + oz).tex(1, 1).color(red, green, blue, QUAD_LINE_ALPHA).endVertex();
+        buffer.pos(x2 - ox, y2 - oy, z2 - oz).tex(1, 0).color(red, green, blue, QUAD_LINE_ALPHA).endVertex();
+    }
+
+    private static BufferBuilder beginLines() {
+        // Earlier renderers can leave the lightmap unit active or a high alpha cutoff behind, either of which hides the lines
+        GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
+        Minecraft.getMinecraft().entityRenderer.disableLightmap();
         GlStateManager.disableLighting();
+        GlStateManager.disableAlpha();
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        BufferBuilder buffer = Tessellator.getInstance().getBuffer();
+        // Shader packs drop untextured GL_LINES, so draw thin textured quads the same way the ground text is drawn
+        quadLines = ESShaders.isShaderPackActive();
+        if (quadLines) {
+            GlStateManager.enableTexture2D();
+            GlStateManager.bindTexture(getWhiteTexture().getGlTextureId());
+            GlStateManager.disableCull();
+            buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
+            return buffer;
+        }
+        GlStateManager.disableTexture2D();
         GlStateManager.depthMask(false);
         GlStateManager.glLineWidth(2.0F);
+        buffer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
+        return buffer;
     }
 
     private static void endLines() {
+        if (quadLines) { GlStateManager.enableCull(); }
         GlStateManager.glLineWidth(1.0F);
         GlStateManager.depthMask(true);
         GlStateManager.disableBlend();
+        GlStateManager.enableAlpha();
         GlStateManager.enableTexture2D();
         GlStateManager.enableLighting();
+    }
+
+    private static DynamicTexture getWhiteTexture() {
+        if (whiteTexture == null) {
+            whiteTexture = new DynamicTexture(1, 1);
+            whiteTexture.getTextureData()[0] = 0xFFFFFFFF;
+            whiteTexture.updateDynamicTexture();
+        }
+        return whiteTexture;
     }
 
     private static void drawFrontGroundText(Vec3i size, Rotation rotation, int rgb, String text, int span) {

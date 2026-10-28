@@ -7,6 +7,7 @@ import blusunrize.immersiveengineering.api.IEProperties;
 import blusunrize.immersiveengineering.common.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -19,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -82,20 +84,48 @@ public class SchematicDeskBlock extends Block {
         if (te instanceof SchematicTableBlockEntity) { ((SchematicTableBlockEntity)te).placeDummy(); }
     }
 
+    /** The direction from a desk half to its other half. */
+    public static EnumFacing partnerDirection(IBlockState state) {
+        EnumFacing facing = state.getValue(FACING);
+        return state.getValue(DUMMY) ? facing.rotateYCCW() : facing.rotateY();
+    }
+
+    @Nullable
+    private BlockPos partnerOf(IBlockAccess world, BlockPos pos, IBlockState state) {
+        BlockPos partnerPos = pos.offset(partnerDirection(state));
+        IBlockState partner = world.getBlockState(partnerPos);
+        return partner.getBlock() == this && partner.getValue(DUMMY) != state.getValue(DUMMY) ? partnerPos : null;
+    }
+
+    @Override public void getDrops(@Nonnull NonNullList<ItemStack> drops, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull IBlockState state, int fortune) {
+        if (!state.getValue(DUMMY)) { super.getDrops(drops, world, pos, state, fortune); }
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override @Nonnull public EnumPushReaction getPushReaction(@Nonnull IBlockState state) { return EnumPushReaction.BLOCK; }
+
+    @Override public void onBlockHarvested(World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull EntityPlayer player) {
+        // Creative players get no drops, so remove the master here before breakBlock would destroy it with drops
+        if (!world.isRemote && player.capabilities.isCreativeMode && state.getValue(DUMMY)) {
+            BlockPos master = partnerOf(world, pos, state);
+            if (master != null) { world.destroyBlock(master, false); }
+        }
+        super.onBlockHarvested(world, pos, state, player);
+    }
+
     @Override public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+        // The world already holds the new state here, so everything is derived from the old state passed in
         TileEntity te = world.getTileEntity(pos);
-        if (te instanceof SchematicTableBlockEntity) {
+        if (!state.getValue(DUMMY) && te instanceof SchematicTableBlockEntity) {
             SchematicTableBlockEntity table = (SchematicTableBlockEntity)te;
-            SchematicTableBlockEntity master = table.getGuiMaster();
-            if (master != null) {
-                for (ItemStack stack : master.getInventory()) {
-                    if (!stack.isEmpty()) { Utils.dropStackAtPos(world, pos, stack); }
-                }
-                master.getInventory().clear();
+            for (ItemStack stack : table.getInventory()) {
+                if (!stack.isEmpty()) { Utils.dropStackAtPos(world, pos, stack); }
             }
-            table.breakDummy();
+            table.getInventory().clear();
         }
         super.breakBlock(world, pos, state);
+        BlockPos partner = partnerOf(world, pos, state);
+        if (partner != null) { world.destroyBlock(partner, state.getValue(DUMMY)); }
     }
 
     @Override public boolean onBlockActivated(World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull EntityPlayer player, @Nonnull EnumHand hand, @Nonnull EnumFacing facing, float hitX, float hitY, float hitZ) {
